@@ -199,14 +199,17 @@
   	<time datetime="2020-03-09T10:16:55.408Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
 </a>
 		
-             字数：721字 | 预计阅读时长：3分钟
+             字数：742字 | 预计阅读时长：3分钟
          
           
 	  </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="【初识博客】记录一次我的博客之旅"><a href="#【初识博客】记录一次我的博客之旅" class="headerlink" title="【初识博客】记录一次我的博客之旅"></a><strong>【初识博客】记录一次我的博客之旅</strong></h1><blockquote>
+        <hr>
+<pre><code>title: 【初识博客】记录一次我的博客之旅</code></pre><hr>
+<p>  tags:<br>         - 随笔<br>         - 程序</p>
+<h1 id="【初识博客】记录一次我的博客之旅"><a href="#【初识博客】记录一次我的博客之旅" class="headerlink" title="【初识博客】记录一次我的博客之旅"></a><strong>【初识博客】记录一次我的博客之旅</strong></h1><blockquote>
 <p>​    <em>本着踩边所有坑的态度历经两天建成了自己的第一个博客，当然这是第一篇文章，可见此文章的地位非同一般。果不其然，其间遇见了各路小鬼在太岁头上动土。包括但不限于网络问题无法上传至根服务器，没有网站前端知识导致的修改代码问题…..遍历了所有办法几乎是十八般武艺全都用上…第一篇文章测试一下网站的标签功能是否正常，以及建立起一套标准的写文章到发文章的可靠路径，毕竟不是什么时间都有大把精力用在客制化主题上，博客还是主要以记录为目的的。</em></p>
 </blockquote>
 <h1 id="全局代码"><a href="#全局代码" class="headerlink" title="全局代码"></a><strong>全局代码</strong></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init        ####安装</span><br><span class="line">hexo g           ###生成</span><br><span class="line">hexo clean       ###清除缓存</span><br><span class="line">hexo d           ###上传</span><br></pre></td></tr></table></figure>
@@ -241,31 +244,10 @@
 <h1 id="修改图片和头像"><a href="#修改图片和头像" class="headerlink" title="修改图片和头像"></a><strong>修改图片和头像</strong></h1><p> <code>themes/yilia/source/</code>下，可添加一个 <code>assets</code> 文件夹，里面存放图片资源即可</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 微信二维码图片</span><br><span class="line">weixin:  &#x2F;assets&#x2F;wechat.png</span><br><span class="line"># 头像图片</span><br><span class="line">avatar:  &#x2F;assets&#x2F;head.jpg</span><br><span class="line"># 网页图标</span><br><span class="line">favicon:  &#x2F;assets&#x2F;head.jpg</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><h1 id="所有文章模块的更改"><a href="#所有文章模块的更改" class="headerlink" title="所有文章模块的更改"></a>所有文章模块的更改</h1></li>
-<li><p>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br><code>npm i hexo-generator-json-content --save</code></p>
-</li>
-<li><p>3、在根目录_config.yml里添加配置：</p>
-</li>
-<li><pre><code>jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true</code></pre></li>
-</ul>
+<h1 id="所有文章模块的更改"><a href="#所有文章模块的更改" class="headerlink" title="所有文章模块的更改"></a>所有文章模块的更改</h1><p> 1、请确保node版本大于6.2<br>  2、在博客根目录（注意不是yilia根目录）执行以下命令：<br>  <code>npm i hexo-generator-json-content --save</code></p>
+<p> 3、在根目录_config.yml里添加配置：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">jsonContent:</span><br><span class="line">  meta: false</span><br><span class="line">  pages: false</span><br><span class="line">  posts:</span><br><span class="line">    title: true</span><br><span class="line">    date: true</span><br><span class="line">    path: true</span><br><span class="line">    text: false</span><br><span class="line">    raw: false</span><br><span class="line">    content: false</span><br><span class="line">    slug: false</span><br><span class="line">    updated: false</span><br><span class="line">    comments: false</span><br><span class="line">    link: false</span><br><span class="line">    permalink: false</span><br><span class="line">    excerpt: false</span><br><span class="line">    categories: false</span><br><span class="line">    tags: true</span><br></pre></td></tr></table></figure>
+
 <p>tips: 注意空格</p>
 
       
