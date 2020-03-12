@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>【2020.3.12】今日小结 更换成熟的主题优化博客框架</title>
+    <url>/2020/03/12/%E3%80%902020.3.12%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93%20%E6%9B%B4%E6%8D%A2%E6%88%90%E7%86%9F%E7%9A%84%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>​    <em>今天花了半个小时时间将原来的yilia主题更换为了Ayer主题。根据作者的描述，Ayer一词词出多处，其中马来语中是“水”的意思，而在西班牙中是“昨天”的意思。可能是发音引起了所有种族人群的共鸣，这个词再两个截然不同的文明中竟然都带有一点点忧郁，纯净的气质。主题如其名，淡淡的，非浓郁的，清新的，轻，的感觉，第一眼就它了。</em></p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>然后将以下复制到/source/categories/index.md文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">"categories"</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">"categories"</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">page</span> <span class="string">tags</span></span><br></pre></td></tr></table></figure>
+
+<p>配置同分类一样</p>
+<h2 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h2><p>需要在文章顶部配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Gallery</span></span><br><span class="line"></span><br><span class="line"><span class="attr">albums:</span> <span class="string">[</span></span><br><span class="line">        <span class="string">["img_url","img_caption"],</span></span><br><span class="line">        <span class="string">["img_url","img_caption"]</span></span><br><span class="line">        <span class="string">]</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【2020.3.11】今日小结--博客再出发</title>
+    <url>/2020/03/11/%E3%80%902020.3.11%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93--%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/</url>
+    <content><![CDATA[<h1 id="1-Hexo-实现私密文章加密"><a href="#1-Hexo-实现私密文章加密" class="headerlink" title="1.Hexo 实现私密文章加密"></a>1.Hexo 实现私密文章加密</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">cd</span> <span class="string">/Hexo</span></span><br><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-blog-encrypt</span></span><br><span class="line"></span><br><span class="line"><span class="string">vim</span> <span class="string">/Hexo/_config.yml</span>  <span class="string">添加如下内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Security</span></span><br><span class="line"><span class="comment">## 文章加密 hexo-blog-encrypt</span></span><br><span class="line"><span class="attr">encrypt:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="string">然后在想加密的文章头部添加上对应字段，如&lt;!--</span> <span class="string">more</span> <span class="string">--&gt;</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">hello</span> <span class="string">world</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2016</span><span class="number">-03</span><span class="number">-30</span> <span class="number">21</span><span class="string">:18:02</span>   </span><br><span class="line"><span class="attr">tags:</span>       </span><br><span class="line"><span class="attr">password:</span> <span class="number">12345</span>   <span class="string">（密码）</span></span><br><span class="line"><span class="attr">abstract:</span> <span class="string">Welcome</span> <span class="string">to</span> <span class="string">my</span> <span class="string">blog,</span> <span class="string">enter</span> <span class="string">password</span> <span class="string">to</span> <span class="string">read.</span> </span><br><span class="line"><span class="attr">message:</span> <span class="string">Welcome</span> <span class="string">to</span> <span class="string">my</span> <span class="string">blog,</span> <span class="string">enter</span> <span class="string">password</span> <span class="string">to</span> <span class="string">read.</span>     </span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">password:</span> <span class="string">是该博客加密使用的密码</span></span><br><span class="line"><span class="attr">abstract:</span> <span class="string">是该博客的摘要，会显示在博客的列表页</span></span><br><span class="line"><span class="attr">message:</span> <span class="string">这个是博客查看时，密码输入框上面的描述性文字</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2-Hexo-实现鼠标点击爱心"><a href="#2-Hexo-实现鼠标点击爱心" class="headerlink" title="2.Hexo 实现鼠标点击爱心"></a>2.Hexo 实现鼠标点击爱心</h1><a id="more"></a>
+
+<p>在</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo&#x2F;themes&#x2F;yilia&#x2F;source</span><br></pre></td></tr></table></figure>
+
+<p>文件目录下添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">love.js</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">!<span class="function"><span class="keyword">function</span>(<span class="params">e,t,a</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">r</span>(<span class="params"></span>)</span>&#123;<span class="keyword">for</span>(<span class="keyword">var</span> e=<span class="number">0</span>;e&lt;s.length;e++)s[e].alpha&lt;=<span class="number">0</span>?(t.body.removeChild(s[e].el),s.splice(e,<span class="number">1</span>)):(s[e].y--,s[e].scale+=<span class="number">.004</span>,s[e].alpha-=<span class="number">.013</span>,s[e].el.style.cssText=<span class="string">"left:"</span>+s[e].x+<span class="string">"px;top:"</span>+s[e].y+<span class="string">"px;opacity:"</span>+s[e].alpha+<span class="string">";transform:scale("</span>+s[e].scale+<span class="string">","</span>+s[e].scale+<span class="string">") rotate(45deg);background:"</span>+s[e].color+<span class="string">";z-index:99999"</span>);requestAnimationFrame(r)&#125;<span class="function"><span class="keyword">function</span> <span class="title">n</span>(<span class="params"></span>)</span>&#123;<span class="keyword">var</span> t=<span class="string">"function"</span>==<span class="keyword">typeof</span> e.onclick&amp;&amp;e.onclick;e.onclick=<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;t&amp;&amp;t(),o(e)&#125;&#125;<span class="function"><span class="keyword">function</span> <span class="title">o</span>(<span class="params">e</span>)</span>&#123;<span class="keyword">var</span> a=t.createElement(<span class="string">"div"</span>);a.className=<span class="string">"heart"</span>,s.push(&#123;<span class="attr">el</span>:a,<span class="attr">x</span>:e.clientX<span class="number">-5</span>,<span class="attr">y</span>:e.clientY<span class="number">-5</span>,<span class="attr">scale</span>:<span class="number">1</span>,<span class="attr">alpha</span>:<span class="number">1</span>,<span class="attr">color</span>:c()&#125;),t.body.appendChild(a)&#125;<span class="function"><span class="keyword">function</span> <span class="title">i</span>(<span class="params">e</span>)</span>&#123;<span class="keyword">var</span> a=t.createElement(<span class="string">"style"</span>);a.type=<span class="string">"text/css"</span>;<span class="keyword">try</span>&#123;a.appendChild(t.createTextNode(e))&#125;<span class="keyword">catch</span>(t)&#123;a.styleSheet.cssText=e&#125;t.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(a)&#125;<span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span><span class="string">"rgb("</span>+~~(<span class="number">255</span>*<span class="built_in">Math</span>.random())+<span class="string">","</span>+~~(<span class="number">255</span>*<span class="built_in">Math</span>.random())+<span class="string">","</span>+~~(<span class="number">255</span>*<span class="built_in">Math</span>.random())+<span class="string">")"</span>&#125;<span class="keyword">var</span> s=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;setTimeout(e,<span class="number">1e3</span>/<span class="number">60</span>)&#125;,i(<span class="string">".heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;"</span>),n(),r()&#125;(<span class="built_in">window</span>,<span class="built_in">document</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo&#x2F;themes&#x2F;yilia&#x2F;layout&#x2F;_partial&#x2F;footer.ejs</span><br></pre></td></tr></table></figure>
+
+<p>文件的最后， 添加以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!--页面点击小红心--&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"/love.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-修改版权注释的信息"><a href="#3-修改版权注释的信息" class="headerlink" title="3.修改版权注释的信息"></a>3.修改版权注释的信息</h1><p>前面的网址改不了，准备之后有时间学一学css和js再说</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【DIY】撬开手机后盖的成就感爆棚</title>
+    <url>/2020/03/11/%E3%80%90DIY%E3%80%91%E6%92%AC%E5%BC%80%E6%89%8B%E6%9C%BA%E5%90%8E%E7%9B%96%E7%9A%84%E6%88%90%E5%B0%B1%E6%84%9F%E7%88%86%E6%A3%9A/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【2020.3.10】今日小结 第一次搭建个人博客的心路和历程</title>
+    <url>/2020/03/10/%E3%80%902020.3.10%E3%80%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BF%83%E8%B7%AF%E5%92%8C%E5%8E%86%E7%A8%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>​    <em>如果说美赛建模让我认识到了线上办公，Matlab图像识别，时间序列预测，Latex排版语言，JAVA语言，Anylogic可视化规划，Python</em></p>
+<p>*<a id="more"></a>*</p>
+<p><em>语言，PyCharm编译器，八爪鱼信息采集，地理卫星信息提取…….实在太多有时间再补充。那么这三天的建博经历让我学到了更多以前从未动过学的念头的东西…..最重要的时MarkDown语言的优越，刻骨铭心，甚是喜欢！</em></p>
+</blockquote>
+<p>除了技术方面自己还有一些其他心得：    </p>
+<ul>
+<li><p>​    任务是自己的唯一驱动，没有任务感就没有驱动力，没有紧迫感，没有紧同等的主动感，<!--more-->从没有感觉到对知识自己曾有过如此热烈的喜欢，一行行密密麻麻的代码，有些人看起来枯燥，有些人因为种种问题自己的博客没有建起来在半路卡死然后放弃，有些人专业相关看几眼摸索一下这件事对于他们来说可能是十分钟的事情…..可以说是见过太多，见怪不怪了。毕竟自己也是从搜索引擎的第一页翻到第十集页的人什么东西没见过？</p>
+<p>​    但是对于我来说，这件事确实也不太容易，可以说几乎所有能碰上的坑都勇敢的跳进去了（义无反顾的那种哈哈），我也曾想过放弃，或者说无数次想过放弃。看别人怎么录一个小时的视频就轻轻松松建成？自己却不行或者说不可以呢？我觉得每个人情况都不同，也许自己顺风顺水永远不可能体会到那种追求完美结果的内心的躁动感，上次有过这种感觉的时候应该是初中暑假自己建WAP网站的时候，往事不堪回首但值得回味。</p>
+<p>​    不管过程如何结局总归是好的，我开始喜欢上了github等等这些代码托管平台，喜欢上了开源精神。</p>
+<p>​    写着写着感觉也见怪不怪了，毕竟自己心中流淌着创客的血液，有自己对创客的理解。</p>
+</li>
+<li><p>​     收获同样颇丰是因为自己知道脚踏实地，一步一个脚印的重要性了，如果我是一个做网站前端的人，如果我是一个更优秀的大学的软件方面专业的优秀本科生的话（因为自己专业从不涉及前端而更偏向底层哈哈）。做同样的事情可能会更容易一些。但是如果说给我机会让我从计算机组成基础来学我是否还有现在的求学热情呢？答案可能是no吧。不过这世上最稳定收益率最高的投资就是长线投资，对于自己未来的投资也同样如此，精力有限，知识之路没有尽头。因此每一次选择都至关重要。自己也应该在无聊乏味中找到乐趣，找到一个属于自己的解释，来给自己永不熄灭的热情！</p>
+</li>
+<li><p>​    博客对于我来说和日记一样都是第一次，也许有些经历让我排斥日记，排斥每天记录。但是我希望这个个人博客是自己一个全新的开始！终将会有某一天我看到今天写过的这些会有自己心得感悟，指导自己继续前行吧。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【初识博客】记录一次我的博客之旅</title>
+    <url>/2020/03/09/%E3%80%90%E5%88%9D%E8%AF%86%E5%8D%9A%E5%AE%A2%E3%80%91%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B9%8B%E6%97%85/</url>
+    <content><![CDATA[<blockquote>
+<p>​        本着踩边所有坑的态度历经两天建成了自己的第一个博客，当然这是第一篇文章，可见此文章的地位非同一般。果不其然，其间遇见了各路小鬼在太岁头上动土。包括但不限于网络问题无法上传至根服务器，没有网站前端知识导致的修改代码问题…..遍历了所有办法几乎是十八般武艺全都用上…第一篇文章测试一下网站的标签功能是否正常，以及建立起一套标准的写文章到发文章的可靠路径，毕竟不是什么时间都有大把精力用在客制化主题上，博客还是主要以记录为目的的。</p>
+</blockquote>
+<h1 id="全局代码"><a href="#全局代码" class="headerlink" title="全局代码"></a><strong>全局代码</strong></h1><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init        ####安装</span><br><span class="line">hexo g           ###生成</span><br><span class="line">hexo clean       ###清除缓存</span><br><span class="line">hexo d           ###上传</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改git代理"><a href="#更改git代理" class="headerlink" title="更改git代理"></a><strong>更改git代理</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy http:&#x2F;&#x2F;127.0.0.1:10809</span><br><span class="line">git config --global https.proxy https:&#x2F;&#x2F;127.0.0.1:10809</span><br></pre></td></tr></table></figure>
+
+<h3 id="取消代理"><a href="#取消代理" class="headerlink" title="取消代理"></a><strong>取消代理</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">--unset</span> <span class="string">http.proxy</span></span><br><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">--unset</span> <span class="string">https.proxy</span></span><br></pre></td></tr></table></figure>
+<h3 id="按装一个插件来同步："><a href="#按装一个插件来同步：" class="headerlink" title="按装一个插件来同步："></a><strong>按装一个插件来同步：</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-yilia主题"><a href="#git-yilia主题" class="headerlink" title="git yilia主题"></a><strong>git yilia主题</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;litten&#x2F;hexo-theme-yilia.git themes&#x2F;yilia</span><br></pre></td></tr></table></figure>
+
+<p>在<code>blog/_config.yml</code>中加入<code>themes</code>信息和<code>github库</code>信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo: https:&#x2F;&#x2F;github.com&#x2F;heroamd&#x2F;heroamd.github.io.git</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
+
+<p>在<code>blog\source</code>加入<code>CNAME</code>文件以改变域名，这个路径里面的所有文件都将会生成并放置在网站的根目录下。</p>
+<p>tips:<strong>所有代码前面不能加空格~~</strong></p>
+<h3 id="生成SSH添加到GitHub"><a href="#生成SSH添加到GitHub" class="headerlink" title="生成SSH添加到GitHub"></a><strong>生成SSH添加到GitHub</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;heroamd&quot;</span><br><span class="line">git config --global user.email &quot;icenet11@163.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查是否正确"><a href="#检查是否正确" class="headerlink" title="检查是否正确"></a><strong>检查是否正确</strong></h3><figure class="highlight plain"><figcaption><span>config user.name</span></figcaption><table><tr><td class="code"><pre><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置ssh"><a href="#配置ssh" class="headerlink" title="配置ssh"></a><strong>配置ssh</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;icenet11@163.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="连接一下服务器测试是否成功"><a href="#连接一下服务器测试是否成功" class="headerlink" title="连接一下服务器测试是否成功"></a><strong>连接一下服务器测试是否成功</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="如果提示"><a href="#如果提示" class="headerlink" title="如果提示"></a><strong>如果提示</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hi heroamd! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<h3 id="表示成功！！"><a href="#表示成功！！" class="headerlink" title="表示成功！！"></a>表示成功！！</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加Github的ip记录"><a href="#添加Github的ip记录" class="headerlink" title="添加Github的ip记录"></a><strong>添加Github的ip记录</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">185.199.108.153</span><br><span class="line">185.199.109.153</span><br><span class="line">185.199.110.153</span><br><span class="line">185.199.111.153</span><br></pre></td></tr></table></figure>
+<h4 id="备份一下本电脑的代理端口排除的目录"><a href="#备份一下本电脑的代理端口排除的目录" class="headerlink" title="备份一下本电脑的代理端口排除的目录"></a>备份一下本电脑的代理端口排除的目录</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;windows10.microdone.cn</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改图片和头像"><a href="#修改图片和头像" class="headerlink" title="修改图片和头像"></a><strong>修改图片和头像</strong></h1><p> <code>themes/yilia/source/</code>下，可添加一个 <code>assets</code> 文件夹，里面存放图片资源即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 微信二维码图片</span><br><span class="line">weixin:  &#x2F;assets&#x2F;wechat.png</span><br><span class="line"># 头像图片</span><br><span class="line">avatar:  &#x2F;assets&#x2F;head.jpg</span><br><span class="line"># 网页图标</span><br><span class="line">favicon:  &#x2F;assets&#x2F;head.jpg</span><br></pre></td></tr></table></figure>
+
+<h1 id="所有文章模块的更改"><a href="#所有文章模块的更改" class="headerlink" title="所有文章模块的更改"></a>所有文章模块的更改</h1><p> 1、请确保node版本大于6.2<br>  2、在博客根目录（注意不是yilia根目录）执行以下命令：<br>  <code>npm i hexo-generator-json-content --save</code></p>
+<p> 3、在根目录_config.yml里添加配置：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">jsonContent:</span></span><br><span class="line">  <span class="attr">meta:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">posts:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">date:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">path:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">text:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">raw:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">content:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">slug:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">updated:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">comments:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">link:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">excerpt:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">categories:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>tips: 注意空格</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+</search>

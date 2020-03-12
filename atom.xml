@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>阿秋技术小屋</title>
+  
+  <subtitle>©MintFancy</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://xiuyuan.ml/"/>
+  <updated>2020-03-12T05:12:57.196Z</updated>
+  <id>http://xiuyuan.ml/</id>
+  
+  <author>
+    <name>奔跑的阿秋</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【2020.3.12】今日小结 更换成熟的主题优化博客框架</title>
+    <link href="http://xiuyuan.ml/2020/03/12/%E3%80%902020.3.12%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93%20%E6%9B%B4%E6%8D%A2%E6%88%90%E7%86%9F%E7%9A%84%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/"/>
+    <id>http://xiuyuan.ml/2020/03/12/%E3%80%902020.3.12%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93%20%E6%9B%B4%E6%8D%A2%E6%88%90%E7%86%9F%E7%9A%84%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/</id>
+    <published>2020-03-12T05:09:25.000Z</published>
+    <updated>2020-03-12T05:12:57.196Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;​    &lt;em&gt;今天花了半个小时时间将原来的yilia主题更换为了Ayer主题。根据作者的描述，Ayer一词词出多处，其中马来语中是“水”的意思，而在西班牙中是“昨天”的意思。可能是发音引起了所有种族人群的共鸣，这个词再两个截然不同的文明中竟然都带有一点点忧郁，纯净的气质。主题如其名，淡淡的，非浓郁的，清新的，轻，的感觉，第一眼就它了。&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【2020.3.11】今日小结--博客再出发</title>
+    <link href="http://xiuyuan.ml/2020/03/11/%E3%80%902020.3.11%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93--%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/"/>
+    <id>http://xiuyuan.ml/2020/03/11/%E3%80%902020.3.11%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93--%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/</id>
+    <published>2020-03-11T11:20:25.000Z</published>
+    <updated>2020-03-12T04:54:50.190Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-Hexo-实现私密文章加密&quot;&gt;&lt;a href=&quot;#1-Hexo-实现私密文章加密&quot; class=&quot;headerlink&quot; title=&quot;1.Hexo 实现私密文章加密&quot;&gt;&lt;/a&gt;1.Hexo 实现私密文章加密&lt;/h1&gt;&lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;/Hexo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;hexo-blog-encrypt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;vim&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;/Hexo/_config.yml&lt;/span&gt;  &lt;span class=&quot;string&quot;&gt;添加如下内容&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Security&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 文章加密 hexo-blog-encrypt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;encrypt:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;enable:&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;然后在想加密的文章头部添加上对应字段，如&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;more&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;title:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;world&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;date:&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2016&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;-03&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;-30&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;:18:02&lt;/span&gt;   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;tags:&lt;/span&gt;       &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;password:&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;12345&lt;/span&gt;   &lt;span class=&quot;string&quot;&gt;（密码）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;abstract:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;Welcome&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;blog,&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;enter&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;read.&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;message:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;Welcome&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;blog,&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;enter&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;read.&lt;/span&gt;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;password:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;是该博客加密使用的密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;abstract:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;是该博客的摘要，会显示在博客的列表页&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;message:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;这个是博客查看时，密码输入框上面的描述性文字&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;2-Hexo-实现鼠标点击爱心&quot;&gt;&lt;a href=&quot;#2-Hexo-实现鼠标点击爱心&quot; class=&quot;headerlink&quot; title=&quot;2.Hexo 实现鼠标点击爱心&quot;&gt;&lt;/a&gt;2.Hexo 实现鼠标点击爱心&lt;/h1&gt;
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="程序" scheme="http://xiuyuan.ml/tags/%E7%A8%8B%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【DIY】撬开手机后盖的成就感爆棚</title>
+    <link href="http://xiuyuan.ml/2020/03/11/%E3%80%90DIY%E3%80%91%E6%92%AC%E5%BC%80%E6%89%8B%E6%9C%BA%E5%90%8E%E7%9B%96%E7%9A%84%E6%88%90%E5%B0%B1%E6%84%9F%E7%88%86%E6%A3%9A/"/>
+    <id>http://xiuyuan.ml/2020/03/11/%E3%80%90DIY%E3%80%91%E6%92%AC%E5%BC%80%E6%89%8B%E6%9C%BA%E5%90%8E%E7%9B%96%E7%9A%84%E6%88%90%E5%B0%B1%E6%84%9F%E7%88%86%E6%A3%9A/</id>
+    <published>2020-03-11T09:38:25.000Z</published>
+    <updated>2020-03-11T09:38:53.393Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【2020.3.10】今日小结 第一次搭建个人博客的心路和历程</title>
+    <link href="http://xiuyuan.ml/2020/03/10/%E3%80%902020.3.10%E3%80%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BF%83%E8%B7%AF%E5%92%8C%E5%8E%86%E7%A8%8B/"/>
+    <id>http://xiuyuan.ml/2020/03/10/%E3%80%902020.3.10%E3%80%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BF%83%E8%B7%AF%E5%92%8C%E5%8E%86%E7%A8%8B/</id>
+    <published>2020-03-10T11:20:25.000Z</published>
+    <updated>2020-03-12T05:13:36.144Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;​    &lt;em&gt;如果说美赛建模让我认识到了线上办公，Matlab图像识别，时间序列预测，Latex排版语言，JAVA语言，Anylogic可视化规划，Python&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;*
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【初识博客】记录一次我的博客之旅</title>
+    <link href="http://xiuyuan.ml/2020/03/09/%E3%80%90%E5%88%9D%E8%AF%86%E5%8D%9A%E5%AE%A2%E3%80%91%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B9%8B%E6%97%85/"/>
+    <id>http://xiuyuan.ml/2020/03/09/%E3%80%90%E5%88%9D%E8%AF%86%E5%8D%9A%E5%AE%A2%E3%80%91%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B9%8B%E6%97%85/</id>
+    <published>2020-03-09T06:57:25.000Z</published>
+    <updated>2020-03-11T03:00:07.996Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;​        本着踩边所有坑的态度历经两天建成了自己的第一个博客，当然这是第一篇文章，可见此文章的地位非同一般。果不其然，其间遇见了各路小鬼在太岁头上动土。包括但不限于网络问题无法上传至根服务器，没有网站前端知识导致的修改代码问题…..遍历了所有办法几乎是十八般武艺全都用上…第一篇文章测试一下网站的标签功能是否正常，以及建立起一套标准的写文章到发文章的可靠路径，毕竟不是什么时间都有大把精力用在客制化主题上，博客还是主要以记录为目的的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;全局代码&quot;&gt;&lt;a href=&quot;#全局代码&quot; class=&quot;headerlink&quot; title=&quot;全局代码&quot;&gt;&lt;/a&gt;&lt;strong&gt;全局代码&lt;/strong&gt;&lt;/h1&gt;
+    
+    </summary>
+    
+    
+      <category term="程序" scheme="http://xiuyuan.ml/categories/%E7%A8%8B%E5%BA%8F/"/>
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/categories/%E7%A8%8B%E5%BA%8F/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://xiuyuan.ml/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="程序" scheme="http://xiuyuan.ml/tags/%E7%A8%8B%E5%BA%8F/"/>
+    
+  </entry>
+  
+</feed>
