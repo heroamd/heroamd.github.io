@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="这个世界从不吝惜同情，当你觉得自己一无所长并接受的心安理得时&lt;br&gt;同情如烫手山芋，暖在外，痛在内&lt;br&gt;扔掉同情去远足去奔跑吧少年！你还有美丽的未来啊" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Django--第一个应用--投票应用 |  阿秋技术小屋</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/headall.png" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Django--第一个应用--投票应用"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Django--第一个应用--投票应用
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/05/07/Django--%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8--%E6%8A%95%E7%A5%A8%E5%BA%94%E7%94%A8/" class="article-date">
+  <time datetime="2020-05-07T08:30:25.000Z" itemprop="datePublished">2020-05-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A8%8B%E5%BA%8F/">程序</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>​        <img src="https://i.loli.net/2020/05/08/yPtn5MGoLrdFkAJ.jpg" alt="DSC_4750.jpg"></p>
+<span id="more"></span>
+
+<h1 id="在mysite-settings-py中配置数据库"><a href="#在mysite-settings-py中配置数据库" class="headerlink" title="在mysite/settings.py中配置数据库"></a>在<code>mysite/settings.py</code>中配置数据库</h1><p>Python 内置SQLite，Django也默认使用SQLite作为默认数据库</p>
+<p>也可以更换数据库</p>
+<p>如果你想使用其他数据库，你需要安装合适的 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-installation">database bindings</a> ，然后改变设置文件中 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a> <code>&#39;default&#39;</code> 项目中的一些键值：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASE-ENGINE"><code>ENGINE</code></a> – 可选值有 <code>&#39;django.db.backends.sqlite3&#39;</code>，<code>&#39;django.db.backends.postgresql&#39;</code>，<code>&#39;django.db.backends.mysql&#39;</code>，或 <code>&#39;django.db.backends.oracle&#39;</code>。其它 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/databases/#third-party-notes">可用后端</a>。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME"><code>NAME</code></a> - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑上的一个文件，在这种情况下， <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME"><code>NAME</code></a> 应该是此文件的绝对路径，包括文件名。默认值 <code>os.path.join(BASE_DIR, &#39;db.sqlite3&#39;)</code> 将会把数据库文件储存在项目的根目录。</li>
+</ul>
+<p>如果你不使用 SQLite，则必须添加一些额外设置，比如 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-USER"><code>USER</code></a> 、 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-PASSWORD"><code>PASSWORD</code></a> 、 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-HOST"><code>HOST</code></a> 等等。想了解更多数据库设置方面的内容，请看文档：<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a> 。</p>
+<p> 更改时区</p>
+<p><code>TIME_ZONE = &#39;UTC&#39;</code></p>
+<p>为开启的应用创建一个数据表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+
+<p>此命令会检查<code>INSTALLED_APPS </code>中的设置并未每一个应用创建一个所需要的数据表如果你感兴趣的话，运行你数据库的命令行工具，并输入 <code>\dt</code> (PostgreSQL)， <code>SHOW TABLES;</code> (MariaDB,MySQL)， <code>.schema</code> (SQLite)或者 <code>SELECT TABLE_NAME FROM USER_TABLES;</code> (Oracle) 来看看 Django 到底创建了哪些表。</p>
+<h2 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h2><p>在 Django 里写一个数据库驱动的 Web 应用的第一步是定义模型 - 也就是数据库结构设计和附加的其它元数据。</p>
+<p>在这个投票应用中，需要创建两个模型：问题 <code>Question</code> 和选项 <code>Choice</code>。<code>Question</code> 模型包括问题描述和发布时间。<code>Choice</code> 模型有两个字段，选项描述和当前得票数。每个选项属于一个问题。</p>
+<p>这些概念可以通过一个 Python 类来描述。按照下面的例子来编辑 <code>polls/models.py</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Question(models.Model):</span><br><span class="line">    question_text = models.CharField(max_length=200)</span><br><span class="line">    pub_date = models.DateTimeField(&#x27;date published&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Choice(models.Model):</span><br><span class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)</span><br><span class="line">    choice_text = models.CharField(max_length=200)</span><br><span class="line">    votes = models.IntegerField(default=0)</span><br></pre></td></tr></table></figure>
+
+<p>每个模型被表示为 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model"><code>django.db.models.Model</code></a> 类的子类。每个模型有许多类变量，它们都表示模型里的一个数据库字段。</p>
+<p>每个字段都是 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类的实例 - 比如，字符字段被表示为 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField"><code>CharField</code></a> ，日期时间字段被表示为 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField"><code>DateTimeField</code></a> 。这将告诉 Django 每个字段要处理的数据类型。</p>
+<p>每个 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类实例变量的名字（例如 <code>question_text</code> 或 <code>pub_date</code> ）也是字段名，所以最好使用对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。</p>
+<p>你可以使用可选的选项来为 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有提供此名称，Django 将会使用对机器友好的名称，也就是变量名。在上面的例子中，我们只为 <code>Question.pub_date</code> 定义了对人类友好的名字。对于模型内的其它字段，它们的机器友好名也会被作为人类友好名使用。</p>
+<p>定义某些 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类实例需要参数。例如 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField"><code>CharField</code></a> 需要一个 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField.max_length"><code>max_length</code></a> 参数。这个参数的用处不止于用来定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 也能够接收多个可选参数；在上面的例子中：我们将 <code>votes</code> 的 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field.default"><code>default</code></a> 也就是默认值，设为0。</p>
+<p>注意在最后，我们使用 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey"><code>ForeignKey</code></a> 定义了一个关系。这将告诉 Django，每个 <code>Choice</code> 对象都关联到一个 <code>Question</code> 对象。Django 支持所有常用的数据库关系：多对一、多对多和一对一。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey">模型字段参考链接</a></p>
+<h1 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h1><p>Django应用不包含在当前安装的Django上，因此是可插拔的。</p>
+<p>为了在工程中使用应用<code>polls</code>这个应用，我们需要在<code>INSTALLED_APPS</code>中添加设置，因为 <code>PollsConfig</code> 类写在文件 <code>polls/apps.py</code> 中，所以它的点式路径是 <code>&#39;polls.apps.PollsConfig&#39;</code></p>
+<p>在文件 <code>mysite/settings.py</code> 中 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS"><code>INSTALLED_APPS</code></a> 子项添加点式路径后，它看起来像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    &#x27;polls.apps.PollsConfig&#x27;,</span><br><span class="line">    &#x27;django.contrib.admin&#x27;,</span><br><span class="line">    &#x27;django.contrib.auth&#x27;,</span><br><span class="line">    &#x27;django.contrib.contenttypes&#x27;,</span><br><span class="line">    &#x27;django.contrib.sessions&#x27;,</span><br><span class="line">    &#x27;django.contrib.messages&#x27;,</span><br><span class="line">    &#x27;django.contrib.staticfiles&#x27;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>添加后项目中就包含了polls这个应用，运行如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations polls</span><br></pre></td></tr></table></figure>
+
+<p>注意一定要保存之后再运行命令</p>
+<p>运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations polls</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Migrations</span> <span class="string">for</span> <span class="attr">&#x27;polls&#x27;:</span></span><br><span class="line">  <span class="string">polls/migrations/0001_initial.py</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Create</span> <span class="string">model</span> <span class="string">Question</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Create</span> <span class="string">model</span> <span class="string">Choice</span></span><br></pre></td></tr></table></figure>
+
+<p><code>makemigrations</code>命令会Django检测模型文件的修改并且把修改的部分存储为一次<code>迁移</code></p>
+<p>迁移的数据存储在<code>polls/migrations/0001_initial.py</code> 里</p>
+<p>Django 有一个自动执行数据库迁移并同步管理你的数据库结构的命令 - 这个命令是 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a>，我们马上就会接触它 - 但是首先，让我们看看迁移命令会执行哪些 SQL 语句。<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-sqlmigrate"><code>sqlmigrate</code></a> 命令接收一个迁移的名称，然后返回对应的 SQL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py sqlmigrate polls 0001</span><br></pre></td></tr></table></figure>
+
+<p>注意：这个 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-sqlmigrate"><code>sqlmigrate</code></a> 命令并没有真正在你的数据库中的执行迁移 - 相反，它只是把命令输出到屏幕上，让你看看 Django 认为需要执行哪些 SQL 语句。这在你想看看 Django 到底准备做什么，或者当你是数据库管理员，需要写脚本来批量处理数据库时会很有用。</p>
+<p>现在，再次运行 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a> 命令，在数据库里创建新定义的模型的数据表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+
+<p><code>migrate</code>命令选中所有还没有执行过的迁移并应用在数据库上，也就是对模型的更改同步到数据库结构上。</p>
+<p>总结一下，改变模型所需要的三步：</p>
+<ul>
+<li>编辑 <code>models.py</code> 文件，改变模型。</li>
+<li>运行 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-makemigrations"><code>python manage.py makemigrations</code></a> 为模型的改变生成迁移文件。</li>
+<li>运行 <a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>python manage.py migrate</code></a> 来应用数据库迁移。</li>
+</ul>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><p>进入交互式命令行，尝试一下Django为你创建的各种API</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py shell</span><br></pre></td></tr></table></figure>
+
+<p>此命令和直接使用python 是因为<code>manage.py</code>会设置<code>DJANGO_SETTINGS_MODULE</code> 环境变量，这个变量会让 Django 根据 <code>mysite/settings.py</code> 文件来设置 Python 包的导入路径。</p>
+<p>今天先酱紫吧~补一下Python的知识。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/05/07/Django--%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8--%E6%8A%95%E7%A5%A8%E5%BA%94%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A8%8B%E5%BA%8F/" rel="tag">程序</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/06/11/Hackintosh%E7%9A%84APFS%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B%EF%BC%8C%E6%88%90%E5%8A%9F%E8%BF%9B%E5%85%A5%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Hackintosh的APFS加密与解密过程，成功进入系统，filevault
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/05/06/Django--%E5%88%9D%E8%AF%95web%E6%A1%86%E6%9E%B6/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Django--初试web框架</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "Vpct3kvyq1JObijfehfiqzxU-gzGzoHsz",
+    app_key: "CAG7L5jedoianwrq6sEXiVg2",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2022
+        <i class="ri-heart-fill heart_icon"></i> 奔跑的阿秋
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/headport.jpg" alt="阿秋技术小屋"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%A8%8B%E5%BA%8F/">程序</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/galleries/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E8%A7%82%E5%BD%B1/">观影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

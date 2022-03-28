@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="这个世界从不吝惜同情，当你觉得自己一无所长并接受的心安理得时&lt;br&gt;同情如烫手山芋，暖在外，痛在内&lt;br&gt;扔掉同情去远足去奔跑吧少年！你还有美丽的未来啊" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>【01物联网实习】BC26命令和模组使用，使用MQTT.fx完成设备侧开发 |  阿秋技术小屋</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/headall.png" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-【01物联网实习】BC26命令和模组使用，使用MQTT.fx完成设备侧开发"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【01物联网实习】BC26命令和模组使用，使用MQTT.fx完成设备侧开发
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/07/06/%E3%80%9001%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91BC26%E5%91%BD%E4%BB%A4%E5%92%8C%E6%A8%A1%E7%BB%84%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BD%BF%E7%94%A8MQTT.fx%E5%AE%8C%E6%88%90%E8%AE%BE%E5%A4%87%E4%BE%A7%E5%BC%80%E5%8F%91/" class="article-date">
+  <time datetime="2021-07-06T03:20:25.000Z" itemprop="datePublished">2021-07-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A8%8B%E5%BA%8F/">程序</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<p>实习第一天内容：</p>
+<ul>
+<li>BC26模组测试指导——使用sscom5虚拟串口软件测试模块，熟悉UDP\TCP\MQTT 协议</li>
+<li>华为云物联网平台的使用——通过向导式极速体验创建项目，之后使用演示包上报数据，在华为云修改上报次数修改数据上报时间</li>
+<li>新增虚拟设备完成对产品进行调试</li>
+<li>使用MQTT.FX接入服务器完成设备侧开发</li>
+</ul>
+<h4 id="一、BC26模组测试和不同通信协议比较"><a href="#一、BC26模组测试和不同通信协议比较" class="headerlink" title="一、BC26模组测试和不同通信协议比较"></a>一、BC26模组测试和不同通信协议比较</h4><p>首先，连接下载器和BC26模组，这样就完成了模组和电脑的通信，模组仅负责收发电脑端所提供的数据字和控制指令，不参与对接收到的数据包解算以及处理的任务。</p>
+<p>第二步：使用以下指令对模块和插在模块上的USIM卡进行测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AT\r\n                     测试模块</span><br><span class="line"></span><br><span class="line">AT+CIMI\r\n                查询USIM卡IMSI,执行命令使TA 返回USIM 卡的IMSI（不带双引号的字符串），旨在允许TE 识别连接到MT 的USIM。</span><br><span class="line"></span><br><span class="line">AT+CSQ\r\n                 上报信号质量,该命令可返回接收信号强度指示&lt;rssi&gt;和信道误码率&lt;ber&gt;。        </span><br><span class="line"></span><br><span class="line">AT+CGATT?\r\n              PS域附着或去附着,注册上网</span><br></pre></td></tr></table></figure>
+
+<p>补充理解AT命令的格式(<a href="/img/Quectel_BC26&BC20&BC030x%E7%B3%BB%E5%88%97_AT%E5%91%BD%E4%BB%A4%E6%89%8B%E5%86%8C_V1.0.pdf">BC26&amp;BC20&amp;BC030X系列命令说明书</a>)：<br><img src="/img/Snipaste_2021-07-10_16-01-38.png"></p>
+<p>BC26模组的厂家提供了测试用服务器，老师提供了一个MQTT的测试服务器，IP和端口号如下：</p>
+<p>UDP:    47.92.146.210 : 9999<br>TCP:     47.92.146.210 : 8888<br>MQTT: 47.92.146.210 : 1883</p>
+<p>老师MQTT：123.60.209.34</p>
+<p>步骤如下：</p>
+<p><img src="/img/2201.png"><br><img src="/img/2202.png"><br><img src="/img/2203.png"><br><img src="/img/2204.png"><br><img src="/img/2205.png"><br><img src="/img/2206.png"><br><img src="/img/2207.png"><br><img src="/img/2208.png"><br><img src="/img/2209.png"><br><img src="/img/2210.png"><br><img src="/img/2211.png"><br><img src="/img/2212.png"><br><img src="/img/2213.png"></p>
+<h4 id="二、华为云物联网平台的使用"><a href="#二、华为云物联网平台的使用" class="headerlink" title="二、华为云物联网平台的使用"></a>二、华为云物联网平台的使用</h4><h5 id="1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。"><a href="#1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。" class="headerlink" title="1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。"></a>1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。</h5><p><img src="/img/zh-cn_image_0000001091279193.png"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165301.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165536.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165725.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165808.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165855.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710170326.jpg"></p>
+<ul>
+<li><strong>“服务ID”</strong>：BasicData</li>
+<li><strong>“服务类型”</strong>：建议和服务ID保持一致</li>
+</ul>
+<p>说明：<strong>属性和命令类似于变量，不同是，属性为设备上报用变量，命令是我们下发用变量</strong></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710170951.jpg"></p>
+<ul>
+<li><strong>“属性名称”</strong>：luminance</li>
+<li><strong>“必选”</strong>：勾选</li>
+<li><strong>“数据类型”</strong>：int（整型）</li>
+<li><strong>“访问权限”</strong>：可读、可写</li>
+<li><strong>“取值范围”</strong>：0~65535</li>
+<li><strong>“步长”</strong>：0</li>
+<li><strong>“单位”</strong>：不填写</li>
+</ul>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710171148.jpg"></p>
+<p>小总结：在前面我们首先创建了名称为  <strong>齐修远测试</strong>  的产品，之后为该产品添加了  <strong>lumuance</strong>  的属性，其为整型，取值范围在0-65535之间，并设置访问权限设置为可读可写，我的理解产品属性是产品自身的属性，可以通过自己控制也可以读取它的值，接着又创建了  <strong>lightcontrol</strong> 的命令，设置其参数为  <strong>switch</strong> 用来下发开关指令。</p>
+<p>区别在于属性只限于产品自身对自身的控制，而命令是通过下发参数来进行对产品的控制。</p>
+<h4 id="二、注册虚拟设备"><a href="#二、注册虚拟设备" class="headerlink" title="二、注册虚拟设备"></a>二、注册虚拟设备</h4><p>1、单击<strong>“在线调试”</strong>页签，单击<strong>“新增测试设备”</strong>，在弹出的页面中选择<strong>“虚拟设备”</strong>，并单击确认。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165950.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710170030.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710201652.jpg"></p>
+<h4 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h4><h5 id="1、关于产品的服务和命令之间的关系"><a href="#1、关于产品的服务和命令之间的关系" class="headerlink" title="1、关于产品的服务和命令之间的关系"></a>1、关于产品的服务和命令之间的关系</h5><p>产品的服务是<strong>产品所包含的</strong>设备上报给用户端的服务信息，是自下而上的。命令是用户对设备的控制命令，是自上而下的。产品的服务包含所有设备的属性，也就是设备可以上报给服务器的所有参数，按需上报，有则需要上报没有则不需要上报。同样命令也是用户下发给所有设备的所有控制亮。</p>
+<h5 id="2、关于产品和设备之间的关系"><a href="#2、关于产品和设备之间的关系" class="headerlink" title="2、关于产品和设备之间的关系"></a>2、关于产品和设备之间的关系</h5><p>一个产品包含很多设备，一旦设备注册上网成功，并通过MQTT协议连接服务器之后则判断该设备在线。</p>
+<h4 id="四、使用MQTT-FX接入服务器完成设备侧开发"><a href="#四、使用MQTT-FX接入服务器完成设备侧开发" class="headerlink" title="四、使用MQTT.FX接入服务器完成设备侧开发"></a>四、使用MQTT.FX接入服务器完成设备侧开发</h4><p>在前面通过虚拟设备在电脑端完成对云端服务器的测试，接下来我们使用MQTT代提虚拟设备直接完成消息的发布和订阅</p>
+<h5 id="1、MQTT简介"><a href="#1、MQTT简介" class="headerlink" title="1、MQTT简介"></a>1、MQTT简介</h5><p>MQTT（Message Queuing Telemetry Transport）是一个基于客户端-服务器的消息发布&#x2F;订阅传输协议，主要应用于计算能力有限，且工作在低带宽、不可靠的网络的远程传感器和控制设备，适合长连接的场景，如智能路灯等。</p>
+<p>MQTTS是MQTT使用TLS加密的协议。采用MQTTS协议接入平台的设备，设备与物联网平台之间的通信过程，数据都是加密的，具有一定的安全性。</p>
+<p><img src="/img/zh-cn_image_0269115067.png"></p>
+<p>区别在于MQTTS是加密的而MQTT是非加密的</p>
+<p><img src="/img/zh-cn_image_0263925108.png"></p>
+<h5 id="2、使用MQTT-fx调测"><a href="#2、使用MQTT-fx调测" class="headerlink" title="2、使用MQTT.fx调测"></a>2、使用MQTT.fx调测</h5><p>本文档以MQTT.fx为例，介绍以MQTT原生协议接入物联网平台。MQTT.fx是目前主流的MQTT客户端。<strong>调测的目的是为了：快速验证是否可以与物联网平台服务交互发布或订阅消息。</strong></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710203210.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710203308.jpg"></p>
+<p>该地址同样分为设备端接入和应用接入两种方式，也即用户接入和设备接入，但是针对可能不支持域名接入的设备，使用ping命令获取域名对应的Ip地址，使用ip地址接入平台。</p>
+<p>3、具体使用MQTT.fx进行调测的方式</p>
+<p><strong>步骤一、首先创建以MQTT为协议类型的数据格式为JSON的产品</strong></p>
+<p><strong>步骤二、连接鉴权</strong></p>
+<p>该步骤需要配置服务器的ip，端口号以向服务器注册ID和订阅ID的信息，其次还需要配置以下三个重要的参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必选&#x2F;可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ClientId</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>一机一密的设备clientId由4个部分组成：设备ID、设备身份标识类型、密码签名类型、时间戳，通过下划线“_”分隔。<strong>设备ID</strong>：指设备在平台成功注册后生成的唯一设备标识，通常由设备的产品ID和设备的NodeId通过分隔符“_”拼装而来。<strong>设备身份标识类型</strong>：固定值为0，表示设备ID。<strong>密码签名类型</strong>：长度1字节，当前支持2种类型：“0”代表HMACSHA256不校验时间戳。“1”代表HMACSHA256校验时间戳。<strong>时间戳</strong>：为设备连接平台时的UTC时间，格式为YYYYMMDDHH，如UTC 时间2018&#x2F;7&#x2F;24 17:56:20 则应表示为2018072417。</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>设备ID。</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>加密后的设备密钥。Password的值为使用“HMACSHA256”算法以时间戳为密钥，对secret进行加密后的值。secret为注册设备时平台返回的secret。</td>
+</tr>
+</tbody></table>
+<p>通过上述的计算可以得到  MQTT.fx  的三个参数，使用<a target="_blank" rel="noopener" href="https://iot-tool.obs-website.cn-north-4.myhuaweicloud.com/">该网站</a>计算ClientId，Username，Password三个关键词的值，如图所示：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710213334.jpg"></p>
+<p>注意：因为MQTT.fx实际模拟的是设备端连接华为云的情况，所以需要使用设备ID进行计算，而不是产品ID！！！！需要特别注意！！！</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710213612.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710213810.jpg"></p>
+<p>连接成功！</p>
+<p>4、连接成功之后，使用MQTT.fx向华为云上报数据</p>
+<p>设备若通过MQTT通道上报数据，需要发给指定的topic，上报消息的topic格式为：“$oc&#x2F;devices&#x2F;{device_id}&#x2F;sys&#x2F;properties&#x2F;report”，其中<strong>“deviceId”</strong>的值，对一机一密设备，使用deviceId接入时填写为设备注册成功后返回的“deviceId”值。</p>
+<p>例如：$oc&#x2F;devices&#x2F;{60e961606fd1630286a3009a_1625907608720}&#x2F;sys&#x2F;properties&#x2F;report</p>
+<p>填写上报的数据的<strong>请求参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>必选&#x2F;可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>services</td>
+<td>必选</td>
+<td>List<ServiceProperty></td>
+<td>设备服务数据列表（具体结构参考下表ServiceProperty定义表）</td>
+</tr>
+</tbody></table>
+<p>ServiceProperty定义表：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>必选&#x2F;可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>service_id</td>
+<td>必选</td>
+<td>String</td>
+<td>设备服务的ID。</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>必选</td>
+<td>Object</td>
+<td>设备服务的属性列表，具体字段在设备关联的产品模型中定义。</td>
+</tr>
+<tr>
+<td>eventTime</td>
+<td>可选</td>
+<td>String</td>
+<td>设备采集数据UTC时间（格式：yyyyMMddTHHmmssZ），如：20161219T114920Z。设备上报数据不带该参数或参数格式错误时，则数据上报时间以平台时间为准。</td>
+</tr>
+</tbody></table>
+<p><strong>请求示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;services&quot;: [&#123;</span><br><span class="line">            &quot;service_id&quot;: &quot;streetlight&quot;,</span><br><span class="line">            &quot;properties&quot;: &#123;</span><br><span class="line">                &quot;luminance&quot;: 16</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;event_time&quot;: &quot;20210710T214312Z&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>图示：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710214925.jpg"></p>
+<p><strong>上述内容属于设备测开发，即使用电脑开发物联网设备（完成物联网设备上发数据），接下来学习应用侧开发（完成应用侧下发控制指令）</strong></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/07/06/%E3%80%9001%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91BC26%E5%91%BD%E4%BB%A4%E5%92%8C%E6%A8%A1%E7%BB%84%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BD%BF%E7%94%A8MQTT.fx%E5%AE%8C%E6%88%90%E8%AE%BE%E5%A4%87%E4%BE%A7%E5%BC%80%E5%8F%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A8%8B%E5%BA%8F/" rel="tag">程序</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/07/07/%E3%80%9002%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E4%BD%BF%E7%94%A8node-red%E5%AE%8C%E6%88%90%E5%BA%94%E7%94%A8%E4%BE%A7%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【02物联网实习】使用node-red完成应用侧开发流程
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/05/24/%E3%80%90FPGA%E3%80%91%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【FPGA】编写测试程序</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "Vpct3kvyq1JObijfehfiqzxU-gzGzoHsz",
+    app_key: "CAG7L5jedoianwrq6sEXiVg2",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2022
+        <i class="ri-heart-fill heart_icon"></i> 奔跑的阿秋
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/headport.jpg" alt="阿秋技术小屋"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%A8%8B%E5%BA%8F/">程序</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/galleries/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E8%A7%82%E5%BD%B1/">观影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="这个世界从不吝惜同情，当你觉得自己一无所长并接受的心安理得时&lt;br&gt;同情如烫手山芋，暖在外，痛在内&lt;br&gt;扔掉同情去远足去奔跑吧少年！你还有美丽的未来啊" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>【FPGA】verilog_HDL再学习 |  阿秋技术小屋</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/headall.png" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-【FPGA】verilog_HDL再学习"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【FPGA】verilog_HDL再学习
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/04/%E3%80%90FPGA%E3%80%91verilog_HDL%E5%86%8D%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2021-05-04T12:20:25.000Z" itemprop="datePublished">2021-05-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A8%8B%E5%BA%8F/">程序</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">827</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/img/fpga_3.jpg" alt="cover"></p>
+<span id="more"></span>
+
+<h4 id="1、verilog语言语法格式："><a href="#1、verilog语言语法格式：" class="headerlink" title="1、verilog语言语法格式："></a>1、verilog语言语法格式：</h4><p>模块定义：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> 模块名(端口列表)</span><br><span class="line">    端口声明（<span class="keyword">input</span>,<span class="keyword">output</span>,<span class="keyword">inout</span>）</span><br><span class="line">    变量声明(<span class="keyword">reg</span>,<span class="keyword">wire</span>,<span class="keyword">parameter</span>)参数型，宏定义变量参数</span><br><span class="line">    数据流行为建模</span><br><span class="line">    顺序行为建模(<span class="keyword">always</span>)</span><br><span class="line">    模块调用语句</span><br><span class="line">    任务及函数</span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">module</span> NAND(in1,in2,out); <span class="comment">//NAND 模块</span></span><br><span class="line"><span class="keyword">input</span> in1,in2; <span class="comment">//两个输入端口in1 和in2</span></span><br><span class="line"><span class="keyword">output</span> out; <span class="comment">//一个输出端口out</span></span><br><span class="line"><span class="keyword">assign</span> out=~(in1&amp;in2); <span class="comment">//连续赋值语句</span></span><br><span class="line"><span class="keyword">endmodule</span> <span class="comment">//NAND 模块结束</span></span><br></pre></td></tr></table></figure>
+
+<p>模块实例化（模块调用）:</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> AND(in1,in2,out); <span class="comment">//AND 模块</span></span><br><span class="line"><span class="keyword">input</span> in1,in2;<span class="comment">//两个输入端口in1 和in2</span></span><br><span class="line"><span class="keyword">output</span> out;<span class="comment">//一个输出端口out</span></span><br><span class="line"><span class="keyword">wire</span> w1;<span class="comment">//一个模块内部连线wire</span></span><br><span class="line">NAND NAND_inst1(in1,in2,w1);<span class="comment">//调用（实例化）一个NAND 子模块</span></span><br><span class="line">NAND NAND inst2(w1,w1,out);<span class="comment">//再调用（实例化）一个NAND 子模块</span></span><br><span class="line"><span class="keyword">endmodule</span> <span class="comment">//AND 模块结束</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/FPGA_1.jpg"></p>
+<h5 id="2、verilog中的常量和变量"><a href="#2、verilog中的常量和变量" class="headerlink" title="2、verilog中的常量和变量"></a>2、verilog中的常量和变量</h5><h5 id="2-1常量"><a href="#2-1常量" class="headerlink" title="2.1常量"></a>2.1常量</h5><p><code>0</code> <code>1</code> <code>z</code>（未知） <code>x</code>（高阻，必须位于条件语句下） <code>z</code>和<code>x</code>不区分大小写</p>
+<h6 id="2-1-1-整型常量"><a href="#2-1-1-整型常量" class="headerlink" title="2.1.1 整型常量"></a>2.1.1 整型常量</h6><p>十进制数格式 32 &#x2F;&#x2F;十进制数32<br><code>-15</code> &#x2F;&#x2F;十进制数-15<br><code>4’b1101</code> &#x2F;&#x2F;4 位二进制数<br><code>5’o37 </code>&#x2F;&#x2F;5 位八进制数<br><code>4’d2</code> &#x2F;&#x2F;4 位十进制数<br><code>8’h2A </code>&#x2F;&#x2F;8 位十六进制<br>基数格式，[位宽]’进制    值域。位宽定义常量的位数，可选项；进制可以是b 或B（表示二进制），o或O（表示八进制），d 或D（表示十进制），h 或H（表示十六进制）之一；值域是一个数字序列，其形式应与进制定义的形式相符。</p>
+<h5 id="2-1-2-实数型常量"><a href="#2-1-2-实数型常量" class="headerlink" title="2.1.2 实数型常量"></a>2.1.2 实数型常量</h5><p>十进制格式，由数字和小数点组成（必须有小数点） <code>2.05 //其值为2.05</code><br>指数格式，由数字和字符 e（E）组成，e（E）的前 <code>3.6E2 //其值为 360.0</code><br>面必须要有数字而且后面必须为整数</p>
+<h6 id="2-1-3-字符串型常量"><a href="#2-1-3-字符串型常量" class="headerlink" title="2.1.3 字符串型常量"></a>2.1.3 字符串型常量</h6><p>字符串常量是由一对双引号括起来的字符序列。出现在双引号内的任何字符（包括空格和下划线）都将被作为字符串的一部分。<br>exg: <code>ERROR&quot;,&quot;REACHED－&gt;HERE&quot;</code></p>
+<h6 id="2-1-4-参数型"><a href="#2-1-4-参数型" class="headerlink" title="2. 1.4 参数型"></a>2. 1.4 参数型</h6><p><code>parameter 参数名 = 表达式; parameter MSB = 7;   //定义参数MSB 为常量7</code></p>
+<h4 id="2-2-变量"><a href="#2-2-变量" class="headerlink" title="2.2 变量"></a>2.2 变量</h4><p><code>wire</code>只可以连续赋值，<code>reg</code>在过程赋值中<br><code>wire</code>只要输入有变化，输出马上无条件变化，<code>reg</code>有触发才会输出<br><code>wire</code>中模块之间输入、输出相互连接用wire；输入&#x2F;输出端口(inout)只可以用wire，<code>reg</code>在always 等过程块中被赋值的信号，往往代表触发器，但不一定是触发器。（时序逻辑电路中常常被综合为D 触发器；纯组合逻辑电路中被综合为连线）</p>
+<h4 id="3-表达式"><a href="#3-表达式" class="headerlink" title="3 表达式"></a>3 表达式</h4><h5 id="3-1操作数"><a href="#3-1操作数" class="headerlink" title="3.1操作数"></a>3.1操作数</h5><p>1、位选择<code>reg[7:0] State;  State[1] //寄存器位选择</code></p>
+<p>2、部分选择<code>State[3:0] //寄存器部分选择</code></p>
+<h5 id="3-2操作数"><a href="#3-2操作数" class="headerlink" title="3.2操作数"></a>3.2操作数</h5><p><img src="/img/FPGA_2.jpg"></p>
+<h4 id="4-预处理指令"><a href="#4-预处理指令" class="headerlink" title="4 预处理指令"></a>4 预处理指令</h4><p>VerilogHDL 共有8 组预处理指令：<br><code>（1）‘define,‘undef （2）‘ifdef,‘else,‘endif （3）‘include （4）‘timescale （5）‘resetall （6）‘default_nettype （7）‘unconnected_drive,‘nounconnected_drive （8）‘celldefine,‘endcelldefine</code></p>
+<p>verilog注意事项：定义标识符：<code>module adder;</code> <code>reg</code>且单个标识符的总字符数不能多于1024,注意需要避开保留字(关键词)注意关键词必须是小写的，可以用此来区分。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/05/04/%E3%80%90FPGA%E3%80%91verilog_HDL%E5%86%8D%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A8%8B%E5%BA%8F/" rel="tag">程序</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/05/15/%E3%80%90FPGA%E3%80%91%E8%A1%8C%E4%B8%BA%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【FPGA】行为建模方法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/29/Django%E5%AE%9E%E6%88%98%EF%BC%884%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Django实战（4）</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "Vpct3kvyq1JObijfehfiqzxU-gzGzoHsz",
+    app_key: "CAG7L5jedoianwrq6sEXiVg2",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2022
+        <i class="ri-heart-fill heart_icon"></i> 奔跑的阿秋
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/headport.jpg" alt="阿秋技术小屋"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%A8%8B%E5%BA%8F/">程序</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/galleries/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E8%A7%82%E5%BD%B1/">观影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%98%85%E8%AF%BB/">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
