@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>openmv光耦和232通信 |  阿秋技术小屋</title>
+      <title>南大PA实验以及数字逻辑与计算机组成实验 |  阿秋技术小屋</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/headall.png" />
@@ -68,7 +68,7 @@ ga('send', 'pageview');
     <main class="content on">
       <section class="outer">
   <article
-  id="post-openmv光耦和232通信"
+  id="post-南大PA实验以及数字逻辑与计算机组成实验"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -79,7 +79,7 @@ ga('send', 'pageview');
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  openmv光耦和232通信
+  南大PA实验以及数字逻辑与计算机组成实验
 </h1>
  
 
@@ -87,11 +87,11 @@ ga('send', 'pageview');
     </header>
      
     <div class="article-meta">
-      <a href="/2021/08/13/openmv%E5%85%89%E8%80%A6%E5%92%8C232%E9%80%9A%E4%BF%A1/" class="article-date">
-  <time datetime="2021-08-13T12:20:25.000Z" itemprop="datePublished">2021-08-13</time>
+      <a href="/2022/03/28/%E5%8D%97%E5%A4%A7PA%E5%AE%9E%E9%AA%8C%E4%BB%A5%E5%8F%8A%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%AE%9E%E9%AA%8C/" class="article-date">
+  <time datetime="2022-03-28T06:20:25.000Z" itemprop="datePublished">2022-03-28</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A8%8B%E5%BA%8F/">程序</a>
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
   </div>
   
 <div class="word_count">
@@ -99,7 +99,7 @@ ga('send', 'pageview');
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">39</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -108,7 +108,7 @@ ga('send', 'pageview');
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -123,17 +123,52 @@ ga('send', 'pageview');
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
+  <p>​        <img src="/img/DSC_4847.jpg" alt="1"></p>
 <span id="more"></span>
 
-<h4 id="一、光耦"><a href="#一、光耦" class="headerlink" title="一、光耦"></a>一、光耦</h4><p>1、单片机IO输出能力不足</p>
-<p><img src="/IMG/image-20210813201253126.png" alt="image-20210813201253126"></p>
-<p>2、IO口输出能力足够</p>
-<p><img src="/IMG/image-20210813201432696.png" alt="image-20210813201432696"></p>
-<p>下面的一路光耦做电机反馈信号</p>
-<p>3、</p>
-<p><img src="/IMG/image-20210813201617993.png" alt="image-20210813201617993"></p>
-<p>4、<img src="/IMG/image-20210813201649992.png" alt="image-20210813201649992"></p>
+<h2 id="南大PA实验以及数字逻辑与计算机组成实验"><a href="#南大PA实验以及数字逻辑与计算机组成实验" class="headerlink" title="南大PA实验以及数字逻辑与计算机组成实验"></a>南大PA实验以及数字逻辑与计算机组成实验</h2><h3 id="实验一-选择器"><a href="#实验一-选择器" class="headerlink" title="实验一 选择器"></a>实验一 选择器</h3><h5 id="1、三种建模方式"><a href="#1、三种建模方式" class="headerlink" title="1、三种建模方式"></a>1、三种建模方式</h5><ul>
+<li><p>数据流建模</p>
+</li>
+<li><p>结构化建模</p>
+</li>
+<li><p>行为建模</p>
+</li>
+</ul>
+<h5 id="2、用三种建模方式实现四选一电路"><a href="#2、用三种建模方式实现四选一电路" class="headerlink" title="2、用三种建模方式实现四选一电路"></a>2、用三种建模方式实现四选一电路</h5><ul>
+<li><p>尽可能避免行为建模（因为不能在脑子中将复杂的逻辑转化为硬件电路）</p>
+</li>
+<li><p>有If一定要配合else，如果不配合就会多生成一个寄存器用于存储上一个if不满足产生的结果，这样就无法想象硬件电路了</p>
+</li>
+<li><p>HDL本质是硬件描述语言，所以每一句话尽可能做到能够想出来其中的电路</p>
+</li>
+<li><p>case一定要配合default，其中，下面这样书写是正确的：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1，2： y = a[0]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>if后面只可以跟一个语句，所以一般习惯于加上 begin 和 end</p>
+</li>
+</ul>
+<h5 id="3、使用模板搭建二位四选一选择器"><a href="#3、使用模板搭建二位四选一选择器" class="headerlink" title="3、使用模板搭建二位四选一选择器"></a>3、使用模板搭建二位四选一选择器</h5><ul>
+<li>使用nxdc约束文件的时候必须参考官方example里面的按钮，不可以自己新建</li>
+<li>因为没有改变main.cpp的缘故，因此必须包含clk和rst信号线作为input</li>
+<li>这个过程其实在摸索学习Makefile和C++语法</li>
+<li>NVboard实际上是一个规定好按钮图片和按钮变量名称的模拟开发板，局限性还是有的。</li>
+</ul>
+<h5 id="4、译码器和编码器"><a href="#4、译码器和编码器" class="headerlink" title="4、译码器和编码器"></a>4、译码器和编码器</h5><ul>
+<li><p>必须在每一次赋值之后添加 contextp-&gt;timeInc(1);  top -&gt; eval(); 大致意思是赋值一次，记录时间戳过了1时刻，然后更新一下top的变量值并且记录</p>
+</li>
+<li><p><img src="C:\Users\qi\AppData\Roaming\Typora\typora-user-images\image-20220310122050322.png" alt="image-20220310122050322"></p>
+</li>
+</ul>
+<h4 id="5、NEMU"><a href="#5、NEMU" class="headerlink" title="5、NEMU"></a>5、NEMU</h4><p>PA的目的是要实现NEMU, 一款经过简化的全系统模拟器。总结一下就是一个运行在Hardware—&gt;Linux(Unix)—&gt;虚拟的硬件模拟器。</p>
+<p>NEMU主要由4个模块构成: monitor, CPU, memory, 设备。Mnitor是非必要的监视器。</p>
+<h5 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h5><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">nemu</span><br><span class="line">├── configs                    # 预先提供的一些配置文件</span><br><span class="line">├── include                    # 存放全局使用的头文件</span><br><span class="line">│   ├── common.h               # 公用的头文件</span><br><span class="line">│   ├── config                 # 配置系统生成的头文件, 用于维护配置选项更新的时间戳</span><br><span class="line">│   ├── cpu</span><br><span class="line">│   │   ├── cpu.h</span><br><span class="line">│   │   ├── decode.h           # 译码相关</span><br><span class="line">│   │   ├── difftest.h</span><br><span class="line">│   │   └── ifetch.h           # 取指相关</span><br><span class="line">│   ├── debug.h                # 一些方便调试用的宏</span><br><span class="line">│   ├── device                 # 设备相关</span><br><span class="line">│   ├── difftest-def.h</span><br><span class="line">│   ├── generated</span><br><span class="line">│   │   └── autoconf.h         # 配置系统生成的头文件, 用于根据配置信息定义相关的宏</span><br><span class="line">│   ├── isa.h                  # ISA相关</span><br><span class="line">│   ├── macro.h                # 一些方便的宏定义</span><br><span class="line">│   ├── memory                 # 访问内存相关</span><br><span class="line">│   └── utils.h</span><br><span class="line">├── Kconfig                    # 配置信息管理的规则</span><br><span class="line">├── Makefile                   # Makefile构建脚本</span><br><span class="line">├── README.md</span><br><span class="line">├── resource                   # 一些辅助资源</span><br><span class="line">├── scripts                    # Makefile构建脚本</span><br><span class="line">│   ├── build.mk</span><br><span class="line">│   ├── config.mk</span><br><span class="line">│   ├── git.mk                 # git版本控制相关</span><br><span class="line">│   └── native.mk</span><br><span class="line">├── src                        # 源文件</span><br><span class="line">│   ├── cpu</span><br><span class="line">│   │   └── cpu-exec.c         # 指令执行的主循环</span><br><span class="line">│   ├── device                 # 设备相关</span><br><span class="line">│   ├── engine</span><br><span class="line">│   │   └── interpreter        # 解释器的实现</span><br><span class="line">│   ├── filelist.mk</span><br><span class="line">│   ├── isa                    # ISA相关的实现</span><br><span class="line">│   │   ├── mips32</span><br><span class="line">│   │   ├── riscv32</span><br><span class="line">│   │   ├── riscv64</span><br><span class="line">│   │   └── x86</span><br><span class="line">│   ├── memory                 # 内存访问的实现</span><br><span class="line">│   ├── monitor</span><br><span class="line">│   │   ├── monitor.c</span><br><span class="line">│   │   └── sdb                # 简易调试器</span><br><span class="line">│   │       ├── expr.c         # 表达式求值的实现</span><br><span class="line">│   │       ├── sdb.c          # 简易调试器的命令处理</span><br><span class="line">│   │       └── watchpoint.c   # 监视点的实现</span><br><span class="line">│   ├── nemu-main.c            # 你知道的...</span><br><span class="line">│   └── utils                  # 一些公共的功能</span><br><span class="line">│       ├── log.c              # 日志文件相关</span><br><span class="line">│       ├── rand.c</span><br><span class="line">│       ├── state.c</span><br><span class="line">│       └── timer.c</span><br><span class="line">└── tools                      # 一些工具</span><br><span class="line">    ├── fixdep                 # 依赖修复, 配合配置系统进行使用</span><br><span class="line">    ├── gen-expr</span><br><span class="line">    ├── kconfig                # 配置系统</span><br><span class="line">    ├── kvm-diff</span><br><span class="line">    ├── qemu-diff</span><br><span class="line">    └── spike-diff</span><br></pre></td></tr></table></figure>
+
+<h5 id="尝试理解计算机如何计算："><a href="#尝试理解计算机如何计算：" class="headerlink" title="尝试理解计算机如何计算："></a>尝试理解计算机如何计算：</h5><p>最简单的图灵机只有一个运算器可以被调用，也就是说一个时钟周期只能进行一次加减乘除的运算，因此图灵机采用的思想是缓存，也就是将每一步的结果存储在存储容量小但是速度快的寄存器中，只要运算器和寄存器配合的足够好，那么就可以近似将分布运算等同于实时计算。其中加减乘除被代替为每一条指令，同一个时钟周期执行一条指令，执行指令的速度由计算机硬件决定，序号有指令寄存器来决定。</p>
+<p>程序和计算机其实都是一个状态机：在状态机模型里面, 指令可以看成是计算机进行一次状态转移的输入激励。</p>
+<h5 id="从状态机视角理解程序运行：1-2-100的指令序列为例-尝试画出这个程序的状态机"><a href="#从状态机视角理解程序运行：1-2-100的指令序列为例-尝试画出这个程序的状态机" class="headerlink" title="从状态机视角理解程序运行：1+2+...+100的指令序列为例, 尝试画出这个程序的状态机."></a>从状态机视角理解程序运行：<code>1+2+...+100</code>的指令序列为例, 尝试画出这个程序的状态机.</h5><p>这个程序比较简单, 需要更新的状态只包括<code>PC</code>和<code>r1</code>, <code>r2</code>这两个寄存器, 因此我们用一个三元组<code>(PC, r1, r2)</code>就可以表示程序的所有状态, 而无需画出内存的具体状态. 初始状态是<code>(0, x, x)</code>, 此处的<code>x</code>表示未初始化. 程序<code>PC=0</code>处的指令是<code>mov r1, 0</code>, 执行完之后<code>PC</code>会指向下一条指令, 因此下一个状态是<code>(1, 0, x)</code>. 如此类推, 我们可以画出执行前3条指令的状态转移过程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(0, x, x) -&gt; (1, 0, x) -&gt; (2, 0, 0) -&gt; (3, 0, 1) -&gt; (4,1,1) -&gt; (5,1,1) -&gt; (6,1,2) -&gt; (7,3,2) -&gt;  -&gt; (8,3,2) -&gt; (9,3,3) -&gt; (9,6,3) -&gt; (10,6,3) -&gt; (11,6,4) -&gt; (12,10,4) -&gt; (13,10,4) -&gt; ...  -&gt; (295,4851,98) -&gt;  (296,4851,99) (297,4950,99) -&gt; (298,4950,99) -&gt; (299,4950,100) -&gt; (300,5050,100) -&gt;(301,5050,100) -&gt; pc5</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置系统Kconfig"><a href="#配置系统Kconfig" class="headerlink" title="配置系统Kconfig"></a>配置系统Kconfig</h5><p>在一个有一定规模的项目中, 可配置选项的数量可能会非常多, 而且配置选项之间可能会存在关联, 比如打开配置选项A之后, 配置选项B就必须是某个值. 直接让开发者去管理这些配置选项是很容易出错的, 比如修改选项A之后, 可能会忘记修改和选项A有关联的选项B. 配置系统的出现则是为了解决这个问题。</p>
  
       <!-- reward -->
       
@@ -198,12 +233,12 @@ ga('send', 'pageview');
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://heroamd.github.io/2021/08/13/openmv%E5%85%89%E8%80%A6%E5%92%8C232%E9%80%9A%E4%BF%A1/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://heroamd.github.io/2022/03/28/%E5%8D%97%E5%A4%A7PA%E5%AE%9E%E9%AA%8C%E4%BB%A5%E5%8F%8A%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%AE%9E%E9%AA%8C/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A8%8B%E5%BA%8F/" rel="tag">程序</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
 
     </footer>
   </div>
@@ -211,19 +246,19 @@ ga('send', 'pageview');
    
   <nav class="article-nav">
     
-      <a href="/2022/03/28/%E5%8D%97%E5%A4%A7PA%E5%AE%9E%E9%AA%8C%E4%BB%A5%E5%8F%8A%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%AE%9E%E9%AA%8C/" class="article-nav-link">
+      <a href="/2022/03/28/%E8%84%91%E4%B8%AD%E4%B8%80%E4%BA%8C%E7%89%A9/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            南大PA实验以及数字逻辑与计算机组成实验
+            脑中一二物
           
         </div>
       </a>
     
     
-      <a href="/2021/07/23/STC15%E9%A1%B9%E7%9B%AE%E5%88%B0%E5%B1%82%E6%AC%A1%E5%8E%9F%E7%90%86%E5%9B%BE/" class="article-nav-link">
+      <a href="/2021/08/13/openmv%E5%85%89%E8%80%A6%E5%92%8C232%E9%80%9A%E4%BF%A1/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">STC15项目到层次原理图</div>
+        <div class="article-nav-title">openmv光耦和232通信</div>
       </a>
     
   </nav>
