@@ -1,0 +1,1737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>【2020.3.14】博客再完善，最近小感悟</title>
+    <url>/2020/03/14/2020.3.14%20%20%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%AE%8C%E5%96%84%EF%BC%8C%E6%9C%80%E8%BF%91%E5%B0%8F%E6%84%9F%E6%82%9F/</url>
+    <content><![CDATA[<p>​        <img src="/img/1.jpg" alt="周山摄影-mintfancy"></p>
+<span id="more"></span>
+
+<p>​        上午经过一晚的周公托梦式的代码bug启发修复失败之后（简单说就是做梦都想让相册功能恢复哈哈哈，此处戏称）。终究还是失败了，于是今天上午一睁眼就用github给主题主提问题还给了star（授人玫瑰手留余香嘛）居然在晚上我收到了邮件，还非常详细虽然我看不懂，没有系统的学过js代码和标签也暂时来不及学，所以有点对牛弹琴之意。不过作者已经要更新版本了，还是非常感谢他的。</p>
+<p><img src="/img/2020-3-14-1.jpg"></p>
+<p>​        在检查了N遍确定不是自动部署和浏览器缓存的问题之后后，突发奇想发现域名的指向还是WWW记录我的GitHub的服务器，哇！恍然大悟，漏掉了一个记录没改。。。。无语三秒钟。改完之后一切都恢复正常了。也算一桩好事情吧。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django--初试web框架</title>
+    <url>/2020/05/06/Django--%E5%88%9D%E8%AF%95web%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/08/diUD52rWwOSvJBx.jpg" alt="DSC_4902.jpg"></p>
+<span id="more"></span>
+
+<p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python -m pip install Django</span><br></pre></td></tr></table></figure>
+
+<p>检查是否安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python -m django --version</span><br></pre></td></tr></table></figure>
+
+<p>创建项目</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">django-admin startproject mysite</span><br></pre></td></tr></table></figure>
+
+<p>查看<code>mysite</code>项目的文件结构</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py</span><br><span class="line">    mysite/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        asgi.py</span><br><span class="line">        wsgi.py</span><br></pre></td></tr></table></figure>
+
+<p>启动服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py runserver 8001</span><br></pre></td></tr></table></figure>
+
+<p>注意：写明端口号以防冲突而出现无法运行的情况</p>
+<p>检查在<code>manage.py</code>目录下并创建第一个应用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py startapp polls</span><br></pre></td></tr></table></figure>
+
+<p>刚刚创建的文件结构</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">polls/</span><br><span class="line">    __init__.py</span><br><span class="line">    admin.py</span><br><span class="line">    apps.py</span><br><span class="line">    migrations/</span><br><span class="line">        __init__.py</span><br><span class="line">    models.py</span><br><span class="line">    tests.py</span><br><span class="line">    views.py</span><br></pre></td></tr></table></figure>
+
+<p>各文件夹的用途</p>
+<ul>
+<li>最外层的 <code>mysite/</code> 根目录只是你项目的容器， 根目录名称对Django没有影响，你可以将它重命名为任何你喜欢的名称。</li>
+<li><code>manage.py</code>: 一个让你用各种方式管理 Django 项目的命令行工具。你可以阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/">django-admin and manage.py</a> 获取所有 <code>manage.py</code> 的细节。</li>
+<li>里面一层的 <code>mysite/</code> 目录包含你的项目，它是一个纯 Python 包。它的名字就是当你引用它内部任何东西时需要用到的 Python 包名。 (比如 <code>mysite.urls</code>).</li>
+<li><code>mysite/__init__.py</code>：一个空文件，告诉 Python 这个目录应该被认为是一个 Python 包。如果你是 Python 初学者，阅读官方文档中的 <a href="https://docs.python.org/3/tutorial/modules.html#tut-packages">更多关于包的知识</a>。</li>
+<li><code>mysite/settings.py</code>：Django 项目的配置文件。如果你想知道这个文件是如何工作的，请查看 <a href="https://docs.djangoproject.com/zh-hans/3.0/topics/settings/">Django settings</a> 了解细节。</li>
+<li><code>mysite/urls.py</code>：Django 项目的 URL 声明，就像你网站的“目录”。阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/topics/http/urls/">URL dispatcher</a> 文档来获取更多关于 URL 的内容。</li>
+<li><code>mysite/asgi.py</code>：作为你的项目的运行在 ASGI 兼容的Web服务器上的入口。阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/wsgi/">如何使用 WSGI 进行部署</a> 了解更多细节。</li>
+<li><code>mysite/wsgi.py</code>：作为你的项目的运行在 WSGI 兼容的Web服务器上的入口。阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/wsgi/">如何使用 WSGI 进行部署</a> 了解更多细节。</li>
+</ul>
+<p>打开 <code>polls/views.py</code>    </p>
+<p>添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.http import HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def index(request):</span><br><span class="line">    return HttpResponse(&quot;Hello, world. You&#x27;re at the polls index.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>如果我们需要看到效果，创建一个URL映射到view</p>
+<p>在polls目录中创建一个<code>urls.py</code>文件</p>
+<p>在其中输入以下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.urls import path</span><br><span class="line"></span><br><span class="line">from . import views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&#x27;&#x27;, views.index, name=&#x27;index&#x27;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>在根目录下的<code>urls.py</code>文件的<code>urlpatterns</code>列表里插入<code>include()</code></p>
+<p>如</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.contrib import admin</span><br><span class="line">from django.urls import include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&#x27;polls/&#x27;, include(&#x27;polls.urls&#x27;)),</span><br><span class="line">    path(&#x27;admin/&#x27;, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>在<code>manage.py</code>目录下创建名为<code>poll</code>的顶级模块</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py startapp polls</span><br></pre></td></tr></table></figure>
+
+<h1 id="编写第一个视图"><a href="#编写第一个视图" class="headerlink" title="编写第一个视图"></a>编写第一个视图</h1><p>打开 <code>polls/views.py</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.http import HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def index(request):</span><br><span class="line">    return HttpResponse(&quot;Hello, world. You&#x27;re at the polls index.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>这是 Django 中最简单的视图。如果想看见效果，我们需要将一个 URL 映射到它——这就是我们需要 URLconf 的原因了。</p>
+<p>在 <code>polls/urls.py</code> 中，输入如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.urls import path</span><br><span class="line">from . import views</span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&#x27;&#x27;, views.index, name=&#x27;index&#x27;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>在根URLconf文件中创建polls.urls模块，</p>
+<p><code>mysite/urls.py</code> 文件的 <code>urlpatterns</code> 列表里插入一个 <code>include()</code>， 如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.contrib import admin</span><br><span class="line">from django.urls import include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&#x27;polls/&#x27;, include(&#x27;polls.urls&#x27;)),</span><br><span class="line">    path(&#x27;admin/&#x27;, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>此时可以访问<code>http://127.0.0.1:8001/polls/</code>查看自己的第一个poll的创建情况。</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【2020.3.15】慢慢喜欢你</title>
+    <url>/2020/03/15/315%E5%B0%8F%E8%AE%B0-%E6%85%A2%E6%85%A2%E5%96%9C%E6%AC%A2%E4%BD%A0/</url>
+    <content><![CDATA[<p>​        <img src="https://gitee.com/mintfancy/mintfancy/raw/master/img/DSC_4872.jpg"></p>
+<span id="more"></span>
+
+<p>绿瓦红砖</p>
+<p>柳树和青苔</p>
+<p>过去和现在</p>
+<p>都一个</p>
+<p>样</p>
+<p>慢慢喜欢你</p>
+<p>慢慢的亲密</p>
+<p>慢慢和你走在一起</p>
+<p>慢慢我想配合你</p>
+<p>。。。。</p>
+<p>永远的莫文蔚</p>
+<p>永远的《慢慢喜欢你》</p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django--第一个应用--投票应用</title>
+    <url>/2020/05/07/Django--%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8--%E6%8A%95%E7%A5%A8%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/08/yPtn5MGoLrdFkAJ.jpg" alt="DSC_4750.jpg"></p>
+<span id="more"></span>
+
+<h1 id="在mysite-settings-py中配置数据库"><a href="#在mysite-settings-py中配置数据库" class="headerlink" title="在mysite/settings.py中配置数据库"></a>在<code>mysite/settings.py</code>中配置数据库</h1><p>Python 内置SQLite，Django也默认使用SQLite作为默认数据库</p>
+<p>也可以更换数据库</p>
+<p>如果你想使用其他数据库，你需要安装合适的 <a href="https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-installation">database bindings</a> ，然后改变设置文件中 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a> <code>&#39;default&#39;</code> 项目中的一些键值：</p>
+<ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASE-ENGINE"><code>ENGINE</code></a> – 可选值有 <code>&#39;django.db.backends.sqlite3&#39;</code>，<code>&#39;django.db.backends.postgresql&#39;</code>，<code>&#39;django.db.backends.mysql&#39;</code>，或 <code>&#39;django.db.backends.oracle&#39;</code>。其它 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/databases/#third-party-notes">可用后端</a>。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME"><code>NAME</code></a> - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑上的一个文件，在这种情况下， <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME"><code>NAME</code></a> 应该是此文件的绝对路径，包括文件名。默认值 <code>os.path.join(BASE_DIR, &#39;db.sqlite3&#39;)</code> 将会把数据库文件储存在项目的根目录。</li>
+</ul>
+<p>如果你不使用 SQLite，则必须添加一些额外设置，比如 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-USER"><code>USER</code></a> 、 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-PASSWORD"><code>PASSWORD</code></a> 、 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-HOST"><code>HOST</code></a> 等等。想了解更多数据库设置方面的内容，请看文档：<a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a> 。</p>
+<p> 更改时区</p>
+<p><code>TIME_ZONE = &#39;UTC&#39;</code></p>
+<p>为开启的应用创建一个数据表</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+
+<p>此命令会检查<code>INSTALLED_APPS </code>中的设置并未每一个应用创建一个所需要的数据表如果你感兴趣的话，运行你数据库的命令行工具，并输入 <code>\dt</code> (PostgreSQL)， <code>SHOW TABLES;</code> (MariaDB,MySQL)， <code>.schema</code> (SQLite)或者 <code>SELECT TABLE_NAME FROM USER_TABLES;</code> (Oracle) 来看看 Django 到底创建了哪些表。</p>
+<h2 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h2><p>在 Django 里写一个数据库驱动的 Web 应用的第一步是定义模型 - 也就是数据库结构设计和附加的其它元数据。</p>
+<p>在这个投票应用中，需要创建两个模型：问题 <code>Question</code> 和选项 <code>Choice</code>。<code>Question</code> 模型包括问题描述和发布时间。<code>Choice</code> 模型有两个字段，选项描述和当前得票数。每个选项属于一个问题。</p>
+<p>这些概念可以通过一个 Python 类来描述。按照下面的例子来编辑 <code>polls/models.py</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Question(models.Model):</span><br><span class="line">    question_text = models.CharField(max_length=200)</span><br><span class="line">    pub_date = models.DateTimeField(&#x27;date published&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Choice(models.Model):</span><br><span class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)</span><br><span class="line">    choice_text = models.CharField(max_length=200)</span><br><span class="line">    votes = models.IntegerField(default=0)</span><br></pre></td></tr></table></figure>
+
+<p>每个模型被表示为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model"><code>django.db.models.Model</code></a> 类的子类。每个模型有许多类变量，它们都表示模型里的一个数据库字段。</p>
+<p>每个字段都是 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类的实例 - 比如，字符字段被表示为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField"><code>CharField</code></a> ，日期时间字段被表示为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField"><code>DateTimeField</code></a> 。这将告诉 Django 每个字段要处理的数据类型。</p>
+<p>每个 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类实例变量的名字（例如 <code>question_text</code> 或 <code>pub_date</code> ）也是字段名，所以最好使用对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。</p>
+<p>你可以使用可选的选项来为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有提供此名称，Django 将会使用对机器友好的名称，也就是变量名。在上面的例子中，我们只为 <code>Question.pub_date</code> 定义了对人类友好的名字。对于模型内的其它字段，它们的机器友好名也会被作为人类友好名使用。</p>
+<p>定义某些 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类实例需要参数。例如 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField"><code>CharField</code></a> 需要一个 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField.max_length"><code>max_length</code></a> 参数。这个参数的用处不止于用来定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。</p>
+<p><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 也能够接收多个可选参数；在上面的例子中：我们将 <code>votes</code> 的 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field.default"><code>default</code></a> 也就是默认值，设为0。</p>
+<p>注意在最后，我们使用 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey"><code>ForeignKey</code></a> 定义了一个关系。这将告诉 Django，每个 <code>Choice</code> 对象都关联到一个 <code>Question</code> 对象。Django 支持所有常用的数据库关系：多对一、多对多和一对一。</p>
+<p><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey">模型字段参考链接</a></p>
+<h1 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h1><p>Django应用不包含在当前安装的Django上，因此是可插拔的。</p>
+<p>为了在工程中使用应用<code>polls</code>这个应用，我们需要在<code>INSTALLED_APPS</code>中添加设置，因为 <code>PollsConfig</code> 类写在文件 <code>polls/apps.py</code> 中，所以它的点式路径是 <code>&#39;polls.apps.PollsConfig&#39;</code></p>
+<p>在文件 <code>mysite/settings.py</code> 中 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS"><code>INSTALLED_APPS</code></a> 子项添加点式路径后，它看起来像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    &#x27;polls.apps.PollsConfig&#x27;,</span><br><span class="line">    &#x27;django.contrib.admin&#x27;,</span><br><span class="line">    &#x27;django.contrib.auth&#x27;,</span><br><span class="line">    &#x27;django.contrib.contenttypes&#x27;,</span><br><span class="line">    &#x27;django.contrib.sessions&#x27;,</span><br><span class="line">    &#x27;django.contrib.messages&#x27;,</span><br><span class="line">    &#x27;django.contrib.staticfiles&#x27;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>添加后项目中就包含了polls这个应用，运行如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py makemigrations polls</span><br></pre></td></tr></table></figure>
+
+<p>注意一定要保存之后再运行命令</p>
+<p>运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py makemigrations polls</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">Migrations</span> <span class="string">for</span> <span class="attr">&#x27;polls&#x27;:</span></span><br><span class="line">  <span class="string">polls/migrations/0001_initial.py</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Create</span> <span class="string">model</span> <span class="string">Question</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Create</span> <span class="string">model</span> <span class="string">Choice</span></span><br></pre></td></tr></table></figure>
+
+<p><code>makemigrations</code>命令会Django检测模型文件的修改并且把修改的部分存储为一次<code>迁移</code></p>
+<p>迁移的数据存储在<code>polls/migrations/0001_initial.py</code> 里</p>
+<p>Django 有一个自动执行数据库迁移并同步管理你的数据库结构的命令 - 这个命令是 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a>，我们马上就会接触它 - 但是首先，让我们看看迁移命令会执行哪些 SQL 语句。<a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-sqlmigrate"><code>sqlmigrate</code></a> 命令接收一个迁移的名称，然后返回对应的 SQL：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py sqlmigrate polls 0001</span><br></pre></td></tr></table></figure>
+
+<p>注意：这个 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-sqlmigrate"><code>sqlmigrate</code></a> 命令并没有真正在你的数据库中的执行迁移 - 相反，它只是把命令输出到屏幕上，让你看看 Django 认为需要执行哪些 SQL 语句。这在你想看看 Django 到底准备做什么，或者当你是数据库管理员，需要写脚本来批量处理数据库时会很有用。</p>
+<p>现在，再次运行 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a> 命令，在数据库里创建新定义的模型的数据表：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+
+<p><code>migrate</code>命令选中所有还没有执行过的迁移并应用在数据库上，也就是对模型的更改同步到数据库结构上。</p>
+<p>总结一下，改变模型所需要的三步：</p>
+<ul>
+<li>编辑 <code>models.py</code> 文件，改变模型。</li>
+<li>运行 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-makemigrations"><code>python manage.py makemigrations</code></a> 为模型的改变生成迁移文件。</li>
+<li>运行 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>python manage.py migrate</code></a> 来应用数据库迁移。</li>
+</ul>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><p>进入交互式命令行，尝试一下Django为你创建的各种API</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python manage.py shell</span><br></pre></td></tr></table></figure>
+
+<p>此命令和直接使用python 是因为<code>manage.py</code>会设置<code>DJANGO_SETTINGS_MODULE</code> 环境变量，这个变量会让 Django 根据 <code>mysite/settings.py</code> 文件来设置 Python 包的导入路径。</p>
+<p>今天先酱紫吧~补一下Python的知识。</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django实战（1）</title>
+    <url>/2020/06/23/Django%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
+<span id="more"></span>
+
+<h5 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h5><ul>
+<li>搭建虚拟开发环境，使用Pycharm创建Django项目</li>
+<li>本地配置local_settings.py，通过.gitingnor文件排除推送文件目录</li>
+<li>Git共有仓库的使用</li>
+</ul>
+<h5 id="任务如下"><a href="#任务如下" class="headerlink" title="任务如下"></a>任务如下</h5><ul>
+<li>创建一个名为tracer的虚拟环境</li>
+<li>创建一个django项目：tracer</li>
+<li>建立一个git仓库名称为tracer</li>
+<li>总结文档</li>
+</ul>
+<ol>
+<li>虚拟开发环境的创建</li>
+</ol>
+<p>1.1 安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>1.2 创建虚拟环境</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">virtualenv 环境名称</span><br><span class="line"></span><br><span class="line"><span class="comment">#两种创建方式</span></span><br><span class="line"><span class="number">1</span>、virtualenv 环境名称 --python=python3<span class="number">.6</span></span><br><span class="line"><span class="number">2</span>、virtualenv 环境名称 --python=<span class="string">&#x27;c:\python\....exe&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>1.3 激活虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd scripts进入虚拟环境的文件</span><br><span class="line">.\activate 激活虚拟环境</span><br><span class="line">.\deactivate 退出虚拟环境</span><br></pre></td></tr></table></figure>
+
+<p>1.4 在虚拟环境中安装模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 install django==<span class="number">1.11</span><span class="number">.28</span></span><br></pre></td></tr></table></figure>
+
+<p>1.5 使用pycharm创建项目</p>
+<p><img src="/img/image-20200623212036274-1593493719162.png" alt="image-20200623212036274"></p>
+<p>1.6 设置settings.py</p>
+<p>在settings.py中加入下面的代码，再创建一个名为local_seetings.py的文件用来保存自己的配置，优先选用local_settings中的设置</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>: </span><br><span class="line">    <span class="keyword">from</span> .Local_settings <span class="keyword">import</span> * </span><br><span class="line"><span class="keyword">except</span> ImportError: </span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>1.6 设置git的上传排出名单</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Django stuff: </span></span><br><span class="line">locaL_settings.py</span><br><span class="line">*.sqlite3</span><br><span class="line"></span><br><span class="line"><span class="comment"># database migrations</span></span><br><span class="line">*/migrations/*.py       //表示排除数据库迁移有关的文件</span><br><span class="line">!*/migrations/_init_.py //!表示排除后面路径下的文件</span><br></pre></td></tr></table></figure>
+
+<p>1.7 配置git远端服务器（测试）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">##本地部分</span></span><br><span class="line"></span><br><span class="line">git init //托管目录</span><br><span class="line">git add . // 将所有目录做一个提交</span><br><span class="line">git commit -m <span class="string">&#x27;text1&#x27;</span> //做一个提交的记录</span><br><span class="line"></span><br><span class="line"><span class="comment">##将本地仓库同步到远端</span></span><br><span class="line"></span><br><span class="line">git push https://github.com/heroamd/django.git master</span><br><span class="line"></span><br><span class="line"><span class="comment">##为了后续更加方便的推送到远端，给仓库地址添加一个别名</span></span><br><span class="line"></span><br><span class="line">git add origin https://github.com/heroamd/django.git //origin就代表后面仓库的地址</span><br><span class="line">    </span><br><span class="line"><span class="comment">##此后需要继续推送运行</span></span><br><span class="line"></span><br><span class="line">git push origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1.8 使用git命令将仓库push到新的分支</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##在前面完成之后的最后一步，修改git push命令</span><br><span class="line"></span><br><span class="line">git push origin master:新分支的名字</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/image-20200625125328101-1593493763894.png" alt="image-20200625125328101"></p>
+<p>1.9 使用git命令克隆分支到本地</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django实战（2）</title>
+    <url>/2020/06/26/Django%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89/</url>
+    <content><![CDATA[<p>​        <img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
+<span id="more"></span>
+
+<p><strong>学习内容</strong></p>
+<ul>
+<li>列举虚拟环境中的所有模块</li>
+<li>腾讯短信验证码校验注册页面</li>
+<li>Django的ModelForm组件（1.自动生成标签 2. 做表单验证）</li>
+<li>redis</li>
+</ul>
+<p><strong>学习任务</strong></p>
+<p>- </p>
+<p>1.1 列举所有模块以及版本号和安装</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt  //列举</span><br><span class="line">pip install -r requirements.txt  //安装</span><br></pre></td></tr></table></figure>
+
+<p>1.2  创建注册应用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py startapp registers</span><br></pre></td></tr></table></figure>
+
+<p>在models.py中添加：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserInfo</span>(moduels.Model):</span><br><span class="line">    username = models.CharField(max_length=<span class="string">&#x27;用户名&#x27;</span>,max_length=<span class="number">32</span>)</span><br><span class="line">    email = models.EmailField(max_length=<span class="string">&#x27;邮箱&#x27;</span>,max_length=<span class="number">32</span>)</span><br><span class="line">    mobile_phone = models.CharField(max_length=<span class="string">&#x27;手机号&#x27;</span>,max_length=<span class="number">32</span>)</span><br><span class="line">    password = models.CharField(max_length=<span class="string">&#x27;密码&#x27;</span>,max_length=<span class="number">32</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django实战（3）</title>
+    <url>/2020/06/28/Django%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89/</url>
+    <content><![CDATA[<p>​        <img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
+<span id="more"></span>
+
+<p><strong>学习内容</strong></p>
+<ul>
+<li>网络相关原理</li>
+<li>HTTP协议</li>
+<li></li>
+<li></li>
+</ul>
+<p><strong>学习任务</strong></p>
+<p>- </p>
+<p>1.1 <strong>网络相关原理</strong></p>
+<p><img src="/img/image-20200627190533303.png" alt="image-20200627190533303"></p>
+<p>在应用层和传输层之间有一个虚拟层 &#x3D;&#x3D;》socket 套接字&#x3D;&#x3D;&gt;相当于一个接口，在开发时只需要调用接口就可以。</p>
+<p>C&#x2F;S架构和B&#x2F;S架构：customer to servers&#x2F; brossow to servers</p>
+<p>S相当于远端服务器，用户端相当于B或者S，区别在于用户端是浏览器还是客户端。</p>
+<p>远端服务器：</p>
+<ol>
+<li>socket服务端</li>
+<li>绑定IP和端口</li>
+<li>监听</li>
+<li>等待连接</li>
+<li>接受连接</li>
+<li>接收数据</li>
+<li>返回数据</li>
+<li>断开连接</li>
+</ol>
+<p>浏览器（socket客户端）</p>
+<ol start="5">
+<li>socket客户端</li>
+<li>连接百度上的socket服务端</li>
+<li>发送数据</li>
+<li>接收数据</li>
+<li>断开连接</li>
+</ol>
+<p>1.2 <strong>HTTP协议</strong></p>
+<ol>
+<li><p>是一个应用层协议</p>
+</li>
+<li><p>默认端口是80，注意HTTPS的默认端口是443</p>
+</li>
+<li><p>工作原理是请求&#x2F;响应</p>
+</li>
+<li><p>HTTP的请求方法（八种）</p>
+<p>a. GET–简单访问，获取资源</p>
+<p>b. POST–提交数据 </p>
+<p>c. HEAD–</p>
+<p><a href="https://www.cnblogs.com/maple-shaw/articles/9060408.html">详细介绍</a></p>
+</li>
+</ol>
+<p>1.3 HTTP<strong>状态码</strong></p>
+<p>状态码的第一个数字代表当前响应的类型</p>
+<ul>
+<li>1xx——请求被服务器接受，继续处理</li>
+<li>2xx——请求成功被服务器接受并且接受</li>
+<li>3xx——重定向，需要后续操作才能处理</li>
+<li>4xx——请求错误，请求中含有错误无法被执行</li>
+<li>5xx——服务器处理请求发生错误</li>
+</ul>
+<p>1.4 <strong>URL</strong></p>
+<p><img src="/img/image-20200630132527226.png" alt="image-20200630132527226"></p>
+<p>1.5 HTTP<strong>请求格式</strong></p>
+<p><img src="/img/image-20200630132215297.png" alt="image-20200630132215297"></p>
+<p>&#x2F;r&#x2F;n 为回车换行符</p>
+<p>get请求类型没有请求数据</p>
+<p>1.6 </p>
+<p>1.7 返回HTML的内容</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django实战（4）</title>
+    <url>/2020/06/29/Django%E5%AE%9E%E6%88%98%EF%BC%884%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
+<span id="more"></span>
+
+<p><strong>学习内容</strong></p>
+<ul>
+<li>在django中配置Mysql数据库</li>
+<li></li>
+<li></li>
+</ul>
+<p><strong>学习任务</strong></p>
+<p>- </p>
+<p>1.1 在Django下配置Mysql数据库</p>
+<p>首先进入数据库的命令行环境下</p>
+<p><img src="/img/image-20200629222245746.png" alt="image-20200629222245746"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##创建数据库</span><br><span class="line">create database findcause;</span><br></pre></td></tr></table></figure>
+
+<p>如图所示提示安装成功</p>
+<p>回到Django中按照如下格式配置数据库</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.mysql&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;HOST&#x27;</span>: DB_HOST,</span><br><span class="line">        <span class="string">&#x27;PORT&#x27;</span>: DB_PORT,</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: DB_NAME,</span><br><span class="line">        <span class="string">&#x27;USER&#x27;</span>: DB_USER,</span><br><span class="line">        <span class="string">&#x27;PASSWORD&#x27;</span>: DB_PASSWORD,</span><br><span class="line">        <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;<span class="string">&#x27;charset&#x27;</span>: <span class="string">&#x27;utf8mb4&#x27;</span>, <span class="string">&#x27;use_unicode&#x27;</span>: <span class="literal">True</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hackintosh的APFS加密与解密过程，成功进入系统，filevault</title>
+    <url>/2020/06/11/Hackintosh%E7%9A%84APFS%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B%EF%BC%8C%E6%88%90%E5%8A%9F%E8%BF%9B%E5%85%A5%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<blockquote>
+<p>​        由于前一段我自己的炫龙DD2笔记本的Hackintosh系统换用EFI引导文件之后第一次开机不定时重启的问题仍然没有解决，又偏逢MACOS推出了最新的cartlina系统，国外大神又开发出了最新的OpenCore引导方式，所以我尝试升级系统看看能否解决。。。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>​        升级之后由于错误的选中了启用文件保险柜，即Filevault，也称FV2或FV，主分区被加密了APFS（加密）格式，这个格式在clover是没办法引导启动的，网络上有教程启动相关加密引导，但是不是很完美，无法加载键盘等问题时有发生。</p>
+<h1 id="解密过程"><a href="#解密过程" class="headerlink" title="解密过程"></a>解密过程</h1><p>由于我自己的电脑是WIN+MacOS双系统 ，尽管MacOS系统无法引导，但是win还是可以上去的，首先我尝试通过换用同机型的OC引导文件实现OC引导开机。</p>
+<ol>
+<li><p>打开GENIUSDISK软件找到MacOS对应固态盘的efi分区，将网路上成熟的EFI文件放进去之后重启，发现引导直接跳过OC引导通过我的win固态盘直接进入windows 系统。现在我猜想可能是因为作者并没有配置OC 的APFS加密的相关配置导致UEFI无法识别？暂时可能是这个原因。</p>
+</li>
+<li><p>在尝试OC失败之后，我开始刷论坛，发现有一篇帖子（<a href="https://bbs.pcbeta.org/viewthread-1847182-1-1.html">链接</a>）该帖子提示我现在已经有方法使用Clover配合解密驱动进入系统了，只需要在driver64uefi中加入相关的驱动就可以了，我重新进入win后尝试之后失败。当时还不知道失败原因。</p>
+</li>
+<li><p>失败后我冷静分析了一下，目前OC和直接加密启动是不行了，那我还有两条路可以走，其一是在我机械硬盘中划出一部分分区，在安装一次操作系统，通过新系统访问旧系统将文件拷贝出来之后再重新安装MacOS，正好还可以体验一下新版本。但是这样做有一个风险就是机械硬盘的引导文件可能破坏还可能破坏windows系统的资料，这样是非常不划算的。其二是尽管MacOS不能直接启动，但是仍然保留了recovery分区，根据上面一个帖子的提示，在clover里面作者其实也保留了加密启动的方式但因为没有合适的驱动所以一直被作者搁置。这曾经是一个全球无解只推荐重装系统的老大难问题。在思考了一晚之后我决定重新尝试recovery分区里面通过终端解密的方法拷贝资料。</p>
+</li>
+<li><p>在阅读大量外网论坛资料之后（不得不说这几年黑苹果在国内已经逐渐冷淡，国外不论是资料和大佬的专业程度都优于国内），我找到了这两个教程（<a href="https://www.elitemacx86.com/threads/guide-how-to-unlock-and-decrypt-filevault.474/">教程1</a>）（<a href="https://www.elitemacx86.com/threads/guide-how-to-enable-filevault.473/">教程2</a>）和国内论坛那篇文章类似，最后一步都是添加APFS驱动，但是在前面他还多了一些解密的过程。我开始尝试这种方法。</p>
+</li>
+<li><p>启动recovery分区之后，如图<br>   <img src="/images/611_2.jpg"></p>
+<p>   被加密的APFS分区，挂载之后的图像</p>
+<p>   尝试教程但是中间部分erro</p>
+<p>   <img src="/images/611_1.jpg"></p>
+</li>
+<li><p>我冷静分析了一下原因，我和教程中最大的不同是他在diskutil apfs list 之后的加密分区是已加密，而我自己的是加密过程 10% 暂停（Encryption Progress: 10% (Paused) (Un1cked)）所以我的硬盘应该是没有加密完的状态，因此解密驱动无法启动系统卡在这里也是可以理解的。我尝试教程之后部分出现错误也可能是因为这样，我认为我现在只有将加密进程跑完才可以考虑解密的事情。</p>
+</li>
+<li><p>于是我先加密后解密之后，甚至不需要更改clover配置文件就可以恢复被加密的分区。</p>
+<h1 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h1></li>
+</ol>
+<p>首先完成加密的过程在Terminal 中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/libexec/apfsd (for apfs file system)</span><br><span class="line">/usr/libexec/corestoraged (for others)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">diskutil</span> <span class="string">apfs</span> <span class="string">list</span> <span class="string">//获取APFS卷的列表</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">diskutil apfs unlockVolume /dev/PLEASE_INPUR_DISK_ID //先解锁没有挂载的系统盘，对于我是disk2s1</span><br></pre></td></tr></table></figure>
+<p>接下来输入用户密码，回车</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">diskutil apfs listcryptousers /dev/disk2s1   //获取用户列表和UUID，准备解密</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">diskutil apfs decryptVolume /dev/disk1s1 -user XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   //开始解密</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">diskutil apfs list   //在解密的过程是不会有任何提示的，可以通过该语句随时查看解密进度</span><br></pre></td></tr></table></figure>
+
+<p>我的解密进度</p>
+<p><img src="/images/611_3.jpg"></p>
+<p>解密成功直接进入系统</p>
+<p><img src="/images/611_4.jpg"></p>
+]]></content>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STC15到电源完整性设计</title>
+    <url>/2021/07/22/STC15%E5%88%B0%E7%94%B5%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
+<span id="more"></span>
+
+<p><img src="/img/image-20210722202755556.png" alt="image-20210722202755556"></p>
+<p><img src="/img/image-20210722202804590.png" alt="image-20210722202804590"></p>
+<p><img src="/img/image-20210722202821805.png" alt="image-20210722202821805"></p>
+<p><img src="/img/image-20210722202830963.png" alt="image-20210722202830963"></p>
+<p><img src="/img/image-20210722202837348.png" alt="image-20210722202837348"></p>
+<p><img src="/img/image-20210722203821443.png" alt="image-20210722203821443"></p>
+<p>不同封装的最大功率不一样</p>
+<p><img src="/img/image-20210722204408114.png" alt="image-20210722204408114"></p>
+<p>考虑温度对压降影响</p>
+<p>HT7333作恒流源输出</p>
+<p><img src="/img/image-20210722204842185.png" alt="image-20210722204842185"></p>
+<p><img src="/img/image-20210722205019975.png" alt="image-20210722205019975"></p>
+<p>公众号里有介绍</p>
+<p><img src="/img/image-20210722210617690.png" alt="image-20210722210617690"></p>
+<p>开关电源注意：环路尽量小</p>
+<p><img src="/img/image-20210722211104198.png" alt="image-20210722211104198"></p>
+<p>晶振回路注意：尽量靠近单片机、环路尽可能小</p>
+<p><img src="/img/image-20210722211827026.png" alt="image-20210722211827026"></p>
+<p><img src="/img/image-20210722211926422.png" alt="image-20210722211926422"></p>
+<p>区域内不应该走线！</p>
+<p><img src="/img/image-20210722212017910.png" alt="image-20210722212017910"></p>
+<p>C14滤波电容十分重要 关系到EMC和蓄能作用，同样形成环路：电容尽量靠近需求方的管脚</p>
+<p><img src="/img/image-20210722212119344.png" alt="image-20210722212119344"></p>
+<p>开关电源取样电路的取样点在电容引脚上,千万不要靠近电感</p>
+<p><img src="/img/image-20210722212608734.png" alt="image-20210722212608734"></p>
+<p>远离环路：</p>
+<p><img src="/img/image-20210722212707129.png" alt="image-20210722212707129"></p>
+<p>靠近引脚</p>
+<p>总结：保证取样点稳定、不会受到干扰、靠近IC，注意电容引脚引出了两根线，分别代表FB回路和BUCK回路</p>
+<p>AD采样部分尽可能不受影响，避免穿过其他元器件</p>
+<p><img src="/img/image-20210722213240488.png" alt="image-20210722213240488"></p>
+<p>CH340N下载电路：</p>
+<p><img src="/img/image-20210722221326491.png" alt="image-20210722221326491"></p>
+<p>stc8单片机复位电路</p>
+<p><img src="/img/image-20210722222529926.png" alt="image-20210722222529926"></p>
+<p><img src="/img/image-20210722222541105.png" alt="image-20210722222541105"></p>
+<p><img src="/img/image-20210722222726065.png" alt="image-20210722222726065"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STC15项目到层次原理图</title>
+    <url>/2021/07/23/STC15%E9%A1%B9%E7%9B%AE%E5%88%B0%E5%B1%82%E6%AC%A1%E5%8E%9F%E7%90%86%E5%9B%BE/</url>
+    <content><![CDATA[<p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
+<span id="more"></span>
+
+<p>层次原理图简介：层次原理图就是把一个系统分成多个模块，然后每个模块也可以细分，最终将各个模块分配到各张图纸上，图纸直接采用端口进行连接。这种结构需要一个主原理图图纸—<strong>工程顶层图纸</strong>。</p>
+<p><img src="/img/image-20210723220959160.png" alt="image-20210723220959160"></p>
+<p><img src="/img/image-20210723221009657.png" alt="image-20210723221009657"></p>
+<p><img src="/img/image-20210723221017767.png" alt="image-20210723221017767"></p>
+<p><img src="/img/image-20210723221027074.png" alt="image-20210723221027074"></p>
+<p><img src="/img/image-20210723221036010.png" alt="image-20210723221036010"></p>
+<p><img src="/img/image-20210723221052448.png" alt="image-20210723221052448"></p>
+<p><img src="/img/image-20210723221105034.png" alt="image-20210723221105034"></p>
+<p><img src="/img/image-20210723221115434.png" alt="image-20210723221115434"></p>
+<p><img src="/img/image-20210723221135199.png" alt="image-20210723221135199"></p>
+<p><img src="/img/image-20210723221148131.png" alt="image-20210723221148131"></p>
+<p><img src="/img/image-20210723221155279.png" alt="image-20210723221155279"></p>
+<p><a href="https://blog.csdn.net/qq_38351824/article/details/100970715?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-8.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-8.control">参考文章</a></p>
+<p>AD18引导线消失，只有拖动元器件才显示？</p>
+<p><img src="/img/image-20210723222443927.png" alt="image-20210723222443927"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>lilian</title>
+    <url>/2020/03/17/lilian/</url>
+    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/17/8aZd0g.png" alt="8aZd0g.png"></p>
+<span id="more"></span>
+
+<p>​                                      She found the lonely person ready to leave<br>​                                                           So I prayed at dusk<br>​                                                Until night she turned to hear</p>
+<p>​                                                      There is a beach far away<br>​                                            Lonely man is holding a sail at sea<br>​                                            If you see him return to the coast<br>​                                           Please tell him your name my name</p>
+<p>​                                                                       Lilian</p>
+]]></content>
+      <tags>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>openmv光耦和232通信</title>
+    <url>/2021/08/13/openmv%E5%85%89%E8%80%A6%E5%92%8C232%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
+<span id="more"></span>
+
+<h4 id="一、光耦"><a href="#一、光耦" class="headerlink" title="一、光耦"></a>一、光耦</h4><p>1、单片机IO输出能力不足</p>
+<p><img src="/IMG/image-20210813201253126.png" alt="image-20210813201253126"></p>
+<p>2、IO口输出能力足够</p>
+<p><img src="/IMG/image-20210813201432696.png" alt="image-20210813201432696"></p>
+<p>下面的一路光耦做电机反馈信号</p>
+<p>3、</p>
+<p><img src="/IMG/image-20210813201617993.png" alt="image-20210813201617993"></p>
+<p>4、<img src="/IMG/image-20210813201649992.png" alt="image-20210813201649992"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听电影说】《海边的曼彻斯特》给我的第一感</title>
+    <url>/2019/12/24/%E3%80%8A%E6%B5%B7%E8%BE%B9%E7%9A%84%E6%9B%BC%E5%BD%BB%E6%96%AF%E7%89%B9%E3%80%8B%E7%BB%99%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%84%9F/</url>
+    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/03/13/CJoQSnytHdv5kMa.jpg" alt="p2426030780.jpg"></p>
+<span id="more"></span>    
+
+<p>​        片子其实早就想看了，恰巧和主角处境一般时，生活或者其他方面不顺时刷影便提上议程。</p>
+<p>​        首先，整片的压抑感和主角低沉寡言的形象，拖的很长的故事线把整个片子的气氛压的很低，主角先是被炒，工作不顺后来哥哥的死。。。变故接踵而至，但是lee内心好像并没有因为这些变故而产生半点波澜，每天照旧的铲雪，像是照例一般的看完哥哥。。。。。。</p>
+<pre><code>      我印象很深的是当lee带小joe去完太平间，律师，看过亲生母亲。。。等等我完全感觉不到剧情的波澜，平淡的像一部无色的纪录片，同时lee像是另一世界的我一般相似，也许是有痛苦就应该克服之后走出去的固有正确价值观的教育下，我开始也很讨厌lee这样一个人，明明有很多机会可以不那么自闭，明明可以和randy聊聊天，明明可以接受ex的原谅，但是主角并没有接受。。。。。我甚至怀疑这部片子正是导演派来压抑我的，非常不明白lee为何不去尝试改变呢？仿佛逃避，回避，闭上眼或者酒吧闹事被打的抠鼻流血就是lee回应这个世界的唯一方法，好像报复一下这个世界就是惩罚了世界就是原谅了自己。
+
+      但是，在了解了lee自己酗酒后错烧房子并且两个女儿也未能幸免，这如同一个巨石死死地压在了主角lee的心上，我开始好奇为何在发达的西方国度心理健康治疗被看得高于肉体的治愈的这样一个社会环境下主角为什么不去选择治疗呢？可是钱来自哪里呀，难道要靠自己的自我迭新吗？我想这是对于这样一个落魄之人最好的解释。
+
+      改变确实是一条可以选择的方法或者途径，但是从来也没有必须要求一个人去选择直面过去，选择改头换面，这是本片给我的一个新颖的观点。
+
+     从前和小joe一样有朋友围绕，和老joe一起打鱼出海可以说小joe的&#39;&#39;正常&#39;&#39;生活他完全经历过，可是当他看到那个参加冰球队篮球队乐队还有好几个女友陪伴的青春横溢的小joe时，他选择了阻挠，甚至还想把joe带离那里，完全不顾joe的感受。我也很愤怒，你自己选择了逃避为何要带一个人一起上路呢？索性最后lee认识到了这点，把joe拖给了另一个比他更适合做父亲的一个家庭，说实话我为joe深深捏了一把汗。
+
+     社会的残酷，和家庭最大的区别我想已经很深刻的体现了，（这是我目前的理解上限，欢迎各位指正毕竟我还有很长的路走），社会仅仅会指正你的错误却不会主动引导你方向，而且指正你的方式也是冷酷无情带不了半点温度。
+
+     你选择改变首先意味着原谅，你的落魄不是惩罚社会也不是惩罚世界的手段，我想起院长的话，现代社会谁对谁也不会负责，如何保护自己可以说困扰这许许多多的人，不过我想，在美丽的阳光普照的曼彻斯特，有多好的阳光，有多么美丽的风景，眼前不能仅仅看到苍茫的雪路零下的温度呀！这也许是导演留在片尾的一丝曙光升华了整部电影。
+
+     但是倘若经历过那些不悦的时光，我想原谅和直面会让自己觉得自己一直带着一个人皮面具，独自时本色无疑群居时没事人一般，这也是痛苦的啊，这能归责于落魄无神的lee吗？
+
+     不是每个人都有选择麻木的必然，逃避也能逃避的很好，起码现在不难受哈哈。。。。。
+</code></pre>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【01物联网实习】BC26命令和模组使用，使用MQTT.fx完成设备侧开发</title>
+    <url>/2021/07/06/%E3%80%9001%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91BC26%E5%91%BD%E4%BB%A4%E5%92%8C%E6%A8%A1%E7%BB%84%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BD%BF%E7%94%A8MQTT.fx%E5%AE%8C%E6%88%90%E8%AE%BE%E5%A4%87%E4%BE%A7%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<p>实习第一天内容：</p>
+<ul>
+<li>BC26模组测试指导——使用sscom5虚拟串口软件测试模块，熟悉UDP\TCP\MQTT 协议</li>
+<li>华为云物联网平台的使用——通过向导式极速体验创建项目，之后使用演示包上报数据，在华为云修改上报次数修改数据上报时间</li>
+<li>新增虚拟设备完成对产品进行调试</li>
+<li>使用MQTT.FX接入服务器完成设备侧开发</li>
+</ul>
+<h4 id="一、BC26模组测试和不同通信协议比较"><a href="#一、BC26模组测试和不同通信协议比较" class="headerlink" title="一、BC26模组测试和不同通信协议比较"></a>一、BC26模组测试和不同通信协议比较</h4><p>首先，连接下载器和BC26模组，这样就完成了模组和电脑的通信，模组仅负责收发电脑端所提供的数据字和控制指令，不参与对接收到的数据包解算以及处理的任务。</p>
+<p>第二步：使用以下指令对模块和插在模块上的USIM卡进行测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AT\r\n                     测试模块</span><br><span class="line"></span><br><span class="line">AT+CIMI\r\n                查询USIM卡IMSI,执行命令使TA 返回USIM 卡的IMSI（不带双引号的字符串），旨在允许TE 识别连接到MT 的USIM。</span><br><span class="line"></span><br><span class="line">AT+CSQ\r\n                 上报信号质量,该命令可返回接收信号强度指示&lt;rssi&gt;和信道误码率&lt;ber&gt;。        </span><br><span class="line"></span><br><span class="line">AT+CGATT?\r\n              PS域附着或去附着,注册上网</span><br></pre></td></tr></table></figure>
+
+<p>补充理解AT命令的格式(<a href="/img/Quectel_BC26&BC20&BC030x%E7%B3%BB%E5%88%97_AT%E5%91%BD%E4%BB%A4%E6%89%8B%E5%86%8C_V1.0.pdf">BC26&amp;BC20&amp;BC030X系列命令说明书</a>)：<br><img src="/img/Snipaste_2021-07-10_16-01-38.png"></p>
+<p>BC26模组的厂家提供了测试用服务器，老师提供了一个MQTT的测试服务器，IP和端口号如下：</p>
+<p>UDP:    47.92.146.210 : 9999<br>TCP:     47.92.146.210 : 8888<br>MQTT: 47.92.146.210 : 1883</p>
+<p>老师MQTT：123.60.209.34</p>
+<p>步骤如下：</p>
+<p><img src="/img/2201.png"><br><img src="/img/2202.png"><br><img src="/img/2203.png"><br><img src="/img/2204.png"><br><img src="/img/2205.png"><br><img src="/img/2206.png"><br><img src="/img/2207.png"><br><img src="/img/2208.png"><br><img src="/img/2209.png"><br><img src="/img/2210.png"><br><img src="/img/2211.png"><br><img src="/img/2212.png"><br><img src="/img/2213.png"></p>
+<h4 id="二、华为云物联网平台的使用"><a href="#二、华为云物联网平台的使用" class="headerlink" title="二、华为云物联网平台的使用"></a>二、华为云物联网平台的使用</h4><h5 id="1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。"><a href="#1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。" class="headerlink" title="1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。"></a>1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。</h5><p><img src="/img/zh-cn_image_0000001091279193.png"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165301.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165536.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165725.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165808.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165855.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710170326.jpg"></p>
+<ul>
+<li><strong>“服务ID”</strong>：BasicData</li>
+<li><strong>“服务类型”</strong>：建议和服务ID保持一致</li>
+</ul>
+<p>说明：<strong>属性和命令类似于变量，不同是，属性为设备上报用变量，命令是我们下发用变量</strong></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710170951.jpg"></p>
+<ul>
+<li><strong>“属性名称”</strong>：luminance</li>
+<li><strong>“必选”</strong>：勾选</li>
+<li><strong>“数据类型”</strong>：int（整型）</li>
+<li><strong>“访问权限”</strong>：可读、可写</li>
+<li><strong>“取值范围”</strong>：0~65535</li>
+<li><strong>“步长”</strong>：0</li>
+<li><strong>“单位”</strong>：不填写</li>
+</ul>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710171148.jpg"></p>
+<p>小总结：在前面我们首先创建了名称为  <strong>齐修远测试</strong>  的产品，之后为该产品添加了  <strong>lumuance</strong>  的属性，其为整型，取值范围在0-65535之间，并设置访问权限设置为可读可写，我的理解产品属性是产品自身的属性，可以通过自己控制也可以读取它的值，接着又创建了  <strong>lightcontrol</strong> 的命令，设置其参数为  <strong>switch</strong> 用来下发开关指令。</p>
+<p>区别在于属性只限于产品自身对自身的控制，而命令是通过下发参数来进行对产品的控制。</p>
+<h4 id="二、注册虚拟设备"><a href="#二、注册虚拟设备" class="headerlink" title="二、注册虚拟设备"></a>二、注册虚拟设备</h4><p>1、单击<strong>“在线调试”</strong>页签，单击<strong>“新增测试设备”</strong>，在弹出的页面中选择<strong>“虚拟设备”</strong>，并单击确认。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710165950.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710170030.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710201652.jpg"></p>
+<h4 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h4><h5 id="1、关于产品的服务和命令之间的关系"><a href="#1、关于产品的服务和命令之间的关系" class="headerlink" title="1、关于产品的服务和命令之间的关系"></a>1、关于产品的服务和命令之间的关系</h5><p>产品的服务是<strong>产品所包含的</strong>设备上报给用户端的服务信息，是自下而上的。命令是用户对设备的控制命令，是自上而下的。产品的服务包含所有设备的属性，也就是设备可以上报给服务器的所有参数，按需上报，有则需要上报没有则不需要上报。同样命令也是用户下发给所有设备的所有控制亮。</p>
+<h5 id="2、关于产品和设备之间的关系"><a href="#2、关于产品和设备之间的关系" class="headerlink" title="2、关于产品和设备之间的关系"></a>2、关于产品和设备之间的关系</h5><p>一个产品包含很多设备，一旦设备注册上网成功，并通过MQTT协议连接服务器之后则判断该设备在线。</p>
+<h4 id="四、使用MQTT-FX接入服务器完成设备侧开发"><a href="#四、使用MQTT-FX接入服务器完成设备侧开发" class="headerlink" title="四、使用MQTT.FX接入服务器完成设备侧开发"></a>四、使用MQTT.FX接入服务器完成设备侧开发</h4><p>在前面通过虚拟设备在电脑端完成对云端服务器的测试，接下来我们使用MQTT代提虚拟设备直接完成消息的发布和订阅</p>
+<h5 id="1、MQTT简介"><a href="#1、MQTT简介" class="headerlink" title="1、MQTT简介"></a>1、MQTT简介</h5><p>MQTT（Message Queuing Telemetry Transport）是一个基于客户端-服务器的消息发布&#x2F;订阅传输协议，主要应用于计算能力有限，且工作在低带宽、不可靠的网络的远程传感器和控制设备，适合长连接的场景，如智能路灯等。</p>
+<p>MQTTS是MQTT使用TLS加密的协议。采用MQTTS协议接入平台的设备，设备与物联网平台之间的通信过程，数据都是加密的，具有一定的安全性。</p>
+<p><img src="/img/zh-cn_image_0269115067.png"></p>
+<p>区别在于MQTTS是加密的而MQTT是非加密的</p>
+<p><img src="/img/zh-cn_image_0263925108.png"></p>
+<h5 id="2、使用MQTT-fx调测"><a href="#2、使用MQTT-fx调测" class="headerlink" title="2、使用MQTT.fx调测"></a>2、使用MQTT.fx调测</h5><p>本文档以MQTT.fx为例，介绍以MQTT原生协议接入物联网平台。MQTT.fx是目前主流的MQTT客户端。<strong>调测的目的是为了：快速验证是否可以与物联网平台服务交互发布或订阅消息。</strong></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710203210.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710203308.jpg"></p>
+<p>该地址同样分为设备端接入和应用接入两种方式，也即用户接入和设备接入，但是针对可能不支持域名接入的设备，使用ping命令获取域名对应的Ip地址，使用ip地址接入平台。</p>
+<p>3、具体使用MQTT.fx进行调测的方式</p>
+<p><strong>步骤一、首先创建以MQTT为协议类型的数据格式为JSON的产品</strong></p>
+<p><strong>步骤二、连接鉴权</strong></p>
+<p>该步骤需要配置服务器的ip，端口号以向服务器注册ID和订阅ID的信息，其次还需要配置以下三个重要的参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必选&#x2F;可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ClientId</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>一机一密的设备clientId由4个部分组成：设备ID、设备身份标识类型、密码签名类型、时间戳，通过下划线“_”分隔。<strong>设备ID</strong>：指设备在平台成功注册后生成的唯一设备标识，通常由设备的产品ID和设备的NodeId通过分隔符“_”拼装而来。<strong>设备身份标识类型</strong>：固定值为0，表示设备ID。<strong>密码签名类型</strong>：长度1字节，当前支持2种类型：“0”代表HMACSHA256不校验时间戳。“1”代表HMACSHA256校验时间戳。<strong>时间戳</strong>：为设备连接平台时的UTC时间，格式为YYYYMMDDHH，如UTC 时间2018&#x2F;7&#x2F;24 17:56:20 则应表示为2018072417。</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>设备ID。</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>加密后的设备密钥。Password的值为使用“HMACSHA256”算法以时间戳为密钥，对secret进行加密后的值。secret为注册设备时平台返回的secret。</td>
+</tr>
+</tbody></table>
+<p>通过上述的计算可以得到  MQTT.fx  的三个参数，使用<a href="https://iot-tool.obs-website.cn-north-4.myhuaweicloud.com/">该网站</a>计算ClientId，Username，Password三个关键词的值，如图所示：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710213334.jpg"></p>
+<p>注意：因为MQTT.fx实际模拟的是设备端连接华为云的情况，所以需要使用设备ID进行计算，而不是产品ID！！！！需要特别注意！！！</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710213612.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710213810.jpg"></p>
+<p>连接成功！</p>
+<p>4、连接成功之后，使用MQTT.fx向华为云上报数据</p>
+<p>设备若通过MQTT通道上报数据，需要发给指定的topic，上报消息的topic格式为：“$oc&#x2F;devices&#x2F;{device_id}&#x2F;sys&#x2F;properties&#x2F;report”，其中<strong>“deviceId”</strong>的值，对一机一密设备，使用deviceId接入时填写为设备注册成功后返回的“deviceId”值。</p>
+<p>例如：$oc&#x2F;devices&#x2F;{60e961606fd1630286a3009a_1625907608720}&#x2F;sys&#x2F;properties&#x2F;report</p>
+<p>填写上报的数据的<strong>请求参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>必选&#x2F;可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>services</td>
+<td>必选</td>
+<td>List<ServiceProperty></td>
+<td>设备服务数据列表（具体结构参考下表ServiceProperty定义表）</td>
+</tr>
+</tbody></table>
+<p>ServiceProperty定义表：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>必选&#x2F;可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>service_id</td>
+<td>必选</td>
+<td>String</td>
+<td>设备服务的ID。</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>必选</td>
+<td>Object</td>
+<td>设备服务的属性列表，具体字段在设备关联的产品模型中定义。</td>
+</tr>
+<tr>
+<td>eventTime</td>
+<td>可选</td>
+<td>String</td>
+<td>设备采集数据UTC时间（格式：yyyyMMddTHHmmssZ），如：20161219T114920Z。设备上报数据不带该参数或参数格式错误时，则数据上报时间以平台时间为准。</td>
+</tr>
+</tbody></table>
+<p><strong>请求示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;services&quot;: [&#123;</span><br><span class="line">            &quot;service_id&quot;: &quot;streetlight&quot;,</span><br><span class="line">            &quot;properties&quot;: &#123;</span><br><span class="line">                &quot;luminance&quot;: 16</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;event_time&quot;: &quot;20210710T214312Z&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>图示：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210710214925.jpg"></p>
+<p><strong>上述内容属于设备测开发，即使用电脑开发物联网设备（完成物联网设备上发数据），接下来学习应用侧开发（完成应用侧下发控制指令）</strong></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【02物联网实习】使用node-red完成应用侧开发流程</title>
+    <url>/2021/07/07/%E3%80%9002%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E4%BD%BF%E7%94%A8node-red%E5%AE%8C%E6%88%90%E5%BA%94%E7%94%A8%E4%BE%A7%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h3 id="一、Node-RED背景介绍"><a href="#一、Node-RED背景介绍" class="headerlink" title="一、Node-RED背景介绍"></a>一、<strong>Node-RED背景介绍</strong></h3><p>·     Node-Red是IBM公司开发的一个可视化的编程工具。它允许程序员通过组合各部件来编写应用程序。这些部件可以是硬件设备(如：Arduino板子)、Web API(如：WebSocket in和WebSocket out)、功能函数(如：range)或者在线服务(如：email)。</p>
+<p>·     Node-Red提供基于网页的编程环境。通过拖拽已定义node到工作区并用线连接node创建数据流来实现编程。程序员通过点击‘Deploy’按钮实现一键保存并执行。程序以JSON字符串的格式保存，方便用户分享、修改。</p>
+<p>·     Node-Red基于Node.js，它的执行模型和Node.js一样，也是事件驱动非阻塞的。理论上，Node.js的所有模块都可以被封装成Node-Red的一个或几个node。（Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。使用了一个事件驱动、非阻塞式 I&#x2F;O 的模型，使其轻量又高效。 Node.js 的包管理器 npm是全球最大的开源库生态系统。）</p>
+<h4 id="二、本期任务"><a href="#二、本期任务" class="headerlink" title="二、本期任务"></a>二、本期任务</h4><ul>
+<li>完成Node-RED环境的安装</li>
+</ul>
+<h4 id="三、Node-RED总结"><a href="#三、Node-RED总结" class="headerlink" title="三、Node-RED总结"></a>三、Node-RED总结</h4><h5 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h5><p>IBM公司开发，可视化编程工具，可以应用于各种硬件设备，基于网页编程环境，基于Node.js（npm是包管理器，全球最大的生态系统）。</p>
+<p>Node-RED 连接输入节点和输出节点是采用数据流的方式，部署按键有两个功能，一、保存；二、部署。在添加节点之后节点的右上角有一个蓝色的圆点，这个圆点的意思是，此节点还没有部署和保存。</p>
+<p><img src="/img/%E5%9B%BE%E7%89%871.png"></p>
+<h5 id="2、调试"><a href="#2、调试" class="headerlink" title="2、调试"></a>2、调试</h5><p>“inject”节点可以手动输入消息，节点左侧有一个小按钮，点击按钮可以手动注入消息。</p>
+<p><img src="/img/%E5%9B%BE%E7%89%872.png"></p>
+<p>在点击inject节点的按钮之前，必须确保debug节点是可用的，即按钮必须是“伸出来”的，而不是像按钮3一样“缩回去”，按钮“缩回去”的debug节点不工作。点击按钮可以切换节点是否工作。</p>
+<p><img src="/img/%E5%9B%BE%E7%89%873.png"></p>
+<h4 id="四、常用控件介绍"><a href="#四、常用控件介绍" class="headerlink" title="四、常用控件介绍"></a>四、常用控件介绍</h4><h5 id="1、inject注入，输入时间戳"><a href="#1、inject注入，输入时间戳" class="headerlink" title="1、inject注入，输入时间戳"></a>1、inject注入，输入时间戳</h5><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210711144125.jpg"></p>
+<p> <img src="/img/QQ%E6%88%AA%E5%9B%BE20210714125152.jpg"></p>
+<p>时间在线计算器：<a href="http://tool.chinaz.com/tools/unixTime.aspx">入口</a></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714125314.jpg"></p>
+<p>如需输入数组，在“内容”一栏，要选择二进制，并且手动添加英文字符中的括号与逗号。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714125345.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714125434.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714125509.jpg"></p>
+<p>总结：inject需要了解的参数有：时间戳、内容和主题。其中内容主要用到数字和二进制流两类，二进制流指的是数组。内容可以为十进制也可以为十六进制，还可以输入ASCII码，利用inject的二进制流可以进行ASCII码与字符的转换（需要在缓冲区编辑器中查看），如果需要输入回车换行等无法在文字列中中输出的字符必须用ASCII码来表示。</p>
+<h5 id="2、主题与名称"><a href="#2、主题与名称" class="headerlink" title="2、主题与名称"></a>2、主题与名称</h5><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714130000.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714130251.jpg"></p>
+<p>总结：节点属性中也可以配置主题（topic）与名称（name）。name属性只影响了工作区中节点的外观，并没有影响流中数据包的内容。<br>Topic是数据包本身带的一个属性，其信息会随着数据包下发。在后续的学习中，经常会用到topic来判断数据包的来源。</p>
+<h5 id="3、重复发送"><a href="#3、重复发送" class="headerlink" title="3、重复发送"></a>3、重复发送</h5><p>使用间隔和特定时间间隔两种， “特定时间内间隔” 和 “特定时间” 会使用cron系统。区别在于cron系统的时间只看“整”的时间，或者说“标准的”时间，并不关心程序是什么时候开始运行的。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714131308.jpg"></p>
+<h5 id="4、Debug控件介绍"><a href="#4、Debug控件介绍" class="headerlink" title="4、Debug控件介绍"></a>4、Debug控件介绍</h5><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714131729.jpg"></p>
+<p>调试窗口自带有过滤功能，可以过滤掉不需要的消息。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714131822.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714131954.jpg"></p>
+<h5 id="5、Switch控件"><a href="#5、Switch控件" class="headerlink" title="5、Switch控件"></a>5、Switch控件</h5><p>Switch本意是开关、转换，用在node-red里有点像一个岔路口，node-red里边有数据流，数据流可能有不同的分支，在“岔路口”管理数据流向的。Switch控件可以根据数据的topic或是payload，或者其它属性来判断数据该流向哪一个出口。</p>
+<p>使用switch判断数组：1、将inject注入内容改为数组    2、将switch节点改为payload[1]：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714132317.jpg"></p>
+<h5 id="6、函数控件实现多个输出"><a href="#6、函数控件实现多个输出" class="headerlink" title="6、函数控件实现多个输出"></a>6、函数控件实现多个输出</h5><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714133758.jpg"></p>
+<p>从严谨的角度来讲，函数控件中的return不应该称为“返回值”，应为它没有返回任何一个东西给“调用”它的节点。它真正的作用，是传递参数给下一个节点。所谓的返回值，只是一个习惯性的说法而已。</p>
+<h5 id="7、通过判断语句进行数据分类"><a href="#7、通过判断语句进行数据分类" class="headerlink" title="7、通过判断语句进行数据分类"></a>7、通过判断语句进行数据分类</h5><p>输入与输出不变，把函数节点替换掉switch节点，并修改代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (msg.payload &gt;<span class="number">10</span> )&#123;</span><br><span class="line">    <span class="keyword">return</span> [msg,null,null];</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(msg.payload === <span class="number">10</span> )&#123;</span><br><span class="line">    <span class="keyword">return</span> [null, msg,null];</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span>[null,null,msg];   <span class="comment">//分别代表第一路，第二路，第三路输出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714135422.jpg"></p>
+<p>注意：三个等号我们称为等同符,当等号两边的值为相同类型的时候,直接比较等号两边的值,值相同则返回true,若等号两边的值类型不同时直接返回false。</p>
+<h5 id="8、单个数字的计算"><a href="#8、单个数字的计算" class="headerlink" title="8、单个数字的计算"></a>8、单个数字的计算</h5><p>用函数节点对数字进行计算  :  var newMsg &#x3D; {payload: msg.payload * 2 }语句的意思是，新建一个对象，名为newMsg，它有payload属性，并且payload的值为msg.payload的两倍。最后返回的是newMsg，也就是新建的这个对象。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714135610.jpg"></p>
+<p>注意：return的返回值时下一个节点的payload</p>
+<p>如果不希望新建一个对象，直接修改msg.payload的方法：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">msg.payload = msg.payload*<span class="number">2</span>;</span><br><span class="line"><span class="keyword">return</span> msg;</span><br></pre></td></tr></table></figure>
+
+<h5 id="9、使用数组进行数据的截取与组装"><a href="#9、使用数组进行数据的截取与组装" class="headerlink" title="9、使用数组进行数据的截取与组装"></a>9、使用数组进行数据的截取与组装</h5><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714135913.jpg"></p>
+<h4 id="五、串口固件的使用"><a href="#五、串口固件的使用" class="headerlink" title="五、串口固件的使用"></a>五、串口固件的使用</h4><p>默认情况下，node-red并不会带有串口控件。我们可以进行手动安装。</p>
+<p>安装之后对串口进行连接，使用串口助手打开COM11，并设置为“非HEX显示”, “非HEX发送”。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714141138.jpg"></p>
+<p>在查询为COM11之后关闭串口助手的连接，在Node-RED中连接串口如图同时在serious-OUT和Serious-IN设置如下：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714141506.jpg"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【03物联网实习】git使用梳理</title>
+    <url>/2021/07/08/%E3%80%9003%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91git%E4%BD%BF%E7%94%A8%E6%A2%B3%E7%90%86/</url>
+    <content><![CDATA[<p><img src="/images/cover2.jpg" alt="cover2"></p>
+<span id="more"></span>
+
+<p>1、首先明确一个新的仓库管理平台需要先完成个人计算机SSH公钥的添加，也称为部署密钥，在生成SSH密钥之后（<a href="https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E7%94%9F%E6%88%90-SSH-%E5%85%AC%E9%92%A5">生成密钥</a>），将.pub结尾的文件内容复制进目标平台即可完成认证</p>
+<p><img src="/img/Snipaste_2021-07-10_12-01-09.png" alt="Snipaste_2021-07-10_12-01-09"></p>
+<p>在云端添加SSH密钥（仓库》仓库设置）：</p>
+<p><img src="/img/Snipaste_2021-07-10_12-02-15.png" alt="Snipaste_2021-07-10_12-02-15"></p>
+<p>2、步骤一：初始化仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init </span><br></pre></td></tr></table></figure>
+
+<p>3、步骤二：添加文件到上传，将目录下所有文件添加进上传记录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add --all</span><br></pre></td></tr></table></figure>
+
+<p>4、步骤三：为新的推送添加评论，内容为first commit，一般内容为修改了什么东西或者处理了什么BUG</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;first commit&quot;</span><br></pre></td></tr></table></figure>
+
+<p>5、步骤四：推送到远端master分支</p>
+<p>第一次使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin http://git.gaokeyun.cn/qixiuyuan2018080516/qixiuyuan2018080516.git</span><br></pre></td></tr></table></figure>
+
+<p>这条指令的意义是将origin这个名字背后的地址设置为<a href="http://git.gaokeyun.cn/qixiuyuan2018080516/qixiuyuan2018080516.git%EF%BC%8C%E4%B9%9F%E5%B0%B1%E6%98%AF%E4%B9%8B%E5%90%8Egit">http://git.gaokeyun.cn/qixiuyuan2018080516/qixiuyuan2018080516.git，也就是之后git</a> push -u origin时此处的origin&#x3D;仓库的地址</p>
+<p>之后可以简写：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p>这句指令的意思是将本地的仓库推送到origin的master分支下面</p>
+<p>然后就推送完毕了。</p>
+<p>遇到的问题：</p>
+<p><img src="/img/Snipaste_2021-07-10_11-58-03.png" alt="Snipaste_2021-07-10_11-58-03"></p>
+<p>原因是上一步执行了 git add README.md，相当于除了README.md都不会上传到Git服务器，需要取消限制 执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add --all</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/Snipaste_2021-07-10_16-15-08.png"></p>
+<p>原因是仓库中README.md文件不在本地代码目录中</p>
+<p>解决办法使用git pull指令合并云端仓库和本地仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【04物联网实习】华为云配置服务，在华为云上安装Node-RED并转发</title>
+    <url>/2021/07/09/%E3%80%9004%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<p>​        <img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习任务："><a href="#学习任务：" class="headerlink" title="学习任务："></a>学习任务：</h4><ul>
+<li>了解项目的架构</li>
+<li></li>
+</ul>
+<h4 id="一、背景了解"><a href="#一、背景了解" class="headerlink" title="一、背景了解"></a>一、背景了解</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714005341.jpg"></p>
+<p>应用层为Node-RED，平台层为华为云服务器，网络层为BC26模块，感知层为STM32单片机。</p>
+<p>可以学习LiteOS操作系统：华为面向物联网领域构建的统一物联网操作系统和中间件软件平台，其具有轻量级（内核小于10KB）、低功耗、互连互通、安全等关键特点。Lites目前主要应用于智能家居、穿戴式、车联网、智能抄表、工业互联网等物联网领域的智能硬件上。</p>
+<p><img src="/img/kikkkikik.png"></p>
+<p><img src="/img/%E5%9B%BE%E7%89%875.png"></p>
+<p><img src="/img/%E5%9B%BE%E7%89%876.png"></p>
+<p>二、OpenCPU方案对比</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714012424.jpg"></p>
+<h4 id="三、华为云的环境配置"><a href="#三、华为云的环境配置" class="headerlink" title="三、华为云的环境配置"></a>三、华为云的环境配置</h4>]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【05物联网实习】CubeMX配合KEIL完成单片机开发</title>
+    <url>/2021/07/10/%E3%80%9005%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91CubeMX%E9%85%8D%E5%90%88KEIL%E5%AE%8C%E6%88%90%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习任务："><a href="#学习任务：" class="headerlink" title="学习任务："></a>学习任务：</h4><ul>
+<li>安装CubeMX和Keil开发环境</li>
+<li>使用CubeMX和Cube MX Programmer使得小灯闪烁程序</li>
+</ul>
+<h4 id="一、CubeMX入门"><a href="#一、CubeMX入门" class="headerlink" title="一、CubeMX入门"></a>一、CubeMX入门</h4><p>1、在选择好芯片型号之后配置震荡频率</p>
+<p>选择HSE（外部高速时钟 external-外部），选择锁相环并且将始终调整至64MHz，注意在工程管理中设置:</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210713234213.jpg"></p>
+<p>在System Core &gt;&gt; SYS 注意勾选senal wire选项确保下载时这几根线不被占用</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210713234412.jpg"></p>
+<h4 id="2、配置点亮LED小灯"><a href="#2、配置点亮LED小灯" class="headerlink" title="2、配置点亮LED小灯"></a>2、配置点亮LED小灯</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210713235215.jpg"></p>
+<p>如图 配置PB0的模式为输出模式，点击生成代码自动打开Keil环境</p>
+<h4 id="3、-安装STM32-Cube-Programmer-准备向单片机下载程序"><a href="#3、-安装STM32-Cube-Programmer-准备向单片机下载程序" class="headerlink" title="3、 安装STM32 Cube Programmer,准备向单片机下载程序"></a>3、 安装STM32 Cube Programmer,准备向单片机下载程序</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210713235849.jpg"></p>
+<p>如图所示，选择UART串口，点击刷新自动选择COM6，确保设置如图所示：</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714001930.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714002117.jpg"></p>
+<p>点击Programming之后，确保设置一致，下载之后可以看到蓝色小灯亮</p>
+<p><img src="/img/image-20210714002529184.png" alt="image-20210714002529184"></p>
+<h4 id="4、配置小灯翻转然后延迟"><a href="#4、配置小灯翻转然后延迟" class="headerlink" title="4、配置小灯翻转然后延迟"></a>4、配置小灯翻转然后延迟</h4><p>在While(1)中添加电平翻转函数，</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);</span><br><span class="line">HAL_Delay(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【06物联网实习】使用寄存器对STM32G0控制</title>
+    <url>/2021/07/11/%E3%80%9006%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E4%BD%BF%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%B9STM32G0%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h4><ul>
+<li>KEIL安装和破解</li>
+<li>熟悉STM32G0寄存器，了解指针以及宏定义</li>
+</ul>
+<h4 id="一、KEIL安装破解"><a href="#一、KEIL安装破解" class="headerlink" title="一、KEIL安装破解"></a>一、KEIL安装破解</h4><p>注意对Keil的工程进行配置</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714110358.jpg"></p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714110536.jpg"></p>
+<h4 id="二、STM32G0寄存器"><a href="#二、STM32G0寄存器" class="headerlink" title="二、STM32G0寄存器"></a>二、STM32G0寄存器</h4><p><img src="/img/51GNA%602%25K%25BZCIO1H_@9R@7.jpg"></p>
+<p><img src="/img/E4AY8Q(QJXEW8)77VD%7BOGWS.jpg"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【07物联网实习】STM32G070的中断和串口收发数据验证，应声虫</title>
+    <url>/2021/07/12/%E3%80%9007%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91STM32G070%E7%9A%84%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%B2%E5%8F%A3%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81%EF%BC%8C%E5%BA%94%E5%A3%B0%E8%99%AB/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h4><ul>
+<li>熟悉配置STM32G0系列单片机的多种中断调用机制</li>
+<li>熟悉STM32G0系列单片机收发数据的通信方式</li>
+<li>使用STM32G0单片机完成应声虫实验</li>
+</ul>
+<h4 id="一、STM32单片机的串口收发数据的通信方式"><a href="#一、STM32单片机的串口收发数据的通信方式" class="headerlink" title="一、STM32单片机的串口收发数据的通信方式"></a>一、STM32单片机的串口收发数据的通信方式</h4><p><img src="/img/%5DUUKU6CWZZQPGZ3KJBS%6037H.jpg"></p>
+<p><img src="/img/4324234234234.jpg"></p>
+<p>首先在CubeMX中配置串口，将PA9和PA10配置为串口1的发送和接收脚，并将引脚配置为“connectivity”模式，将UART1配置为异步模式。</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210715161634.jpg"></p>
+<p>阻塞式串口发送数据不需要开启中断，在系统核心选项中启动串口1的全局中断，</p>
+<p><img src="/img/image-20210715162220981.png" alt="image-20210715162220981"></p>
+<p>串口的工作方式：1、轮询模式</p>
+<p>2、中断方式：注意收到多少字节进入中断，如果设置逐个字节进入中断，则收到大字节数据之后可能会造成频繁进入终端导致通信失败。</p>
+<p>3、DMA方式：CPU等内存接收完成之后产生DMA中断通知CPU。</p>
+<p>发送数据使用阻塞模式，接收串口的数据使用中断方式：使用</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">unit8_t</span> *pData, <span class="type">unit16_t</span> Size, <span class="type">unit32_t</span> Timeout)</span></span><br></pre></td></tr></table></figure>
+
+<p>huart:指向结构体指针，置顶串口配置信息</p>
+<p>pData：指向数据指针</p>
+<p>Size:需要发送数据的数量</p>
+<p>Timeout：超时时间</p>
+<p>返回值执行状态：OK，忙，超时</p>
+<p>插入按键串口发送代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">if</span>(KEY1_PRES == KeyScan())                                   <span class="comment">//检测到按键按下</span></span><br><span class="line"> &#123;</span><br><span class="line">keyCnt++;</span><br><span class="line">HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);        <span class="comment">//电平反转</span></span><br><span class="line">HAL_UART_Transmit(&amp;huart1,uartBuf,<span class="number">18</span>,<span class="number">0xffff</span>);   	<span class="comment">//发送uartBuf的数据，长度为18，发送时间为0xffff（主动交还，要么发成功，要么等待这么长时间）</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;The KEY count is %d.\r\n&quot;</span>,keyCnt);          <span class="comment">//打印按键按下的次数</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>&amp;huart1是句柄<br><img src="/img/image-20210715214203443.png" alt="image-20210715214203443"></p>
+<p>定义一个全局句柄：</p>
+<p><img src="/img/image-20210715214321094.png" alt="image-20210715214321094"></p>
+<p>实现功能：</p>
+<p><img src="/img/image-20210715215053783.png" alt="image-20210715215053783"></p>
+<p>printf加入重定向功能：#include “stdio.h”：</p>
+<p><img src="/img/image-20210715215704642.png" alt="image-20210715215704642"></p>
+<p>该段代码有问题：事件触发中断，中断随手处理事件，有些事件比较浪费时间，有些事件会因此丢失：解决方法，在中断中只去设置事件，处理放在主函数的死循环里，通过全局标志位flag来控制。</p>
+<h5 id="2、自定帧通信协议"><a href="#2、自定帧通信协议" class="headerlink" title="2、自定帧通信协议"></a>2、自定帧通信协议</h5><p><img src="/img/image-20210715220439167.png" alt="image-20210715220439167"></p>
+<p>采用ASCII码的发送方式</p>
+<p><img src="/img/image-20210715220629858.png" alt="image-20210715220629858"></p>
+<p><img src="/img/image-20210715221029493.png" alt="image-20210715221029493"></p>
+<p>extern是不能赋初值的。</p>
+<h4 id="二、应声虫实验–测试串口能够收到数据，截断数据，发送数据"><a href="#二、应声虫实验–测试串口能够收到数据，截断数据，发送数据" class="headerlink" title="二、应声虫实验–测试串口能够收到数据，截断数据，发送数据"></a>二、应声虫实验–测试串口能够收到数据，截断数据，发送数据</h4><p>应声虫实验思路：利用串口发送数据标志位UartIReceiveflag为1，表明数据接收完成，存放在接收数组UartlreceiⅴeBuf中，之后将收到的数据原样的发送会回去，并清除标志位。Uart1ReceiveFlag、Uart1ReceiveBuf以及Uart1Receivecnt三个全局变量的应用。如果单片机串口接收到串口数据，就会调用串口中断回调函数HAL UART RXCplt Callback，在此函数内把刚收到的1个字节放到数组 Uart1ReceiveBuf中Uart1Receive（nt作为计数器，同时也是数组的索引，记录这个字节该放到数组的哪个位置上，然后计数器+1，下次收到的数据放到后一个位置上。如果刚收到的这个字节是结束符，那么接收完成标记 UartIReceiveFlag&#x3D;1。使用完接收的数据以后，记得把标志位、数组、计数器清零。</p>
+<p><img src="/img/image-20210715222113829.png" alt="image-20210715222113829"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【2020.3.10】今日小结 第一次搭建个人博客的心路和历程</title>
+    <url>/2020/03/10/%E3%80%902020.3.10%E3%80%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BF%83%E8%B7%AF%E5%92%8C%E5%8E%86%E7%A8%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>​    <em>如果说美赛建模让我认识到了线上办公，Matlab图像识别，时间序列预测，Latex排版语言，JAVA语言，Anylogic可视化规划，Python语言，PyCharm编译器，八爪鱼信息采集，地理卫星信息提取…….实在太多有机会再补充。那么这三天的建博经历让我学到了更多以前从未动过学的念头的东西…..最重要的时MarkDown语言的优越，刻骨铭心，甚是喜欢！</em></p>
+</blockquote>
+<span id="more"></span>
+
+<p>除了技术方面自己还有一些其他心得：    </p>
+<ul>
+<li><p>​            任务是自己的唯一驱动，没有任务感就没有驱动力，没有紧迫感，没有紧同等的主动感，从没有感觉到对知识自己曾有过如此热烈的喜欢，一行行密密麻麻的代码，有些人看起来枯燥，有些人因为种种问题自己的博客没有建起来在半路卡死然后放弃，有些人专业相关看几眼摸索一下这件事对于他们来说可能是十分钟的事情…..可以说是见过太多，见怪不怪了。毕竟自己也是从搜索引擎的第一页翻到第十集页的人什么东西没见过？</p>
+<pre><code>      但是对于我来说，这件事确实也不太容易，可以说几乎所有能碰上的坑都勇敢的跳进去了（义无反顾的那种哈哈），我也曾想过放弃，或者说无数次想过放弃。看别人怎么录一个小时的视频就轻轻松松建成？自己却不行或者说不可以呢？我觉得
+</code></pre>
+<p>​            每个人情况都不同，也许自己顺风顺水永远不可能体会到那种追求完美结果的内心的躁动感，上次有过这种感觉的时候应该是初中暑假自己建WAP网站的时候，往事不堪回首但值得回味。</p>
+<p>​            不管过程如何结局总归是好的，我开始喜欢上了Github等等这些代码托管平台，喜欢上了开源精神。<br>​        写着写着感觉也见怪不怪了，毕竟自己心中流淌着创客的血液，有自己对创客的理解。</p>
+</li>
+<li><p>​            收获同样颇丰是因为自己知道脚踏实地，一步一个脚印的重要性了，如果我是一个做网站前端的人，如果我是一个更优秀的大学的软件方面专业的优秀本科生的话（因为自己专业从不涉及前端而更偏向底层哈哈）。做同样的事情可能会更容易一些。但是如果说给我机会让我从计算机组成基础来学我是否还有现在的求学热情呢？答案可能是NO吧。不过这世上最稳定收益率最高的投资就是长线投资，对于自己未来的投资也同样如此，精力有限，知识之路没有尽头。因此每一次选择都至关重要。自己也应该在无聊乏味中找到乐趣，找到一个属于自己的解释，来给自己永不熄灭的热情！</p>
+</li>
+<li><p>​            博客对于我来说和日记一样都是第一次，也许有些经历让我排斥日记，排斥每天记录。但是我希望这个个人博客是自己一个全新的开始！终将会有某一天我看到今天写过的这些会有自己心得感悟，指导自己继续前行吧。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【2020.3.12】今日小结 更换成熟的主题优化博客框架</title>
+    <url>/2020/03/12/%E3%80%902020.3.12%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93%20%E6%9B%B4%E6%8D%A2%E6%88%90%E7%86%9F%E7%9A%84%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<p><img src="/images/cover4.jpg"></p>
+<span id="more"></span>
+
+<blockquote>
+<p>​    <em>今天花了半个小时时间将原来的yilia主题更换为了Ayer主题。根据作者的描述，Ayer一词词出多处，其中马来语中是“水”的意思，而在西班牙中是“昨天”的意思。可能是发音引起了所有种族人群的共鸣，这个词再两个截然不同的文明中竟然都带有一点点忧郁，纯净的气质。主题如其名，淡淡的，非浓郁的，清新的，轻，的感觉，第一眼就它了。</em></p>
+</blockquote>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>然后将以下复制到&#x2F;source&#x2F;categories&#x2F;index.md文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">page</span> <span class="string">tags</span></span><br></pre></td></tr></table></figure>
+
+<p>配置同分类一样</p>
+<h2 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h2><p>需要在文章顶部配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Gallery</span></span><br><span class="line"></span><br><span class="line"><span class="attr">albums:</span> [</span><br><span class="line">        [<span class="string">&quot;img_url&quot;</span>,<span class="string">&quot;img_caption&quot;</span>],</span><br><span class="line">        [<span class="string">&quot;img_url&quot;</span>,<span class="string">&quot;img_caption&quot;</span>]</span><br><span class="line">        ]</span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【DIY】撬开手机后盖的成就感爆棚</title>
+    <url>/2020/03/11/%E3%80%90DIY%E3%80%91%E6%92%AC%E5%BC%80%E6%89%8B%E6%9C%BA%E5%90%8E%E7%9B%96%E7%9A%84%E6%88%90%E5%B0%B1%E6%84%9F%E7%88%86%E6%A3%9A/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【2020.3.11】今日小结--博客再出发</title>
+    <url>/2020/03/11/%E3%80%902020.3.11%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93--%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/</url>
+    <content><![CDATA[<p><img src="/images/cover2.jpg"></p>
+<span id="more"></span>
+
+<h1 id="1-Hexo-实现私密文章加密"><a href="#1-Hexo-实现私密文章加密" class="headerlink" title="1.Hexo 实现私密文章加密"></a>1.Hexo 实现私密文章加密</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">cd</span> <span class="string">/Hexo</span></span><br><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-blog-encrypt</span></span><br><span class="line"><span class="string">vim</span> <span class="string">/Hexo/_config.yml</span>  <span class="string">添加如下内容</span></span><br><span class="line"><span class="comment"># Security</span></span><br><span class="line"><span class="comment">## 文章加密 hexo-blog-encrypt</span></span><br><span class="line"><span class="attr">encrypt:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">然后在想加密的文章头部添加上对应字段，如</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">hello</span> <span class="string">world</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2016-03-30 21:18:02</span>   </span><br><span class="line"><span class="attr">tags:</span>       </span><br><span class="line"><span class="attr">password:</span> <span class="number">12345</span>   <span class="string">（密码）</span></span><br><span class="line"><span class="attr">abstract:</span> <span class="string">Welcome</span> <span class="string">to</span> <span class="string">my</span> <span class="string">blog,</span> <span class="string">enter</span> <span class="string">password</span> <span class="string">to</span> <span class="string">read.</span> </span><br><span class="line"><span class="attr">message:</span> <span class="string">Welcome</span> <span class="string">to</span> <span class="string">my</span> <span class="string">blog,</span> <span class="string">enter</span> <span class="string">password</span> <span class="string">to</span> <span class="string">read.</span>     </span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">password:</span> <span class="string">是该博客加密使用的密码</span></span><br><span class="line"><span class="attr">abstract:</span> <span class="string">是该博客的摘要，会显示在博客的列表页</span></span><br><span class="line"><span class="attr">message:</span> <span class="string">这个是博客查看时，密码输入框上面的描述性文字</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2-Hexo-实现鼠标点击爱心"><a href="#2-Hexo-实现鼠标点击爱心" class="headerlink" title="2.Hexo 实现鼠标点击爱心"></a>2.Hexo 实现鼠标点击爱心</h1><p>在</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo/themes/yilia/source</span><br></pre></td></tr></table></figure>
+
+<p>文件目录下添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">love.js</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">!<span class="keyword">function</span>(<span class="params">e,t,a</span>)&#123;<span class="keyword">function</span> <span class="title function_">r</span>(<span class="params"></span>)&#123;<span class="keyword">for</span>(<span class="keyword">var</span> e=<span class="number">0</span>;e&lt;s.<span class="property">length</span>;e++)s[e].<span class="property">alpha</span>&lt;=<span class="number">0</span>?(t.<span class="property">body</span>.<span class="title function_">removeChild</span>(s[e].<span class="property">el</span>),s.<span class="title function_">splice</span>(e,<span class="number">1</span>)):(s[e].<span class="property">y</span>--,s[e].<span class="property">scale</span>+=<span class="number">.004</span>,s[e].<span class="property">alpha</span>-=<span class="number">.013</span>,s[e].<span class="property">el</span>.<span class="property">style</span>.<span class="property">cssText</span>=<span class="string">&quot;left:&quot;</span>+s[e].<span class="property">x</span>+<span class="string">&quot;px;top:&quot;</span>+s[e].<span class="property">y</span>+<span class="string">&quot;px;opacity:&quot;</span>+s[e].<span class="property">alpha</span>+<span class="string">&quot;;transform:scale(&quot;</span>+s[e].<span class="property">scale</span>+<span class="string">&quot;,&quot;</span>+s[e].<span class="property">scale</span>+<span class="string">&quot;) rotate(45deg);background:&quot;</span>+s[e].<span class="property">color</span>+<span class="string">&quot;;z-index:99999&quot;</span>);<span class="title function_">requestAnimationFrame</span>(r)&#125;<span class="keyword">function</span> <span class="title function_">n</span>(<span class="params"></span>)&#123;<span class="keyword">var</span> t=<span class="string">&quot;function&quot;</span>==<span class="keyword">typeof</span> e.<span class="property">onclick</span>&amp;&amp;e.<span class="property">onclick</span>;e.<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params">e</span>)&#123;t&amp;&amp;<span class="title function_">t</span>(),<span class="title function_">o</span>(e)&#125;&#125;<span class="keyword">function</span> <span class="title function_">o</span>(<span class="params">e</span>)&#123;<span class="keyword">var</span> a=t.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);a.<span class="property">className</span>=<span class="string">&quot;heart&quot;</span>,s.<span class="title function_">push</span>(&#123;<span class="attr">el</span>:a,<span class="attr">x</span>:e.<span class="property">clientX</span>-<span class="number">5</span>,<span class="attr">y</span>:e.<span class="property">clientY</span>-<span class="number">5</span>,<span class="attr">scale</span>:<span class="number">1</span>,<span class="attr">alpha</span>:<span class="number">1</span>,<span class="attr">color</span>:<span class="title function_">c</span>()&#125;),t.<span class="property">body</span>.<span class="title function_">appendChild</span>(a)&#125;<span class="keyword">function</span> <span class="title function_">i</span>(<span class="params">e</span>)&#123;<span class="keyword">var</span> a=t.<span class="title function_">createElement</span>(<span class="string">&quot;style&quot;</span>);a.<span class="property">type</span>=<span class="string">&quot;text/css&quot;</span>;<span class="keyword">try</span>&#123;a.<span class="title function_">appendChild</span>(t.<span class="title function_">createTextNode</span>(e))&#125;<span class="keyword">catch</span>(t)&#123;a.<span class="property">styleSheet</span>.<span class="property">cssText</span>=e&#125;t.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;head&quot;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(a)&#125;<span class="keyword">function</span> <span class="title function_">c</span>(<span class="params"></span>)&#123;<span class="keyword">return</span><span class="string">&quot;rgb(&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;,&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;,&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;)&quot;</span>&#125;<span class="keyword">var</span> s=[];e.<span class="property">requestAnimationFrame</span>=e.<span class="property">requestAnimationFrame</span>||e.<span class="property">webkitRequestAnimationFrame</span>||e.<span class="property">mozRequestAnimationFrame</span>||e.<span class="property">oRequestAnimationFrame</span>||e.<span class="property">msRequestAnimationFrame</span>||<span class="keyword">function</span>(<span class="params">e</span>)&#123;<span class="built_in">setTimeout</span>(e,<span class="number">1e3</span>/<span class="number">60</span>)&#125;,<span class="title function_">i</span>(<span class="string">&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#x27;&#x27;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;</span>),<span class="title function_">n</span>(),<span class="title function_">r</span>()&#125;(<span class="variable language_">window</span>,<span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo/themes/yilia/layout/_partial/footer.ejs</span><br></pre></td></tr></table></figure>
+
+<p>文件的最后， 添加以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!--页面点击小红心--&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/love.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-修改版权注释的信息"><a href="#3-修改版权注释的信息" class="headerlink" title="3.修改版权注释的信息"></a>3.修改版权注释的信息</h1><p>前面的网址改不了，准备之后有时间学一学css和js再说</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【08物联网实习】定时器TMER和状态机编写程序</title>
+    <url>/2021/07/14/%E3%80%9008%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%AE%9A%E6%97%B6%E5%99%A8TMER%E5%92%8C%E7%8A%B6%E6%80%81%E6%9C%BA%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h4><ul>
+<li>控制STM32使BC26模组开机，将串口1发送至串口2</li>
+<li>使用定时器代替结束符截断数据</li>
+<li>使用STM32的定时器，修改代码实现按键消抖</li>
+<li>使用状态机，修改代码实现按键消抖</li>
+<li>实现定时器截断串口数据</li>
+<li>用状态机控制</li>
+</ul>
+<h4 id="一、控制STM32使BC26模组开机，将串口1发送至串口2"><a href="#一、控制STM32使BC26模组开机，将串口1发送至串口2" class="headerlink" title="一、控制STM32使BC26模组开机，将串口1发送至串口2"></a>一、控制STM32使BC26模组开机，将串口1发送至串口2</h4><p>驼峰命名法：首字母大写，相邻单词之间也大写。</p>
+<h4 id="二、TIMER和HAL-Delay-10-的区别"><a href="#二、TIMER和HAL-Delay-10-的区别" class="headerlink" title="二、TIMER和HAL_Delay(10)的区别"></a>二、TIMER和HAL_Delay(10)的区别</h4><p>定时器和HAL_Delay的区别在于定时器开启之后在后台一直执行数数字的任务，但是如果在主程序中放置HAL_Delay之后将无法运行其他中断。</p>
+<p>在初始化定时器时要修改定时器的标志位为0</p>
+<p><img src="/img/image-20210716021008857.png" alt="image-20210716021008857"></p>
+<p><img src="/img/image-20210716012158980.png" alt="image-20210716012158980"></p>
+<p><img src="/img/image-20210716021522044.png" alt="image-20210716021522044"></p>
+<p>溢出时间的计算<br><img src="/img/image-20210716015247341.png" alt="image-20210716015247341"></p>
+<p>例如500ms&#x3D;（6399+1）*（4999+1）&#x2F;64</p>
+<p>不能设置PSC&#x3D;83999，ARR&#x3D;499，因为8399965535，超过了分频系数寄存器的范围。</p>
+<p>TIMER是一直在后台计时，到达设定时间标志位置一，HAL_Delay是通过cnt++来实现的，如果遇到其他中断可能计数被干扰，并且在技术的时候一直CPU在空转，浪费资源。</p>
+<p>按键的5ms来自于115200的波特率，发送四五个码字的间隔是5ms</p>
+<h4 id="三、使用状态机，修改代码实现按键消抖"><a href="#三、使用状态机，修改代码实现按键消抖" class="headerlink" title="三、使用状态机，修改代码实现按键消抖"></a>三、使用状态机，修改代码实现按键消抖</h4><h4 id="四、实现定时器截断串口数据"><a href="#四、实现定时器截断串口数据" class="headerlink" title="四、实现定时器截断串口数据"></a>四、实现定时器截断串口数据</h4><p><img src="/img/image-20210716023824623.png" alt="image-20210716023824623"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【FPGA】verilog_HDL再学习</title>
+    <url>/2021/05/04/%E3%80%90FPGA%E3%80%91verilog_HDL%E5%86%8D%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><img src="/img/fpga_3.jpg" alt="cover"></p>
+<span id="more"></span>
+
+<h4 id="1、verilog语言语法格式："><a href="#1、verilog语言语法格式：" class="headerlink" title="1、verilog语言语法格式："></a>1、verilog语言语法格式：</h4><p>模块定义：</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> 模块名(端口列表)</span><br><span class="line">    端口声明（<span class="keyword">input</span>,<span class="keyword">output</span>,<span class="keyword">inout</span>）</span><br><span class="line">    变量声明(<span class="keyword">reg</span>,<span class="keyword">wire</span>,<span class="keyword">parameter</span>)参数型，宏定义变量参数</span><br><span class="line">    数据流行为建模</span><br><span class="line">    顺序行为建模(<span class="keyword">always</span>)</span><br><span class="line">    模块调用语句</span><br><span class="line">    任务及函数</span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">module</span> NAND(in1,in2,out); <span class="comment">//NAND 模块</span></span><br><span class="line"><span class="keyword">input</span> in1,in2; <span class="comment">//两个输入端口in1 和in2</span></span><br><span class="line"><span class="keyword">output</span> out; <span class="comment">//一个输出端口out</span></span><br><span class="line"><span class="keyword">assign</span> out=~(in1&amp;in2); <span class="comment">//连续赋值语句</span></span><br><span class="line"><span class="keyword">endmodule</span> <span class="comment">//NAND 模块结束</span></span><br></pre></td></tr></table></figure>
+
+<p>模块实例化（模块调用）:</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> AND(in1,in2,out); <span class="comment">//AND 模块</span></span><br><span class="line"><span class="keyword">input</span> in1,in2;<span class="comment">//两个输入端口in1 和in2</span></span><br><span class="line"><span class="keyword">output</span> out;<span class="comment">//一个输出端口out</span></span><br><span class="line"><span class="keyword">wire</span> w1;<span class="comment">//一个模块内部连线wire</span></span><br><span class="line">NAND NAND_inst1(in1,in2,w1);<span class="comment">//调用（实例化）一个NAND 子模块</span></span><br><span class="line">NAND NAND inst2(w1,w1,out);<span class="comment">//再调用（实例化）一个NAND 子模块</span></span><br><span class="line"><span class="keyword">endmodule</span> <span class="comment">//AND 模块结束</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/FPGA_1.jpg"></p>
+<h5 id="2、verilog中的常量和变量"><a href="#2、verilog中的常量和变量" class="headerlink" title="2、verilog中的常量和变量"></a>2、verilog中的常量和变量</h5><h5 id="2-1常量"><a href="#2-1常量" class="headerlink" title="2.1常量"></a>2.1常量</h5><p><code>0</code> <code>1</code> <code>z</code>（未知） <code>x</code>（高阻，必须位于条件语句下） <code>z</code>和<code>x</code>不区分大小写</p>
+<h6 id="2-1-1-整型常量"><a href="#2-1-1-整型常量" class="headerlink" title="2.1.1 整型常量"></a>2.1.1 整型常量</h6><p>十进制数格式 32 &#x2F;&#x2F;十进制数32<br><code>-15</code> &#x2F;&#x2F;十进制数-15<br><code>4’b1101</code> &#x2F;&#x2F;4 位二进制数<br><code>5’o37 </code>&#x2F;&#x2F;5 位八进制数<br><code>4’d2</code> &#x2F;&#x2F;4 位十进制数<br><code>8’h2A </code>&#x2F;&#x2F;8 位十六进制<br>基数格式，[位宽]’进制    值域。位宽定义常量的位数，可选项；进制可以是b 或B（表示二进制），o或O（表示八进制），d 或D（表示十进制），h 或H（表示十六进制）之一；值域是一个数字序列，其形式应与进制定义的形式相符。</p>
+<h5 id="2-1-2-实数型常量"><a href="#2-1-2-实数型常量" class="headerlink" title="2.1.2 实数型常量"></a>2.1.2 实数型常量</h5><p>十进制格式，由数字和小数点组成（必须有小数点） <code>2.05 //其值为2.05</code><br>指数格式，由数字和字符 e（E）组成，e（E）的前 <code>3.6E2 //其值为 360.0</code><br>面必须要有数字而且后面必须为整数</p>
+<h6 id="2-1-3-字符串型常量"><a href="#2-1-3-字符串型常量" class="headerlink" title="2.1.3 字符串型常量"></a>2.1.3 字符串型常量</h6><p>字符串常量是由一对双引号括起来的字符序列。出现在双引号内的任何字符（包括空格和下划线）都将被作为字符串的一部分。<br>exg: <code>ERROR&quot;,&quot;REACHED－&gt;HERE&quot;</code></p>
+<h6 id="2-1-4-参数型"><a href="#2-1-4-参数型" class="headerlink" title="2. 1.4 参数型"></a>2. 1.4 参数型</h6><p><code>parameter 参数名 = 表达式; parameter MSB = 7;   //定义参数MSB 为常量7</code></p>
+<h4 id="2-2-变量"><a href="#2-2-变量" class="headerlink" title="2.2 变量"></a>2.2 变量</h4><p><code>wire</code>只可以连续赋值，<code>reg</code>在过程赋值中<br><code>wire</code>只要输入有变化，输出马上无条件变化，<code>reg</code>有触发才会输出<br><code>wire</code>中模块之间输入、输出相互连接用wire；输入&#x2F;输出端口(inout)只可以用wire，<code>reg</code>在always 等过程块中被赋值的信号，往往代表触发器，但不一定是触发器。（时序逻辑电路中常常被综合为D 触发器；纯组合逻辑电路中被综合为连线）</p>
+<h4 id="3-表达式"><a href="#3-表达式" class="headerlink" title="3 表达式"></a>3 表达式</h4><h5 id="3-1操作数"><a href="#3-1操作数" class="headerlink" title="3.1操作数"></a>3.1操作数</h5><p>1、位选择<code>reg[7:0] State;  State[1] //寄存器位选择</code></p>
+<p>2、部分选择<code>State[3:0] //寄存器部分选择</code></p>
+<h5 id="3-2操作数"><a href="#3-2操作数" class="headerlink" title="3.2操作数"></a>3.2操作数</h5><p><img src="/img/FPGA_2.jpg"></p>
+<h4 id="4-预处理指令"><a href="#4-预处理指令" class="headerlink" title="4 预处理指令"></a>4 预处理指令</h4><p>VerilogHDL 共有8 组预处理指令：<br><code>（1）‘define,‘undef （2）‘ifdef,‘else,‘endif （3）‘include （4）‘timescale （5）‘resetall （6）‘default_nettype （7）‘unconnected_drive,‘nounconnected_drive （8）‘celldefine,‘endcelldefine</code></p>
+<p>verilog注意事项：定义标识符：<code>module adder;</code> <code>reg</code>且单个标识符的总字符数不能多于1024,注意需要避开保留字(关键词)注意关键词必须是小写的，可以用此来区分。</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2019/12/24/%E3%80%90FPGA%E3%80%91%E6%8F%90%E7%A4%BAerro17-39/</url>
+    <content><![CDATA[<p>​        </p>
+<span id="more"></span>]]></content>
+  </entry>
+  <entry>
+    <title>【FPGA】状态机设计</title>
+    <url>/2021/05/16/%E3%80%90FPGA%E3%80%91%E7%8A%B6%E6%80%81%E6%9C%BA%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<p>​        <img src="/img/fpga_3.jpg" alt="cover"></p>
+<span id="more"></span>
+
+<p>​        状态机是许多数字系统的核心部件，是一类重要的时序逻辑电路。通常，状态机的状态数量有限，称为有限状态机（FSM）。由于状态机所有触发器的时钟由同一脉冲边沿触发，故也称之为同步状态机。</p>
+<p>​        根据输入、输出及状态之间的关系，状态机可分为两类，一类是Moore 状态机，其输出值只取决于当前状态，与输入值无关；另一类是Mealy 状态机，其输出值不但和当前状态有关，还和输入值相关。<br>一般来说，状态机的设计包含下列设计步骤：<br>（1）根据需求和设计原则，确定是Moore 型还是Mealy 型状态机。<br>（2）分析状态机的所有状态，对每一状态选择合适的编码方式进行编码。<br>（3）根据状态转移关系和输出绘出状态转移图。<br>（4）构建合适的状态机结构，对状态机进行硬件描述。</p>
+<p>​        状态机的描述通常有三种方法，称为一段式状态机、两段式状态机、三段式状态机。状态机的描述通常包含以下四部分：<br>（1）利用参数定义语句parameter 描述状态机各个状态名称，即状态编码。状态编码通常有很多方法，包含自然二进制编码、One-hot 编码、格雷编码等。<br>（2）用时序的always 块描述状态触发器实现状态存储。<br>（3）使用敏感表和case 语句（也采用if-else 等价语句）描述状态转换逻辑。<br>（4）描述状态机的输出逻辑。</p>
+<h4 id="1-1-一段式状态机"><a href="#1-1-一段式状态机" class="headerlink" title="1.1 一段式状态机"></a>1.1 一段式状态机</h4><p>仅包含一个state寄存器，直接一个case语句进行赋值，最后通过assign进行赋值</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> detect (<span class="keyword">input</span> clk_i, <span class="keyword">input</span> rst_n_i, <span class="keyword">output</span> out_o);</span><br><span class="line"><span class="keyword">reg</span> out_r; <span class="comment">//与输出对应的寄存器变量</span></span><br><span class="line"><span class="comment">//状态声明和状态编码</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">1</span>:<span class="number">0</span>] state;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S0=<span class="number">2&#x27;b00</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S1=<span class="number">2&#x27;b01</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S2=<span class="number">2&#x27;b10</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S3=<span class="number">2&#x27;b11</span>;</span><br><span class="line"><span class="keyword">always</span>@(<span class="keyword">posedge</span> clk_i) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span>(!rst_n_i) <span class="keyword">begin</span></span><br><span class="line">state&lt;=<span class="number">0</span>;</span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">case</span>(state)</span><br><span class="line">S0 : <span class="keyword">begin</span></span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b0</span>;</span><br><span class="line">state&lt;= S1;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">S1 :<span class="keyword">begin</span></span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b1</span>;</span><br><span class="line">state&lt;= S2;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">S2 :<span class="keyword">begin</span></span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b0</span>;</span><br><span class="line">state&lt;= S3;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">S3 :<span class="keyword">begin</span></span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> out_o=out_r; <span class="comment">//更新输出值</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-两段式状态机"><a href="#1-2-两段式状态机" class="headerlink" title="1.2 两段式状态机"></a>1.2 两段式状态机</h4><p>两个状态包括现在状态和下一个状态，程序包括一个状态转移，即将下一个状态赋值给当前状态</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> detect_2(<span class="keyword">input</span> clk_i, <span class="keyword">input</span> rst_n_i, <span class="keyword">output</span> out_o);</span><br><span class="line"><span class="keyword">reg</span> out_r; <span class="comment">//与输出对应的寄存器变量</span></span><br><span class="line"><span class="comment">//状态声明和状态编码</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">1</span>:<span class="number">0</span>] Current_state;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">1</span>:<span class="number">0</span>] Next_state;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S0=<span class="number">2&#x27;b00</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S1=<span class="number">2&#x27;b01</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S2=<span class="number">2&#x27;b10</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S3=<span class="number">2&#x27;b11</span>;</span><br><span class="line"><span class="comment">//时序逻辑：描述状态转换，！！！固定！！！</span></span><br><span class="line"><span class="keyword">always</span>@(<span class="keyword">posedge</span> clk_i) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span>(!rst_n_i)</span><br><span class="line">Current_state&lt;=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">Current_state&lt;=Next_state;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">//组合逻辑：描述下一状态和输出</span></span><br><span class="line"><span class="keyword">always</span>@(*) <span class="keyword">begin</span> <span class="comment">//always@(*)意思是说敏感变量由综合器根据always 里面的输入变量自动添加，不用自己考虑。</span></span><br><span class="line"><span class="keyword">case</span>(Current_state)</span><br><span class="line">S0 : <span class="keyword">begin</span></span><br><span class="line">out_r=<span class="number">1&#x27;b0</span>;</span><br><span class="line">Next_state= S1;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">S1 : <span class="keyword">begin</span></span><br><span class="line">out_r=<span class="number">1&#x27;b1</span>;</span><br><span class="line">Next_state= S2;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">S2 : <span class="keyword">begin</span></span><br><span class="line">out_r=<span class="number">1&#x27;b0</span>;</span><br><span class="line">Next_state= S3;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">S3 : <span class="keyword">begin</span></span><br><span class="line">out_r=<span class="number">1&#x27;b1</span>;</span><br><span class="line">Next_state=Next_state;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> out_o=out_r; <span class="comment">//更新输出值</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-三段式状态机"><a href="#1-3-三段式状态机" class="headerlink" title="1. 3 三段式状态机"></a>1. 3 三段式状态机</h4><p>​        三段式状态机在第一个always 模块采用同步时序逻辑方式描述状态转移，第二个always 模块采用组合逻辑方式描述状态转移规律，第三个 always 描述电路的输出。通常让输出信号经过寄存器缓存之后再输出，消除电路毛刺。这种状态机也是比较推崇的，主要是由于维护方便，<strong>组合逻辑与时序逻辑完全独立</strong>。</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> detect(<span class="keyword">input</span> clk_i, <span class="keyword">input</span> rst_n_i, <span class="keyword">output</span> out_o);</span><br><span class="line"><span class="keyword">reg</span> out_r; <span class="comment">//与输出对应的寄存器变量</span></span><br><span class="line"><span class="comment">//状态声明和状态编码</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">1</span>:<span class="number">0</span>] Current_state;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">1</span>:<span class="number">0</span>] Next_state;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S0=<span class="number">2&#x27;b00</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S1=<span class="number">2&#x27;b01</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S2=<span class="number">2&#x27;b10</span>;</span><br><span class="line"><span class="keyword">parameter</span> [<span class="number">1</span>:<span class="number">0</span>] S3=<span class="number">2&#x27;b11</span>;</span><br><span class="line"><span class="comment">//时序逻辑：描述状态转换</span></span><br><span class="line"><span class="keyword">always</span>@(<span class="keyword">posedge</span> clk_i) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span>(!rst_n_i)</span><br><span class="line">Current_state&lt;=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">Current_state&lt;=Next_state;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">//组合逻辑：描述下一状态</span></span><br><span class="line"><span class="keyword">always</span>@(*) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">case</span>(Current_state)</span><br><span class="line">S0:</span><br><span class="line">Next_state = S1;</span><br><span class="line">S1:</span><br><span class="line">Next_state = S2;</span><br><span class="line">S2:</span><br><span class="line">Next_state = S3;</span><br><span class="line">S3:</span><br><span class="line">Next_state = Next_state;</span><br><span class="line"><span class="keyword">default</span> :</span><br><span class="line">Next_state = S0;</span><br><span class="line"><span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">//输出逻辑：让输出out，经过寄存器out_r 锁存后输出，消除毛刺</span></span><br><span class="line"><span class="keyword">always</span>@(<span class="keyword">posedge</span> clk_i)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span>(!rst_n_i)</span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b0</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">case</span>(Current_state)</span><br><span class="line">S0,S2:</span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b0</span>;</span><br><span class="line">S1,S3:</span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b1</span>;</span><br><span class="line"><span class="keyword">default</span> :</span><br><span class="line">out_r&lt;=out_r;</span><br><span class="line"><span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> out_o=out_r; <span class="comment">//更新输出值</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">out_r&lt;=<span class="number">1&#x27;b1</span>;</span><br><span class="line"><span class="keyword">default</span> :</span><br><span class="line">out_r&lt;=out_r;</span><br><span class="line"><span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> out_o=out_r; <span class="comment">//更新输出值</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【FPGA】程序综合</title>
+    <url>/2021/05/16/%E3%80%90FPGA%E3%80%91%E7%A8%8B%E5%BA%8F%E7%BB%BC%E5%90%88/</url>
+    <content><![CDATA[<p>​        <img src="/img/fpga_3.jpg" alt="cover"></p>
+<span id="more"></span>
+
+<p>1.综合就是在给定标准元件库和一定的设计约束条件下，把用语言描述的电路模型转换成门级网表的过程。从代码到门级电路的“翻译”是通过综合工具内部的映射机制实现的。因为不同综合工具的映射机制可能不同，所以相同的程序在不同综合工具下可能会得到不同的电路。</p>
+<p>2.在Verilog HDL 中，有些语句可以被综合，有些不能被综合。Verilog HDL 允许设计者在门级、寄存器级、行为级和算法级上进行建模，所以同一个电路可能出现多种不同的Verilog HDL 模型，但并不是每一种建模方式都可以被综合。因为Verilog HDL 本身并没有给出一个标准的“可综合子集”，所以不同的综合工具对此的支持可能是不同的。</p>
+<p>3.Verilog HDL 更主要的功能是作为一种“仿真语言”，它并不是为了综合而设计的，所以有些语法结构是天生就不能综合的，比如说系统任务$display 就没有对应的硬件结构，任何综合工具都不提供针对这个系统任务的综合。所以设计者不但要掌握Verilog HDL 的建模方法，还要了解“可综合设计”规则，否则往往在完成整个程序设计和功能仿真后发现不可综合。这时就要修改程序，为了使修改后的程序既能通过功能仿真又能被综合，经常要对程序做多次修改甚至要对整个程序结构进行彻底改造。</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【FPGA】编写测试程序</title>
+    <url>/2021/05/24/%E3%80%90FPGA%E3%80%91%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<p><img src="/img/fpga_3.jpg" alt="fpga_3"></p>
+<span id="more"></span>
+<p>Verilog HDL 本身可以描述输入信号，并将输入加载到被测模块，然后取得输出。Verilog HDL 中把测试程序称为testbench。</p>
+<h5 id="1-1-测试模块"><a href="#1-1-测试模块" class="headerlink" title="1.1 测试模块"></a>1.1 测试模块</h5><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> 模块名_TB（端口列表）;</span><br><span class="line">变量声明（<span class="keyword">reg</span>、<span class="keyword">wire</span>、<span class="keyword">parameter</span>）</span><br><span class="line">顺序行为建模（<span class="keyword">initial</span>、<span class="keyword">always</span>）</span><br><span class="line">被测试模块实例化（<span class="keyword">module</span> instantiation）</span><br><span class="line">监控和比较输出响应（<span class="keyword">task</span>、<span class="keyword">function</span>）</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> Func_TB();          <span class="comment">//对Func模块进行测试</span></span><br><span class="line"><span class="keyword">reg</span>[<span class="number">3</span>:<span class="number">0</span>] n;</span><br><span class="line"><span class="keyword">reg</span> reset,clk;</span><br><span class="line"><span class="keyword">wire</span>[<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line"><span class="keyword">initial</span> <span class="comment">//定义激励向量</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">n=<span class="number">0</span>; reset=<span class="number">1</span>; clk=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(n=<span class="number">0</span>;n&lt;=<span class="number">15</span>;n=n+<span class="number">1</span>)</span><br><span class="line">#<span class="number">100</span> n=n;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> #<span class="number">5</span> clk=~clk; <span class="comment">//产生时钟信号,每隔5个时间翻转一次，时延单位由‘timescale 宏定义</span></span><br><span class="line">Func Func_inst(<span class="variable">.clk</span>(clk),<span class="variable">.n</span>(n),<span class="variable">.result</span>(result),<span class="variable">.reset</span>(reset));<span class="comment">//例化被测试模块</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>模块名_TB 是测试模块名，其命名方式与普通模块名相同，为了便于阅读一般都将其命名为与被测模块相关，例如被测的是加法器，其模块名为adder，那么它的测试程序一般命名为adder_TB。</li>
+<li>变量声明用于声明<strong>线网</strong>和<strong>寄存器</strong>，<strong>产生输入信号以及取得输出信号都是通过这些变量进行的</strong></li>
+<li>顺序行为建模部分用initial 语句或always 语句产生所需要的输入信号。</li>
+<li>被测试模块实例化是把被测模块实例化。实例化之后被测模块就被“嵌入”到了测试模块，<strong>被测模块的输入和输出端都与测试模块内的线网或寄存器相连</strong>，于是连接到输入端的线网和寄存器上值的变化就被当作输入信号传入被测模块，连接到输出端的线网和寄存器上就能得到输出信号。</li>
+<li>输出监测部分通过一些系统任务输出测试结果，并把测试结果与预想的设计结果做比较，例如用显示任务$display 可以把结果值输出显示，或者把测试结果导入VCD 文件。这部分工作大都可以在仿真工具上完成，在仿真器中可以自由控制测试进程并随时通过波形窗口查看输出结果。</li>
+</ol>
+<h5 id="1-2-产生激励信号"><a href="#1-2-产生激励信号" class="headerlink" title="1.2 产生激励信号"></a>1.2 产生激励信号</h5><ol>
+<li>用语言描述激励信号可以自由控制信号的形式，通过时延等方式可以轻松实现各种输入波形。在测试中通常需要的波形有两类: 一组特定值序列形成的波形、具有重复模式的波形。</li>
+<li>为了能生成一个具有重复模式的波形，如时钟信号，容易想到应该使用always 语句，<strong>但是仅仅使用always 语句是不够的，应该同时使用一个initial 语句做初始赋值</strong>。initial语句在只运行一次。</li>
+</ol>
+<p>例1：使用initial 语句产生特定值序列</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">initial</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">Reset = <span class="number">0</span>;</span><br><span class="line">#<span class="number">100</span> Reset = <span class="number">1</span>;</span><br><span class="line">#<span class="number">80</span> Reset = <span class="number">0</span>;</span><br><span class="line">#<span class="number">30</span> Reset = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>例2：使用always 语句产生重复的值序列</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">parameter</span> REPEAT_DELAY = <span class="number">35</span>;  <span class="comment">//参数型变量parameter</span></span><br><span class="line"><span class="keyword">integer</span> A;</span><br><span class="line"><span class="keyword">always</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">A = <span class="number">0</span>;</span><br><span class="line">#<span class="number">7</span> A = <span class="number">25</span>;</span><br><span class="line">#<span class="number">2</span> A = <span class="number">5</span>;</span><br><span class="line">#<span class="number">8</span> A = <span class="number">10</span>;</span><br><span class="line">#<span class="number">6</span> A = <span class="number">5</span>;</span><br><span class="line">#REPEAT_DELAY;</span><br><span class="line">End</span><br></pre></td></tr></table></figure>
+
+<p>例3：产生周期信号</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> Gen_Clk();</span><br><span class="line"><span class="keyword">reg</span> Clk ;</span><br><span class="line"><span class="keyword">parameter</span> PERIOD = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">initial</span></span><br><span class="line">Clk = <span class="number">0</span>; <span class="comment">//为Clk_A 赋初值为0</span></span><br><span class="line"><span class="keyword">always</span></span><br><span class="line"><span class="variable">#(PERIOD/2)</span> Clk=~Clk; <span class="comment">//在Clk_A 上产生一个时钟信号</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="1-3-从文本文件中读取和写入向量"><a href="#1-3-从文本文件中读取和写入向量" class="headerlink" title="1.3 从文本文件中读取和写入向量"></a>1.3 从文本文件中读取和写入向量</h5><p>​        当输入数据较多时，为了简化测试程序使用系统任务$readmemb，它可以从文本文件中读取数据，所以可以把所有数据放在某个文本文件中，在测试程序中只需要用这个系统任务读取数据就可以了。被读取的数据中不仅仅可以包含输入数据，还可以包含期望的输出数据，在测试程序把这两种数据都读入之后可以直接根据输出进行判断，检查这个模块的功能是否正确。</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="comment">//3 位加法器</span></span><br><span class="line"><span class="keyword">module</span> add (a,b, sum);</span><br><span class="line"><span class="keyword">input</span>[<span class="number">2</span>:<span class="number">0</span>] a,b;</span><br><span class="line"><span class="keyword">output</span>[<span class="number">3</span>:<span class="number">0</span>] sum;</span><br><span class="line"><span class="keyword">reg</span>[<span class="number">3</span>:<span class="number">0</span>] sum;</span><br><span class="line"><span class="keyword">always</span> @(a <span class="keyword">or</span> b)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">sum=a+b;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line"><span class="comment">//测试程序</span></span><br><span class="line"><span class="keyword">module</span> add_TB();</span><br><span class="line"><span class="keyword">parameter</span> BITS =  <span class="number">10</span>, WORDS= <span class="number">2</span> ;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">1</span>:BITS] Vmem [<span class="number">1</span>:WORDS] ;</span><br><span class="line"><span class="keyword">reg</span>[<span class="number">2</span>:<span class="number">0</span>] A , B , Sum_Ex; <span class="comment">//测试用标准输出值</span></span><br><span class="line"><span class="keyword">integer</span> J;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">4</span>:<span class="number">0</span>] Sum;</span><br><span class="line">add add_inst (A, B, Sum) ; <span class="comment">//例化被测试的模块</span></span><br><span class="line"><span class="keyword">initial</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">integer</span> Data _Out_File;</span><br><span class="line">Data _Out_File = <span class="built_in">$fopen</span> (<span class="string">&quot; data.Out &quot;</span>) ; <span class="comment">//打开文件data.Out</span></span><br><span class="line"><span class="built_in">$readmemb</span> (<span class="string">&quot;test.vec&quot;</span>, Vmem ) ; <span class="comment">//从文件test.vec 中读取数据并将数据存储在Vmem 中</span></span><br><span class="line"><span class="keyword">for</span> (J = <span class="number">1</span>; J &lt;= WORDS; J = J + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">&#123;A, B, Sum_Ex &#125; = Vmem [J] ; <span class="comment">//每个数据被分成3部分分配给3个变量</span></span><br><span class="line">#<span class="number">5</span>; <span class="comment">//延迟5个时间单位等待电路稳定</span></span><br><span class="line"><span class="keyword">if</span> (Sum!==Sum_Ex) <span class="comment">//如果某个结果不正确（Sum 或Sum_Ex 与期待值不符）</span></span><br><span class="line"><span class="built_in">$display</span> (<span class="string">&quot;Mismatch on vector %b &quot;</span>, Vmem [J] ) ; <span class="comment">//就输出显示这个数据有误</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">$display</span> (<span class="string">&quot;No mismatch on vector %b&quot;</span>, Vmem [J] ) ; <span class="comment">//若一切正常就输出显示结果正确</span></span><br><span class="line"><span class="built_in">$fdisplay</span> (Data _Out_File,<span class="string">&quot;Input = %b%b, Output = %b &quot;</span>, A, B, Sum) ;</span><br><span class="line"><span class="comment">//将输入向量和输出结果输入到文件</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">$fclose</span> (Data _Out_File) ; <span class="comment">//关闭文件mon.Out</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">说明：假设在测试程序中要读取的文本文件是“test<span class="variable">.vec</span>”，文件中有两个<span class="number">10</span> 位的向量数</span><br><span class="line">据，它们的前<span class="number">3</span> 位对应输入的加数A，<span class="number">4</span>～<span class="number">6</span> 位对应输入的加数B，第<span class="number">7</span>～<span class="number">10</span> 位是期待的</span><br><span class="line">正确输出。每次从文本文件中读取数据时，都把数据分成上述的<span class="number">3</span> 部分，并分别交给测试</span><br><span class="line">模块内的不同变量，因为读入的数据中包含期待的正确输出结果，所以可以在测试程序内</span><br><span class="line">进行校验。</span><br><span class="line">测试模块中首先定义存储器Vmem，其字长为<span class="number">10</span><span class="keyword">bit</span>，存储器字数对应于文件中数据</span><br><span class="line">的个数。在<span class="keyword">initial</span> 语句内，首先用系统任务<span class="built_in">$readmemb</span> 把文件“test<span class="variable">.vec</span>”中的数据读入存</span><br><span class="line">储器Vmem 中。然后，<span class="keyword">for</span> 循环将把每个数据都分成<span class="number">3</span> 部分并分配给<span class="number">3</span> 个变量，这<span class="number">3</span> 个变</span><br><span class="line">量分别对应输入值和期待的正确输出值。时延<span class="number">5</span> 个单位时间等待模块稳定并输出结果，</span><br><span class="line">把输出结果与期待的结果做比较。如果出现不匹配的情况，则输出不匹配消息。</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【FPGA】行为建模方法</title>
+    <url>/2021/05/15/%E3%80%90FPGA%E3%80%91%E8%A1%8C%E4%B8%BA%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p><img src="/img/fpga_3.jpg" alt="cover"></p>
+<span id="more"></span>
+
+<h4 id="1、行为建模"><a href="#1、行为建模" class="headerlink" title="1、行为建模"></a>1、行为建模</h4><h5 id="1-1-数据流行为建模"><a href="#1-1-数据流行为建模" class="headerlink" title="1.1 数据流行为建模"></a>1.1 数据流行为建模</h5><p>使用关键词<code>assign</code>对线网目标<code>wire</code>进赋值<code>assign 目标线网 = 赋值操作表达式;</code></p>
+<h5 id="1-2-顺序行为建模"><a href="#1-2-顺序行为建模" class="headerlink" title="1.2 顺序行为建模"></a>1.2 顺序行为建模</h5><h6 id="1-2-1-结构语句"><a href="#1-2-1-结构语句" class="headerlink" title="1.2.1 结构语句"></a>1.2.1 结构语句</h6><p>有两个必然出现的结构语句：<code>initial</code> 语句和<code>always</code> 语句。<br><code>1、“initial”用于“初始化”操作，“begin-end（顺序语句块）</code> <code>fork-join(并行语句块)</code>，initial 和always 之后都跟随着一段程序，这段程序会被封装成一个“程序块”</p>
+<p><code>2、每个过程序块都是并行执行的，与书写顺序无关</code></p>
+<p><code>3、只有reg型变量才能够被赋值，的 initial 和 always 语句都是在时刻 0（仿真刚开始）开始执行。</code></p>
+<h5 id="initial-和-always-联系和区别"><a href="#initial-和-always-联系和区别" class="headerlink" title="initial 和 always 联系和区别"></a>initial 和 always 联系和区别</h5><p>always 语句和initial 语句均从时刻0 开始执行</p>
+<p>不同的是，initial 语句在整个仿真过程中<strong>只执行一次</strong>，而在always 语句中，只要<strong>满足其规定的条件</strong>（时序控制中定义的条件），always 语句就执行，如果在整个访问过程中多次满足这个条件，always 就会被多次执行。</p>
+<h6 id="1-2-2-过程性赋值：Verilog-有两种过程性赋值：阻塞过程赋值-和-非阻塞过程赋值"><a href="#1-2-2-过程性赋值：Verilog-有两种过程性赋值：阻塞过程赋值-和-非阻塞过程赋值" class="headerlink" title="1.2.2 过程性赋值：Verilog 有两种过程性赋值：阻塞过程赋值 和 非阻塞过程赋值"></a>1.2.2 过程性赋值：Verilog 有两种过程性赋值：阻塞过程赋值 和 非阻塞过程赋值</h6><p><img src="/img/FPGA_5.jpg" alt="cover"><br><img src="/img/FPGA_6.jpg" alt="cover"></p>
+<h6 id="1-2-3-时延控制"><a href="#1-2-3-时延控制" class="headerlink" title="1.2.3 时延控制"></a>1.2.3 时延控制</h6><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>时延形式</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>语句前时延</td>
+<td>#5 Done &#x3D; tmp;</td>
+</tr>
+<tr>
+<td>2</td>
+<td>单独时延</td>
+<td>#5;Done &#x3D; tmp;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>语句内时延</td>
+<td>Done &#x3D; #5 ‘b1;</td>
+</tr>
+</tbody></table>
+<p>说明：时延单位由‘timescale 宏定义。</p>
+<h5 id="1-3-顺序语句"><a href="#1-3-顺序语句" class="headerlink" title="1.3 顺序语句"></a>1.3 顺序语句</h5><h6 id="1-3-1-if"><a href="#1-3-1-if" class="headerlink" title="1.3.1 if"></a>1.3.1 if</h6><h6 id="1-3-2-case"><a href="#1-3-2-case" class="headerlink" title="1.3.2 case"></a>1.3.2 case</h6><h6 id="1-3-3-循环语句-for"><a href="#1-3-3-循环语句-for" class="headerlink" title="1.3.3 循环语句 for"></a>1.3.3 循环语句 for</h6><h6 id="1-3-4-forever"><a href="#1-3-4-forever" class="headerlink" title="1.3.4 forever"></a>1.3.4 forever</h6><h6 id="1-3-5-repeat"><a href="#1-3-5-repeat" class="headerlink" title="1.3.5 repeat"></a>1.3.5 repeat</h6><h6 id="1-3-6-while"><a href="#1-3-6-while" class="headerlink" title="1.3.6 while"></a>1.3.6 while</h6>]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【初识博客】记录一次我的博客之旅</title>
+    <url>/2020/03/09/%E3%80%90%E5%88%9D%E8%AF%86%E5%8D%9A%E5%AE%A2%E3%80%91%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B9%8B%E6%97%85/</url>
+    <content><![CDATA[<blockquote>
+<p>​        本着踩边所有坑的态度历经两天建成了自己的第一个博客，当然这是第一篇文章，可见此文章的地位非同一般。果不其然，其间遇见了各路小鬼在太岁头上动土。包括但不限于网络问题无法上传至根服务器，没有网站前端知识导致的修改代码问题…..遍历了所有办法几乎是十八般武艺全都用上…第一篇文章测试一下网站的标签功能是否正常，以及建立起一套标准的写文章到发文章的可靠路径，毕竟不是什么时间都有大把精力用在客制化主题上，博客还是主要以记录为目的的。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="全局代码"><a href="#全局代码" class="headerlink" title="全局代码"></a><strong>全局代码</strong></h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">init</span>        <span class="comment">####安装</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span>           <span class="comment">###生成</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">clean</span>       <span class="comment">###清除缓存</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">d</span>           <span class="comment">###上传</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="更改git代理"><a href="#更改git代理" class="headerlink" title="更改git代理"></a><strong>更改git代理</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">http.proxy</span> <span class="string">http://127.0.0.1:10809</span></span><br><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">https.proxy</span> <span class="string">https://127.0.0.1:10809</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取消代理"><a href="#取消代理" class="headerlink" title="取消代理"></a><strong>取消代理</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">--unset</span> <span class="string">http.proxy</span></span><br><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">--unset</span> <span class="string">https.proxy</span></span><br></pre></td></tr></table></figure>
+<h3 id="按装一个插件来同步："><a href="#按装一个插件来同步：" class="headerlink" title="按装一个插件来同步："></a><strong>按装一个插件来同步：</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-deployer-git</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="git-yilia主题"><a href="#git-yilia主题" class="headerlink" title="git yilia主题"></a><strong>git yilia主题</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">clone</span> <span class="string">https://github.com/litten/hexo-theme-yilia.git</span> <span class="string">themes/yilia</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>blog/_config.yml</code>中加入<code>themes</code>信息和<code>github库</code>信息</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">https://github.com/heroamd/heroamd.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>blog\source</code>加入<code>CNAME</code>文件以改变域名，这个路径里面的所有文件都将会生成并放置在网站的根目录下。</p>
+<p>tips:<strong>所有代码前面不能加空格~~</strong></p>
+<h3 id="生成SSH添加到GitHub"><a href="#生成SSH添加到GitHub" class="headerlink" title="生成SSH添加到GitHub"></a><strong>生成SSH添加到GitHub</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;heroamd&quot;</span></span><br><span class="line"><span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;icenet11@163.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="检查是否正确"><a href="#检查是否正确" class="headerlink" title="检查是否正确"></a><strong>检查是否正确</strong></h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置ssh"><a href="#配置ssh" class="headerlink" title="配置ssh"></a><strong>配置ssh</strong></h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;icenet11@163.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="连接一下服务器测试是否成功"><a href="#连接一下服务器测试是否成功" class="headerlink" title="连接一下服务器测试是否成功"></a><strong>连接一下服务器测试是否成功</strong></h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="如果提示"><a href="#如果提示" class="headerlink" title="如果提示"></a><strong>如果提示</strong></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hi heroamd! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<h3 id="表示成功！！"><a href="#表示成功！！" class="headerlink" title="表示成功！！"></a>表示成功！！</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加Github的ip记录"><a href="#添加Github的ip记录" class="headerlink" title="添加Github的ip记录"></a><strong>添加Github的ip记录</strong></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">185.199.108.153</span><br><span class="line">185.199.109.153</span><br><span class="line">185.199.110.153</span><br><span class="line">185.199.111.153</span><br></pre></td></tr></table></figure>
+<h4 id="备份一下本电脑的代理端口排除的目录"><a href="#备份一下本电脑的代理端口排除的目录" class="headerlink" title="备份一下本电脑的代理端口排除的目录"></a>备份一下本电脑的代理端口排除的目录</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;windows10.microdone.cn</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改图片和头像"><a href="#修改图片和头像" class="headerlink" title="修改图片和头像"></a><strong>修改图片和头像</strong></h1><p> <code>themes/yilia/source/</code>下，可添加一个 <code>assets</code> 文件夹，里面存放图片资源即可</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 微信二维码图片</span></span><br><span class="line"><span class="attr">weixin:</span>  <span class="string">/assets/wechat.png</span></span><br><span class="line"><span class="comment"># 头像图片</span></span><br><span class="line"><span class="attr">avatar:</span>  <span class="string">/assets/head.jpg</span></span><br><span class="line"><span class="comment"># 网页图标</span></span><br><span class="line"><span class="attr">favicon:</span>  <span class="string">/assets/head.jpg</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="所有文章模块的更改"><a href="#所有文章模块的更改" class="headerlink" title="所有文章模块的更改"></a>所有文章模块的更改</h1><p> 1、请确保node版本大于6.2<br>  2、在博客根目录（注意不是yilia根目录）执行以下命令：<br>  <code>npm i hexo-generator-json-content --save</code></p>
+<p> 3、在根目录_config.yml里添加配置：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">jsonContent:</span></span><br><span class="line">  <span class="attr">meta:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">posts:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">date:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">path:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">text:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">raw:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">content:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">slug:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">updated:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">comments:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">link:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">excerpt:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">categories:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>tips: 注意空格</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听美剧说】从眼睛看穿一切</title>
+    <url>/2020/03/13/%E3%80%90%E5%90%AC%E7%94%B5%E5%BD%B1%E8%AF%B4%E3%80%91%E3%80%8A%E6%88%91%E7%9A%84%E5%A4%A9%E6%89%8D%E5%A5%B3%E5%8F%8B%E3%80%8B%E7%AC%AC%E4%B8%80%E8%87%B3%E7%AC%AC%E4%B8%89%E9%9B%86/</url>
+    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/13/8KQoo8.png" alt="睡梦中的童年埃莱娜"></p>
+<span id="more"></span>
+
+<p><img src="https://s1.ax1x.com/2020/03/13/8KQ7FS.png" alt="埃莱娜的眼睛--彷徨，迷惑，心事重重"></p>
+<p>​        前三集讲述的是童年时期的莱农和莉拉的生活，两个要好的朋友在升学考试的问题上关系出现破裂。眼神一举一动貌似胜过一颦一簇的温婉。似铁血柔光s，似无人深渊，似一个小世界。导演塞维尼奥·科斯坦佐对于人物的描绘出神入化，直击内心世界的秘密。前三集拍摄地均在没有几栋建筑的小镇，简单的甚至略带枯燥乏味。但这种单调中画龙点睛的一笔是人物的眼神。不必多说，不必细说，不用深说，也无需滔滔不绝，给一个一秒钟的眼神特写，足矣！</p>
+<p>​</p>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>完善修复Hackintosh的一次经历</title>
+    <url>/2020/05/25/%E5%A5%BD%E4%B9%85%E6%B2%A1%E7%94%A8%E9%BB%91%E8%8B%B9%E6%9E%9C%E4%BF%AE%E5%A4%8D%E4%BA%86%E4%B8%80%E4%BA%9Bbugs/</url>
+    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/25/ZquNxpgYmD6reS3.png" alt="QQ截图20200525230912.png"></p>
+<span id="more"></span>
+
+<p>​    好久没用黑苹果系统了，打开之后发现系统臃肿不堪，非常卡顿，花几分钟时间简单分析一下原因：</p>
+<ul>
+<li><p>之前一时兴起安装了ID, C4D, PR, AE 等大型软件，占用了大量的固态盘空间，我买的是256GB的固态盘只剩下了20G不到的空间，算一下百分比就是还剩下7.8%左右的剩余空间。经过一波卸载，删掉之前做海报设计时的旧素材文件之后还剩下差不多50GB的空间，相当于扩展到了20%，这个范围不会严重影响固态硬盘的缓存性能也就是常说的满盘的情况。因为在固态颗粒售价很低的时候买的一条固态盘，所以先暂时凑活用一下以后在考虑升级的问题。</p>
+</li>
+<li><p>开机启动项太多，监控，各种小工具很多很多严重拖垮了开机时间和进入桌面的加载时间，删掉了一部分软件</p>
+</li>
+<li><p>第三部分是重中之重了，优化了EFI文件，之前自己折腾的时候黑苹果还有几处不完美的地方比如第一次进系统会时不时重启，不能开机之后连接HDMI接口造成了很多麻烦甚至不能高效的把系统当作一个完美的生产力工具，这次在制作毕业季明信片的时候我本人实在忍无可忍了决定试一试修复这些不必要的麻烦。</p>
+<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2></li>
+</ul>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摆渡</title>
+    <url>/2020/03/13/%E6%91%86%E6%B8%A1/</url>
+    <content><![CDATA[<blockquote>
+<p>​        最近在哔哩哔哩看了好多北京大学的宣传电影，其中有一个我印象比较深，它从男生和女生和星空的角度分别描绘了一对北大情侣相爱，相别的爱情故事。不过我更感兴趣的是两个不同专业，不同性格的人通过北大广阔的平台意外相识的经历，如同Ayer一样纯粹，纯净。其中导演通过非常的剪辑手法和描述技巧，让原本已经玩烂的青春爱情校园故事蓬荜生辉，我从其中摘抄了一些句子觉得很有意思。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="在对的时间遇见对的人，这是童话"><a href="#在对的时间遇见对的人，这是童话" class="headerlink" title="在对的时间遇见对的人，这是童话"></a>在对的时间遇见对的人，这是童话</h2><h2 id="在错的时间遇见对的人，这才是青春"><a href="#在错的时间遇见对的人，这才是青春" class="headerlink" title="在错的时间遇见对的人，这才是青春"></a>在错的时间遇见对的人，这才是青春</h2><blockquote>
+<h3 id="什么是社会？社会是由自我繁殖的个体构建而成的社群。"><a href="#什么是社会？社会是由自我繁殖的个体构建而成的社群。" class="headerlink" title="什么是社会？社会是由自我繁殖的个体构建而成的社群。"></a>什么是社会？社会是由自我繁殖的个体构建而成的社群。</h3><h3 id="什么是喜欢？旺盛分泌的多巴胺，期限30个月。"><a href="#什么是喜欢？旺盛分泌的多巴胺，期限30个月。" class="headerlink" title="什么是喜欢？旺盛分泌的多巴胺，期限30个月。"></a>什么是喜欢？旺盛分泌的多巴胺，期限30个月。</h3><h3 id="什么是时光？时光是我们穿过的衣服，却再也脱不下来。"><a href="#什么是时光？时光是我们穿过的衣服，却再也脱不下来。" class="headerlink" title="什么是时光？时光是我们穿过的衣服，却再也脱不下来。"></a>什么是时光？时光是我们穿过的衣服，却再也脱不下来。</h3><h3 id="什么是美？从’’知道’’到达’’懂得’’。"><a href="#什么是美？从’’知道’’到达’’懂得’’。" class="headerlink" title="什么是美？从’’知道’’到达’’懂得’’。"></a>什么是美？从’’知道’’到达’’懂得’’。</h3></blockquote>
+<p><strong>不是现实支撑了梦想，而是梦想支撑着你的现实。</strong></p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听电影说】青春二字太过刺耳，多少人装作左耳</title>
+    <url>/2020/03/12/%E9%9D%92%E6%98%A5%E4%BA%8C%E5%AD%97%E5%A4%AA%E8%BF%87%E5%88%BA%E8%80%B3%EF%BC%8C%E5%A4%9A%E5%B0%91%E4%BA%BA%E8%A3%85%E4%BD%9C%E5%B7%A6%E8%80%B3/</url>
+    <content><![CDATA[<p><img src="/img/2020-3-13-1.jpg" alt="小耳朵"></p>
+<span id="more"></span>
+<p>​        首先，我承认我五分确实打的过于高了，这也是有原因的，对于一个能在自己的某一期时期能够引起共鸣的片子来说也很正常，毕竟2020了，谁也没事扒拉出来这种青春片来消磨时光。我想说的是因为我正在经历着这部片子里经历的不完整的剧情，而且刻骨铭心！</p>
+<p>​        我不知道但我相信这部片子里的剧情完完本本经历过的一切的人或许存在但存在的人或许不上豆瓣，因为这里充斥着无知 自大 自以为自己是救世主的一切，请问，您能安排自己的青春您凭什么就不可以相信这是别人的青春？就因为那个破酒吧您看到过，那个高考您经历过，那个开网店的创业故事您看中国合伙人看过，那个地道卖碟的人您从他身边走过吗？呵呵，好笑罢了。。</p>
+<p>​        事实上我前面说的那些我小的时候听到或者见到过，但是高考家长排队送饭，老师因为闯祸批评，一起拉着去上学，那时自己一个人在哭的情节我经历过！这更像是一个95后或者00后所经历过的吧。所以说这部片子也许把时间线弄得复杂弄得不合逻辑？但是为了使剧情合理化苏导做的一切也都顺理成章了。</p>
+<p>​        其次，我给这片打五分的原因是因为我好像从这里看到了我的未来，看到了这世界还有人在和我一样经历着这些，这种细腻温婉的感情难遇，难忘，难寻！我还是承认对于我来说这剧情确实太过理想化了，傻白甜怎么也不可能去做挡酒瓶，跟BL鬼混的情节，看暗恋的人能撞上人。。。我经历的事实没这么傻，我也希望以后不要有未来人模仿，因为真的很气人，傻白甜最后遍体鳞伤这难道就是每一个单纯孩子所必须承受的一切吗？我想问这个世界你们还有宽容心吗？</p>
+<p>​        你们所说的打胎什么的剧情我并没有太留意，因为它们并不重要，我甚至都没有意识有这些情节。我只知道左耳，左耳的表兄，等等这些人都能在我的生活或者我的记忆力找到影子，那部N95我也曾经使用过只不过那时我还没到高考的时期罢了。</p>
+<p>​        我明白，每个人都想自己的青春闪着光，永远难忘，可是请你不要忘了多少人在青春这个泥潭里反复挣扎，他们无处诉说，无人理解，只能自己默默在那些或真或假的电影里寻找所谓的想要的事实。他们也许真的逃不出青春的魔掌，或许是因为王菲左耳里唱的：青春没有红灯。有些痛要一直忍 一忍再忍 直到麻木不仁吧。</p>
+<p><strong>祝，你要坚强</strong></p>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vim的使用再学习</title>
+    <url>/2022/03/28/vim%E7%9A%84%E4%BD%BF%E7%94%A8%E5%86%8D%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_4867.jpg" alt="DSC_4867"></p>
+<span id="more"></span>
+
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><h4 id="Vim查找和替换"><a href="#Vim查找和替换" class="headerlink" title="Vim查找和替换"></a>Vim查找和替换</h4><p>在normal模式下按下<code>/</code>即可进入查找模式，输入要查找的字符串并按下回车。 Vim会跳转到第一个匹配。按下<code>n</code>查找下一个，按下<code>N</code>查找上一个。</p>
+<h4 id="Vim撤消和重做"><a href="#Vim撤消和重做" class="headerlink" title="Vim撤消和重做"></a>Vim撤消和重做</h4><ol>
+<li>u: 撤销上一步的操作。</li>
+<li>Ctrl+r: 将原来的插销重做一遍</li>
+</ol>
+<h4 id="Vim对行进行操作"><a href="#Vim对行进行操作" class="headerlink" title="Vim对行进行操作"></a>Vim对行进行操作</h4><h4 id="将CCache添加进PATH（环境变量区别：profile、environment、-bashrc、bashrc）"><a href="#将CCache添加进PATH（环境变量区别：profile、environment、-bashrc、bashrc）" class="headerlink" title="将CCache添加进PATH（环境变量区别：profile、environment、.bashrc、bashrc）"></a>将CCache添加进PATH（环境变量区别：profile、environment、.bashrc、bashrc）</h4><ul>
+<li><p>区别： </p>
+<ol>
+<li><p><strong>&#x2F;etc&#x2F;profile</strong><br>为系统的每个用户设置环境信息和启动程序，当用户第一次登录时，该文件被执行，其配置对所有登录的用户都有效。当被修改时，必须重启才会生效。英文描述：”System wide environment and startup programs, for login setup.”</p>
+</li>
+<li><p><strong>&#x2F;etc&#x2F;environment</strong></p>
+<p>系统的环境变量，&#x2F;etc&#x2F;profile是所有用户的环境变量，前者与登录用户无关，后者与登录用户有关，当同一变量在两个文件里有冲突时，以用户环境为准。</p>
+</li>
+<li><p><strong>&#x2F;etc&#x2F;bashrc</strong><br>为每个运行 bash shell 的用户执行该文件，当 bash shell 打开时，该文件被执行，其配置对所有使用bash的用户打开的每个bash都有效。当被修改后，不用重启只需要打开一个新的 bash 即可生效。英文描述：”System wide functions and aliases.”</p>
+</li>
+<li><p><strong>~&#x2F;.bash_profile</strong><br>为当前用户设置专属的环境信息和启动程序，当用户登录时该文件执行一次。默认情况下，它用于设置环境变量，并执行当前用户的 .bashrc 文件。理念类似于 &#x2F;etc&#x2F;profile，只不过只对当前用户有效，也<strong>需要重启才能生效</strong>。(注意：Centos7系统命名为.bash_profile，其他系统可能是.bash_login或.profile。)</p>
+</li>
+<li><p><strong>~&#x2F;.bashrc</strong><br>为当前用户设置专属的 bash 信息，当每次打开新的shell时，该文件被执行。理念类似于&#x2F;etc&#x2F;bashrc，只不过只对当前用户有效，<strong>不需要重启</strong>只需要打开新的shell即可生效。</p>
+</li>
+<li><p><strong>~&#x2F;.bash_logout</strong></p>
+<p>为当前用户，每次退出bash shell时执行该文件，可以把一些清理工作的命令放进这个文件。</p>
+</li>
+<li><p><strong>整体顺序：</strong><br>当登录Linux时，首先启动&#x2F;etc&#x2F;environment和&#x2F;etc&#x2F;profile，然后启动当前用户目录的&#x2F;.bash_profile，执行此文件时一般会调用&#x2F;.bashrc文件，而执行&#x2F;.bashrc时一般会调用&#x2F;etc&#x2F;bashrc，最后退出shell时，执行&#x2F;.bash_logout。</p>
+</li>
+</ol>
+</li>
+<li><p>软连接和环境变量的区别</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ln -s [源文件或者目录]  [目标文件或者目录]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>软连接会在选定的位置上生成镜像文件，不会占用磁盘空间。文件保持同步变化。似windws快捷方式</li>
+</ul>
+</li>
+<li><p>设置方案：</p>
+<ul>
+<li><p>方法一：直接<code>export PATH=&quot;/usr/lib/ccache:$PATH&quot;</code>，问题是只能使用一次。</p>
+</li>
+<li><p>方法二：在~&#x2F;.bashrc中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export PATH=/usr/lib/ccache:$PATH;</span><br></pre></td></tr></table></figure>
+
+<p>含义是在原有PATH之前添加一个新的目录&#x2F;usr&#x2F;lib&#x2F;ccache</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Makefile文件："><a href="#Makefile文件：" class="headerlink" title="Makefile文件："></a>Makefile文件：</h4><h5 id="基本结构："><a href="#基本结构：" class="headerlink" title="基本结构："></a>基本结构：</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">target ... : prerequisites ...</span><br><span class="line">    command</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>伪目标可以成为依赖</p>
+</li>
+<li><p>Include</p>
+</li>
+</ul>
+<h5 id="静态模式："><a href="#静态模式：" class="headerlink" title="静态模式："></a>静态模式：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;targets ...&gt; : &lt;target-pattern&gt; : &lt;prereq-patterns ...&gt;</span><br><span class="line">    &lt;commands&gt;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>targets:%.o: %.c</code>其中·<code>%.o: %.c</code>是一组依赖关系，表示的意思是<code>%(%.c)</code>，依赖模式 <code>%.c</code> 则取模式 <code>%.o</code> 的 <code>%</code>，也就是 <code>foo bar</code> ，并为其加下 <code>.c</code> 的后缀，<code>%.o</code>是<code>%.c</code>的父关系。</li>
+</ul>
+<h5 id="自动生成依赖性"><a href="#自动生成依赖性" class="headerlink" title="自动生成依赖性"></a>自动生成依赖性</h5><p>如果我们的main.c中有一句 <code>#include &quot;defs.h&quot;</code> ，那么我们的依赖关系应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main.o : main.c defs.h</span><br></pre></td></tr></table></figure>
+
+<p>这时候需要<code>-M</code>可以让编译器自动生成依赖关系。这里举一个大的工程让编译器自己生成依赖的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">%.d: %.c</span><br><span class="line">    @set -e; rm -f $@; \</span><br><span class="line">    $(CC) -M $(CPPFLAGS) $&lt; &gt; $@.$$$$; \</span><br><span class="line">    sed &#x27;s,\($*\)\.o[ :]*,\1.o $@ : ,g&#x27; &lt; $@.$$$$ &gt; $@; \</span><br><span class="line">    rm -f $@.$$$$</span><br></pre></td></tr></table></figure>
+
+<p>如果有一个C文件是name.c，那么 <code>%</code> 就是 <code>name</code> ， <code>$$$$</code> 意为一个随机编号，第二行生成的文件有可能是“name.d.12345”。</p>
+<h5 id="Example："><a href="#Example：" class="headerlink" title="Example："></a>Example：</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="variable">$(OBJ_DIR)</span>/%.o: %.c</span><br><span class="line">  @echo + CC <span class="variable">$&lt;</span></span><br><span class="line">  @mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">  @<span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line">  <span class="variable">$(<span class="built_in">call</span> call_fixdep, $(@:.o=.d)</span>, <span class="variable">$@</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$(@:.o=.d)</code>表示将<code>$@</code>中所有<code>.o</code>替换为<code>.d</code></li>
+</ul>
+<h5 id="书写命令"><a href="#书写命令" class="headerlink" title="书写命令"></a>书写命令</h5><p>和shell规则是一致的，每条命令开头必须以Tab开头，#是注释符。</p>
+<h5 id="显示命令"><a href="#显示命令" class="headerlink" title="显示命令"></a>显示命令</h5><p>一般来说make会把命令首先显示出来，如果不想把命令显示出来的话，就在前面添加@</p>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Makefile:@echo 正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">Makefile:echo 正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">echo 正在编译XXX模块......</span><br><span class="line">正在编译XXX模块......</span><br></pre></td></tr></table></figure>
+
+<p>调试：make执行时，带入make参数 <code>-n</code> 或 <code>--just-print</code> ，那么其只是显示命令，但不会执行命令。</p>
+<h5 id="命令的执行"><a href="#命令的执行" class="headerlink" title="命令的执行"></a>命令的执行</h5><p>命令的执行逻辑是：当依赖目标新于目标时，make会一条一条的执行其后面的命令。如果想要上一条命令的结果应用在吓一跳命令的时候，用;分隔。For  example:</p>
+<ul>
+<li>示例一：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exec:</span><br><span class="line">    cd /home/hchen</span><br><span class="line">    pwd</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>示例二：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exec:</span><br><span class="line">    cd /home/hchen; pwd</span><br></pre></td></tr></table></figure>
+
+<p>第一个例子里面的cd不会被执行，显示的是Makefile的目录，第二个pwd会显示出cd之后的目录。</p>
+<h5 id="命令出错"><a href="#命令出错" class="headerlink" title="命令出错"></a>命令出错</h5><p>在命令前面添加减号<code>-</code>，标记无论命令是否出错都认为是成功的。</p>
+<h5 id="嵌套执行Make"><a href="#嵌套执行Make" class="headerlink" title="嵌套执行Make"></a>嵌套执行Make</h5><p>为了方便管理大工程，会设置一个总的Makefile，然后在不同模块内再书写一个Makefile文件。</p>
+<p>假如子目录&#x2F;subdir下面有一个Makefile文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    cd subdir &amp;&amp; $(MAKE)</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    $(MAKE) -C subdir</span><br></pre></td></tr></table></figure>
+
+<p>但是顶层的变量并不会传递给下一层，如果要传递某些参数，声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export &lt;variable ...&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>示例一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable = value</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable = value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable := value</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
+
+<p>示例二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable += value</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable += value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，有两个变量，一个是 <code>SHELL</code> ，一个是 <code>MAKEFLAGS</code> ，这两个变量不管你是否export，其总是要传递到下层 Makefile中！这时候如果需要声明一些参数不传入下一层，则需要：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">unexport &lt;variable ...&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>但是make命令中的有几个参数并不往下传递，它们是 <code>-C</code> , <code>-f</code> , <code>-h</code>, <code>-o</code> 和 <code>-W</code> （有关Makefile参数的细节将在后面说明），如果你不想往下层传递参数，那么，你可以这样来：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    cd subdir &amp;&amp; $(MAKE) MAKEFLAGS=</span><br></pre></td></tr></table></figure>
+
+<p>如果你定义了环境变量 <code>MAKEFLAGS</code> ，那么你得确信其中的选项是大家都会用到的，如果其中有 <code>-t</code> , <code>-n</code> 和 <code>-q</code> 参数，那么将会有让你意想不到的结果，或许会让你异常地恐慌。</p>
+<p>还有一个在“嵌套执行”中比较有用的参数， <code>-w</code> 或是 <code>--print-directory</code> 会在make的过程中输出一些信息，让你看到目前的工作目录。比如，如果我们的下级make目录是“&#x2F;home&#x2F;hchen&#x2F;gnu&#x2F;make”，如果我们使用 <code>make -w</code> 来执行，那么当进入该目录时，我们会看到:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make: Entering directory `/home/hchen/gnu/make&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>而在完成下层make后离开目录时，我们会看到:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make: Leaving directory `/home/hchen/gnu/make&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>当你使用 <code>-C</code> 参数来指定make下层Makefile时， <code>-w</code> 会被自动打开的。如果参数中有 <code>-s</code> （ <code>--slient</code> ）或是 <code>--no-print-directory</code> ，那么， <code>-w</code> 总是失效的。</p>
+<h5 id="定义命令包"><a href="#定义命令包" class="headerlink" title="定义命令包"></a>定义命令包</h5><p>语法以 <code>define</code> 开始，以 <code>endef</code> 结束。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">define run-yacc</span><br><span class="line">yacc $(firstword $^)</span><br><span class="line">mv y.tab.c $@</span><br><span class="line">endef</span><br></pre></td></tr></table></figure>
+
+<p>这里，“run-yacc”是这个命令包的名字，其不要和Makefile中的变量重名。在 <code>define</code> 和 <code>endef</code> 中的两行就是命令序列。这个命令包中的第一个命令是运行Yacc程序，因为Yacc程序总是生成“y.tab.c”的文件，所以第二行的命令就是把这个文件改改名字。还是把这个命令包放到一个示例中来看看吧。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">foo.c : foo.y</span><br><span class="line">    $(run-yacc)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看见，要使用这个命令包，我们就好像使用变量一样。在这个命令包的使用中，命令包“run-yacc”中的 <code>$^</code> 就是 <code>foo.y</code> ， <code>$@</code> 就是 <code>foo.c</code> （有关这种以 <code>$</code> 开头的特殊变量，我们会在后面介绍），make在执行命令包时，命令包中的每个命令会被依次独立执行。</p>
+<h5 id="变量："><a href="#变量：" class="headerlink" title="变量："></a>变量：</h5><p>正常以<code>=</code>来定义的变量是可以后面定义前面的，因此对于类似<code>CFLAGS = $(CFLAGS) -O</code>会出现循环定义的问题，<code>:=</code> 操作符代替<code>=</code>就可以让前面的变量不能使用后面的变量。</p>
+<p><code>+=</code> 操作符给变量追加值，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">variable += more</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">variable := $(variable) more</span><br></pre></td></tr></table></figure>
+
+<p>高级用法：把变量的值再次当成变量：<code> $($(x))</code>，类似于嵌套。</p>
+<p><code>CFLAGS</code> 环境变量：优先使用<code>CFLAGS</code> 李敏的定义的变量，如果没有使用再使用系统变量。</p>
+<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><ul>
+<li><p>字符串处理函数：</p>
+<ul>
+<li>$(subst 1,2,$(3))：把“$(3)”中的所有“1”字串替换成“2”字串</li>
+</ul>
+</li>
+<li><p>文件名操作函数</p>
+<ul>
+<li>$(dir &lt;names…&gt;)：取目录函数，取得是name&#x2F;之前的目录。example:$(dir src&#x2F;foo.c hacks)<code>返回值是</code>src&#x2F; .&#x2F;</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>脑中一二物</title>
+    <url>/2022/03/28/%E8%84%91%E4%B8%AD%E4%B8%80%E4%BA%8C%E7%89%A9/</url>
+    <content><![CDATA[<p><img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_5242.jpg" alt="DSC_5242"></p>
+<span id="more"></span>
+
+<ul>
+<li><p><strong>在有先验信息的条件下如何进行发言 也是要自信 就是要大胆的show自己。</strong></p>
+<p>比如说刚刚开始的时候会被分配一些小任务 很有可能其他人敲两下就oK了 但是一定要给你做可能就是为了看一下你的能力 这时候需要你汇报工作一定要把观众当傻子 事无巨细的逻辑展示出来比跳来跳去觉得简单就可以跳要容易得多。</p>
+</li>
+<li><p><strong>偏激和笃定的平衡。</strong></p>
+</li>
+<li><p><strong>被分配任务以后一定要有一个自己的规划在那里，是宏观的大方向，之后再去关注小方向</strong>。</p>
+</li>
+<li><p>工作和科研是一样的 没有人告诉你方案 没人告诉你原理 工作不是证明题 也不存在一个一定的正确性，所以放平心态 敢于把自己的想法说出来并按照自己的做一阵子 其实其他人也不知道你这么做对还是不对。假如你是一个不自信的表述 或者自己做的时候自己也半信半疑没有深入 其他人就会以为这个方案不行</p>
+</li>
+</ul>
+<blockquote>
+<img src="C:\Users\qi\AppData\Roaming\Typora\typora-user-images\image-20220311120401352.png" alt="image-20220311120401352" style="zoom:50%;" />
+</blockquote>
+<ul>
+<li><p><strong>我感觉尽管自己之前被捧上天 但是我觉得自己的能力差距还是很大很大的。</strong></p>
+</li>
+<li><p><strong>逻辑性计划性</strong></p>
+</li>
+<li><p>不要陷入<strong>被分配任务–&gt;浅浅了解一下–&gt;看其他没有人做过–&gt;觉得这个方向不太行–&gt;开始质疑自己和团队</strong> 的怪圈</p>
+<p>因此在阅读代码的时候, 你只需要关心和当前进度相关的模块就可以了, 不要纠缠于和当前进度无关的代码, 否则将会给你的心灵带来不必要的恐惧.</p>
+</li>
+<li><p>基础知识（比如数学，英语，一些编程的语法等你觉得简单但是没啥用的东西）相当于工具，假如碰到一个难点没有好的办法，那肯定是没有掌握工具或者是工具的使用方法。<strong>其实每个知识都不应该是一个孤岛</strong>。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>南大PA实验以及数字逻辑与计算机组成实验</title>
+    <url>/2022/03/28/%E5%8D%97%E5%A4%A7PA%E5%AE%9E%E9%AA%8C%E4%BB%A5%E5%8F%8A%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%AE%9E%E9%AA%8C/</url>
+    <content><![CDATA[<p>​        <img src="/img/DSC_4847.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h2 id="南大PA实验以及数字逻辑与计算机组成实验"><a href="#南大PA实验以及数字逻辑与计算机组成实验" class="headerlink" title="南大PA实验以及数字逻辑与计算机组成实验"></a>南大PA实验以及数字逻辑与计算机组成实验</h2><h3 id="实验一-选择器"><a href="#实验一-选择器" class="headerlink" title="实验一 选择器"></a>实验一 选择器</h3><h5 id="1、三种建模方式"><a href="#1、三种建模方式" class="headerlink" title="1、三种建模方式"></a>1、三种建模方式</h5><ul>
+<li><p>数据流建模</p>
+</li>
+<li><p>结构化建模</p>
+</li>
+<li><p>行为建模</p>
+</li>
+</ul>
+<h5 id="2、用三种建模方式实现四选一电路"><a href="#2、用三种建模方式实现四选一电路" class="headerlink" title="2、用三种建模方式实现四选一电路"></a>2、用三种建模方式实现四选一电路</h5><ul>
+<li><p>尽可能避免行为建模（因为不能在脑子中将复杂的逻辑转化为硬件电路）</p>
+</li>
+<li><p>有If一定要配合else，如果不配合就会多生成一个寄存器用于存储上一个if不满足产生的结果，这样就无法想象硬件电路了</p>
+</li>
+<li><p>HDL本质是硬件描述语言，所以每一句话尽可能做到能够想出来其中的电路</p>
+</li>
+<li><p>case一定要配合default，其中，下面这样书写是正确的：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1，2： y = a[0]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>if后面只可以跟一个语句，所以一般习惯于加上 begin 和 end</p>
+</li>
+</ul>
+<h5 id="3、使用模板搭建二位四选一选择器"><a href="#3、使用模板搭建二位四选一选择器" class="headerlink" title="3、使用模板搭建二位四选一选择器"></a>3、使用模板搭建二位四选一选择器</h5><ul>
+<li>使用nxdc约束文件的时候必须参考官方example里面的按钮，不可以自己新建</li>
+<li>因为没有改变main.cpp的缘故，因此必须包含clk和rst信号线作为input</li>
+<li>这个过程其实在摸索学习Makefile和C++语法</li>
+<li>NVboard实际上是一个规定好按钮图片和按钮变量名称的模拟开发板，局限性还是有的。</li>
+</ul>
+<h5 id="4、译码器和编码器"><a href="#4、译码器和编码器" class="headerlink" title="4、译码器和编码器"></a>4、译码器和编码器</h5><ul>
+<li><p>必须在每一次赋值之后添加 contextp-&gt;timeInc(1);  top -&gt; eval(); 大致意思是赋值一次，记录时间戳过了1时刻，然后更新一下top的变量值并且记录</p>
+</li>
+<li><p><img src="C:\Users\qi\AppData\Roaming\Typora\typora-user-images\image-20220310122050322.png" alt="image-20220310122050322"></p>
+</li>
+</ul>
+<h4 id="5、NEMU"><a href="#5、NEMU" class="headerlink" title="5、NEMU"></a>5、NEMU</h4><p>PA的目的是要实现NEMU, 一款经过简化的全系统模拟器。总结一下就是一个运行在Hardware—&gt;Linux(Unix)—&gt;虚拟的硬件模拟器。</p>
+<p>NEMU主要由4个模块构成: monitor, CPU, memory, 设备。Mnitor是非必要的监视器。</p>
+<h5 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h5><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">nemu</span><br><span class="line">├── configs                    # 预先提供的一些配置文件</span><br><span class="line">├── include                    # 存放全局使用的头文件</span><br><span class="line">│   ├── common.h               # 公用的头文件</span><br><span class="line">│   ├── config                 # 配置系统生成的头文件, 用于维护配置选项更新的时间戳</span><br><span class="line">│   ├── cpu</span><br><span class="line">│   │   ├── cpu.h</span><br><span class="line">│   │   ├── decode.h           # 译码相关</span><br><span class="line">│   │   ├── difftest.h</span><br><span class="line">│   │   └── ifetch.h           # 取指相关</span><br><span class="line">│   ├── debug.h                # 一些方便调试用的宏</span><br><span class="line">│   ├── device                 # 设备相关</span><br><span class="line">│   ├── difftest-def.h</span><br><span class="line">│   ├── generated</span><br><span class="line">│   │   └── autoconf.h         # 配置系统生成的头文件, 用于根据配置信息定义相关的宏</span><br><span class="line">│   ├── isa.h                  # ISA相关</span><br><span class="line">│   ├── macro.h                # 一些方便的宏定义</span><br><span class="line">│   ├── memory                 # 访问内存相关</span><br><span class="line">│   └── utils.h</span><br><span class="line">├── Kconfig                    # 配置信息管理的规则</span><br><span class="line">├── Makefile                   # Makefile构建脚本</span><br><span class="line">├── README.md</span><br><span class="line">├── resource                   # 一些辅助资源</span><br><span class="line">├── scripts                    # Makefile构建脚本</span><br><span class="line">│   ├── build.mk</span><br><span class="line">│   ├── config.mk</span><br><span class="line">│   ├── git.mk                 # git版本控制相关</span><br><span class="line">│   └── native.mk</span><br><span class="line">├── src                        # 源文件</span><br><span class="line">│   ├── cpu</span><br><span class="line">│   │   └── cpu-exec.c         # 指令执行的主循环</span><br><span class="line">│   ├── device                 # 设备相关</span><br><span class="line">│   ├── engine</span><br><span class="line">│   │   └── interpreter        # 解释器的实现</span><br><span class="line">│   ├── filelist.mk</span><br><span class="line">│   ├── isa                    # ISA相关的实现</span><br><span class="line">│   │   ├── mips32</span><br><span class="line">│   │   ├── riscv32</span><br><span class="line">│   │   ├── riscv64</span><br><span class="line">│   │   └── x86</span><br><span class="line">│   ├── memory                 # 内存访问的实现</span><br><span class="line">│   ├── monitor</span><br><span class="line">│   │   ├── monitor.c</span><br><span class="line">│   │   └── sdb                # 简易调试器</span><br><span class="line">│   │       ├── expr.c         # 表达式求值的实现</span><br><span class="line">│   │       ├── sdb.c          # 简易调试器的命令处理</span><br><span class="line">│   │       └── watchpoint.c   # 监视点的实现</span><br><span class="line">│   ├── nemu-main.c            # 你知道的...</span><br><span class="line">│   └── utils                  # 一些公共的功能</span><br><span class="line">│       ├── log.c              # 日志文件相关</span><br><span class="line">│       ├── rand.c</span><br><span class="line">│       ├── state.c</span><br><span class="line">│       └── timer.c</span><br><span class="line">└── tools                      # 一些工具</span><br><span class="line">    ├── fixdep                 # 依赖修复, 配合配置系统进行使用</span><br><span class="line">    ├── gen-expr</span><br><span class="line">    ├── kconfig                # 配置系统</span><br><span class="line">    ├── kvm-diff</span><br><span class="line">    ├── qemu-diff</span><br><span class="line">    └── spike-diff</span><br></pre></td></tr></table></figure>
+
+<h5 id="尝试理解计算机如何计算："><a href="#尝试理解计算机如何计算：" class="headerlink" title="尝试理解计算机如何计算："></a>尝试理解计算机如何计算：</h5><p>最简单的图灵机只有一个运算器可以被调用，也就是说一个时钟周期只能进行一次加减乘除的运算，因此图灵机采用的思想是缓存，也就是将每一步的结果存储在存储容量小但是速度快的寄存器中，只要运算器和寄存器配合的足够好，那么就可以近似将分布运算等同于实时计算。其中加减乘除被代替为每一条指令，同一个时钟周期执行一条指令，执行指令的速度由计算机硬件决定，序号有指令寄存器来决定。</p>
+<p>程序和计算机其实都是一个状态机：在状态机模型里面, 指令可以看成是计算机进行一次状态转移的输入激励。</p>
+<h5 id="从状态机视角理解程序运行：1-2-100的指令序列为例-尝试画出这个程序的状态机"><a href="#从状态机视角理解程序运行：1-2-100的指令序列为例-尝试画出这个程序的状态机" class="headerlink" title="从状态机视角理解程序运行：1+2+...+100的指令序列为例, 尝试画出这个程序的状态机."></a>从状态机视角理解程序运行：<code>1+2+...+100</code>的指令序列为例, 尝试画出这个程序的状态机.</h5><p>这个程序比较简单, 需要更新的状态只包括<code>PC</code>和<code>r1</code>, <code>r2</code>这两个寄存器, 因此我们用一个三元组<code>(PC, r1, r2)</code>就可以表示程序的所有状态, 而无需画出内存的具体状态. 初始状态是<code>(0, x, x)</code>, 此处的<code>x</code>表示未初始化. 程序<code>PC=0</code>处的指令是<code>mov r1, 0</code>, 执行完之后<code>PC</code>会指向下一条指令, 因此下一个状态是<code>(1, 0, x)</code>. 如此类推, 我们可以画出执行前3条指令的状态转移过程：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">(0, x, x) -&gt; (1, 0, x) -&gt; (2, 0, 0) -&gt; (3, 0, 1) -&gt; (4,1,1) -&gt; (5,1,1) -&gt; (6,1,2) -&gt; (7,3,2) -&gt;  -&gt; (8,3,2) -&gt; (9,3,3) -&gt; (9,6,3) -&gt; (10,6,3) -&gt; (11,6,4) -&gt; (12,10,4) -&gt; (13,10,4) -&gt; ...  -&gt; (295,4851,98) -&gt;  (296,4851,99) (297,4950,99) -&gt; (298,4950,99) -&gt; (299,4950,100) -&gt; (300,5050,100) -&gt;(301,5050,100) -&gt; pc5</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置系统Kconfig"><a href="#配置系统Kconfig" class="headerlink" title="配置系统Kconfig"></a>配置系统Kconfig</h5><p>在一个有一定规模的项目中, 可配置选项的数量可能会非常多, 而且配置选项之间可能会存在关联, 比如打开配置选项A之后, 配置选项B就必须是某个值. 直接让开发者去管理这些配置选项是很容易出错的, 比如修改选项A之后, 可能会忘记修改和选项A有关联的选项B. 配置系统的出现则是为了解决这个问题。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Github升级SSH秘钥导致不能上传的问题</title>
+    <url>/2022/03/28/%E8%A7%A3%E5%86%B3Github%E5%8D%87%E7%BA%A7SSH%E7%A7%98%E9%92%A5%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E4%B8%8A%E4%BC%A0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p><img src="/img/DSC_5247.jpg" alt="1"></p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;123123@qq.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式已经不可用了，改为未使用下面的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>了解一下为什么这么做，难道原来的SHA-1不安全了吗？</p>
+<p>查询到自从2017年2月，Google 宣布攻破 SHA-1，几周前，研究人员宣布了 SHAttered，这是 SHA-1 哈希函数的第一次碰撞。从今天开始，GitHub.com 上的所有 SHA-1 计算都将检测并拒绝任何有证据证明是碰撞攻击一部分的 Git 内容。这确保了 GitHub 不能用作对我们的用户执行碰撞攻击的平台。</p>
+<p><a href="https://www.zdnet.com/article/gits-move-away-from-sha-1-version-2-29-brings-experimental-sha-256-support/"></a></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+</search>
