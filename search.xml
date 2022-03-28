@@ -120,6 +120,63 @@
       </tags>
   </entry>
   <entry>
+    <title>Django实战（1）</title>
+    <url>/2020/06/23/Django%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
+<span id="more"></span>
+
+<h5 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h5><ul>
+<li>搭建虚拟开发环境，使用Pycharm创建Django项目</li>
+<li>本地配置local_settings.py，通过.gitingnor文件排除推送文件目录</li>
+<li>Git共有仓库的使用</li>
+</ul>
+<h5 id="任务如下"><a href="#任务如下" class="headerlink" title="任务如下"></a>任务如下</h5><ul>
+<li>创建一个名为tracer的虚拟环境</li>
+<li>创建一个django项目：tracer</li>
+<li>建立一个git仓库名称为tracer</li>
+<li>总结文档</li>
+</ul>
+<ol>
+<li>虚拟开发环境的创建</li>
+</ol>
+<p>1.1 安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>1.2 创建虚拟环境</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">virtualenv 环境名称</span><br><span class="line"></span><br><span class="line"><span class="comment">#两种创建方式</span></span><br><span class="line"><span class="number">1</span>、virtualenv 环境名称 --python=python3<span class="number">.6</span></span><br><span class="line"><span class="number">2</span>、virtualenv 环境名称 --python=<span class="string">&#x27;c:\python\....exe&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>1.3 激活虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd scripts进入虚拟环境的文件</span><br><span class="line">.\activate 激活虚拟环境</span><br><span class="line">.\deactivate 退出虚拟环境</span><br></pre></td></tr></table></figure>
+
+<p>1.4 在虚拟环境中安装模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 install django==<span class="number">1.11</span><span class="number">.28</span></span><br></pre></td></tr></table></figure>
+
+<p>1.5 使用pycharm创建项目</p>
+<p><img src="/img/image-20200623212036274-1593493719162.png" alt="image-20200623212036274"></p>
+<p>1.6 设置settings.py</p>
+<p>在settings.py中加入下面的代码，再创建一个名为local_seetings.py的文件用来保存自己的配置，优先选用local_settings中的设置</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>: </span><br><span class="line">    <span class="keyword">from</span> .Local_settings <span class="keyword">import</span> * </span><br><span class="line"><span class="keyword">except</span> ImportError: </span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>1.6 设置git的上传排出名单</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Django stuff: </span></span><br><span class="line">locaL_settings.py</span><br><span class="line">*.sqlite3</span><br><span class="line"></span><br><span class="line"><span class="comment"># database migrations</span></span><br><span class="line">*/migrations/*.py       //表示排除数据库迁移有关的文件</span><br><span class="line">!*/migrations/_init_.py //!表示排除后面路径下的文件</span><br></pre></td></tr></table></figure>
+
+<p>1.7 配置git远端服务器（测试）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">##本地部分</span></span><br><span class="line"></span><br><span class="line">git init //托管目录</span><br><span class="line">git add . // 将所有目录做一个提交</span><br><span class="line">git commit -m <span class="string">&#x27;text1&#x27;</span> //做一个提交的记录</span><br><span class="line"></span><br><span class="line"><span class="comment">##将本地仓库同步到远端</span></span><br><span class="line"></span><br><span class="line">git push https://github.com/heroamd/django.git master</span><br><span class="line"></span><br><span class="line"><span class="comment">##为了后续更加方便的推送到远端，给仓库地址添加一个别名</span></span><br><span class="line"></span><br><span class="line">git add origin https://github.com/heroamd/django.git //origin就代表后面仓库的地址</span><br><span class="line">    </span><br><span class="line"><span class="comment">##此后需要继续推送运行</span></span><br><span class="line"></span><br><span class="line">git push origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1.8 使用git命令将仓库push到新的分支</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##在前面完成之后的最后一步，修改git push命令</span><br><span class="line"></span><br><span class="line">git push origin master:新分支的名字</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/image-20200625125328101-1593493763894.png" alt="image-20200625125328101"></p>
+<p>1.9 使用git命令克隆分支到本地</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Django--第一个应用--投票应用</title>
     <url>/2020/05/07/Django--%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8--%E6%8A%95%E7%A5%A8%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/08/yPtn5MGoLrdFkAJ.jpg" alt="DSC_4750.jpg"></p>
@@ -188,63 +245,6 @@
 
 <p>此命令和直接使用python 是因为<code>manage.py</code>会设置<code>DJANGO_SETTINGS_MODULE</code> 环境变量，这个变量会让 Django 根据 <code>mysite/settings.py</code> 文件来设置 Python 包的导入路径。</p>
 <p>今天先酱紫吧~补一下Python的知识。</p>
-]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Django实战（1）</title>
-    <url>/2020/06/23/Django%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89/</url>
-    <content><![CDATA[<p><img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
-<span id="more"></span>
-
-<h5 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h5><ul>
-<li>搭建虚拟开发环境，使用Pycharm创建Django项目</li>
-<li>本地配置local_settings.py，通过.gitingnor文件排除推送文件目录</li>
-<li>Git共有仓库的使用</li>
-</ul>
-<h5 id="任务如下"><a href="#任务如下" class="headerlink" title="任务如下"></a>任务如下</h5><ul>
-<li>创建一个名为tracer的虚拟环境</li>
-<li>创建一个django项目：tracer</li>
-<li>建立一个git仓库名称为tracer</li>
-<li>总结文档</li>
-</ul>
-<ol>
-<li>虚拟开发环境的创建</li>
-</ol>
-<p>1.1 安装</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
-
-<p>1.2 创建虚拟环境</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">virtualenv 环境名称</span><br><span class="line"></span><br><span class="line"><span class="comment">#两种创建方式</span></span><br><span class="line"><span class="number">1</span>、virtualenv 环境名称 --python=python3<span class="number">.6</span></span><br><span class="line"><span class="number">2</span>、virtualenv 环境名称 --python=<span class="string">&#x27;c:\python\....exe&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>1.3 激活虚拟环境</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd scripts进入虚拟环境的文件</span><br><span class="line">.\activate 激活虚拟环境</span><br><span class="line">.\deactivate 退出虚拟环境</span><br></pre></td></tr></table></figure>
-
-<p>1.4 在虚拟环境中安装模块</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 install django==<span class="number">1.11</span><span class="number">.28</span></span><br></pre></td></tr></table></figure>
-
-<p>1.5 使用pycharm创建项目</p>
-<p><img src="/img/image-20200623212036274-1593493719162.png" alt="image-20200623212036274"></p>
-<p>1.6 设置settings.py</p>
-<p>在settings.py中加入下面的代码，再创建一个名为local_seetings.py的文件用来保存自己的配置，优先选用local_settings中的设置</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>: </span><br><span class="line">    <span class="keyword">from</span> .Local_settings <span class="keyword">import</span> * </span><br><span class="line"><span class="keyword">except</span> ImportError: </span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-
-<p>1.6 设置git的上传排出名单</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Django stuff: </span></span><br><span class="line">locaL_settings.py</span><br><span class="line">*.sqlite3</span><br><span class="line"></span><br><span class="line"><span class="comment"># database migrations</span></span><br><span class="line">*/migrations/*.py       //表示排除数据库迁移有关的文件</span><br><span class="line">!*/migrations/_init_.py //!表示排除后面路径下的文件</span><br></pre></td></tr></table></figure>
-
-<p>1.7 配置git远端服务器（测试）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">##本地部分</span></span><br><span class="line"></span><br><span class="line">git init //托管目录</span><br><span class="line">git add . // 将所有目录做一个提交</span><br><span class="line">git commit -m <span class="string">&#x27;text1&#x27;</span> //做一个提交的记录</span><br><span class="line"></span><br><span class="line"><span class="comment">##将本地仓库同步到远端</span></span><br><span class="line"></span><br><span class="line">git push https://github.com/heroamd/django.git master</span><br><span class="line"></span><br><span class="line"><span class="comment">##为了后续更加方便的推送到远端，给仓库地址添加一个别名</span></span><br><span class="line"></span><br><span class="line">git add origin https://github.com/heroamd/django.git //origin就代表后面仓库的地址</span><br><span class="line">    </span><br><span class="line"><span class="comment">##此后需要继续推送运行</span></span><br><span class="line"></span><br><span class="line">git push origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>1.8 使用git命令将仓库push到新的分支</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##在前面完成之后的最后一步，修改git push命令</span><br><span class="line"></span><br><span class="line">git push origin master:新分支的名字</span><br></pre></td></tr></table></figure>
-
-<p><img src="/img/image-20200625125328101-1593493763894.png" alt="image-20200625125328101"></p>
-<p>1.9 使用git命令克隆分支到本地</p>
 ]]></content>
       <categories>
         <category>程序</category>
@@ -498,6 +498,20 @@
       </tags>
   </entry>
   <entry>
+    <title>lilian</title>
+    <url>/2020/03/17/lilian/</url>
+    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/17/8aZd0g.png" alt="8aZd0g.png"></p>
+<span id="more"></span>
+
+<p>​                                      She found the lonely person ready to leave<br>​                                                           So I prayed at dusk<br>​                                                Until night she turned to hear</p>
+<p>​                                                      There is a beach far away<br>​                                            Lonely man is holding a sail at sea<br>​                                            If you see him return to the coast<br>​                                           Please tell him your name my name</p>
+<p>​                                                                       Lilian</p>
+]]></content>
+      <tags>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STC15项目到层次原理图</title>
     <url>/2021/07/23/STC15%E9%A1%B9%E7%9B%AE%E5%88%B0%E5%B1%82%E6%AC%A1%E5%8E%9F%E7%90%86%E5%9B%BE/</url>
     <content><![CDATA[<p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
@@ -524,20 +538,6 @@
       </categories>
       <tags>
         <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>lilian</title>
-    <url>/2020/03/17/lilian/</url>
-    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/17/8aZd0g.png" alt="8aZd0g.png"></p>
-<span id="more"></span>
-
-<p>​                                      She found the lonely person ready to leave<br>​                                                           So I prayed at dusk<br>​                                                Until night she turned to hear</p>
-<p>​                                                      There is a beach far away<br>​                                            Lonely man is holding a sail at sea<br>​                                            If you see him return to the coast<br>​                                           Please tell him your name my name</p>
-<p>​                                                                       Lilian</p>
-]]></content>
-      <tags>
-        <tag>阅读</tag>
       </tags>
   </entry>
   <entry>
@@ -592,6 +592,180 @@
       </categories>
       <tags>
         <tag>观影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vim的使用再学习</title>
+    <url>/2022/03/28/vim%E7%9A%84%E4%BD%BF%E7%94%A8%E5%86%8D%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_4867.jpg" alt="DSC_4867"></p>
+<span id="more"></span>
+
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><h4 id="Vim查找和替换"><a href="#Vim查找和替换" class="headerlink" title="Vim查找和替换"></a>Vim查找和替换</h4><p>在normal模式下按下<code>/</code>即可进入查找模式，输入要查找的字符串并按下回车。 Vim会跳转到第一个匹配。按下<code>n</code>查找下一个，按下<code>N</code>查找上一个。</p>
+<h4 id="Vim撤消和重做"><a href="#Vim撤消和重做" class="headerlink" title="Vim撤消和重做"></a>Vim撤消和重做</h4><ol>
+<li>u: 撤销上一步的操作。</li>
+<li>Ctrl+r: 将原来的插销重做一遍</li>
+</ol>
+<h4 id="Vim对行进行操作"><a href="#Vim对行进行操作" class="headerlink" title="Vim对行进行操作"></a>Vim对行进行操作</h4><h4 id="将CCache添加进PATH（环境变量区别：profile、environment、-bashrc、bashrc）"><a href="#将CCache添加进PATH（环境变量区别：profile、environment、-bashrc、bashrc）" class="headerlink" title="将CCache添加进PATH（环境变量区别：profile、environment、.bashrc、bashrc）"></a>将CCache添加进PATH（环境变量区别：profile、environment、.bashrc、bashrc）</h4><ul>
+<li><p>区别： </p>
+<ol>
+<li><p><strong>&#x2F;etc&#x2F;profile</strong><br>为系统的每个用户设置环境信息和启动程序，当用户第一次登录时，该文件被执行，其配置对所有登录的用户都有效。当被修改时，必须重启才会生效。英文描述：”System wide environment and startup programs, for login setup.”</p>
+</li>
+<li><p><strong>&#x2F;etc&#x2F;environment</strong></p>
+<p>系统的环境变量，&#x2F;etc&#x2F;profile是所有用户的环境变量，前者与登录用户无关，后者与登录用户有关，当同一变量在两个文件里有冲突时，以用户环境为准。</p>
+</li>
+<li><p><strong>&#x2F;etc&#x2F;bashrc</strong><br>为每个运行 bash shell 的用户执行该文件，当 bash shell 打开时，该文件被执行，其配置对所有使用bash的用户打开的每个bash都有效。当被修改后，不用重启只需要打开一个新的 bash 即可生效。英文描述：”System wide functions and aliases.”</p>
+</li>
+<li><p><strong>~&#x2F;.bash_profile</strong><br>为当前用户设置专属的环境信息和启动程序，当用户登录时该文件执行一次。默认情况下，它用于设置环境变量，并执行当前用户的 .bashrc 文件。理念类似于 &#x2F;etc&#x2F;profile，只不过只对当前用户有效，也<strong>需要重启才能生效</strong>。(注意：Centos7系统命名为.bash_profile，其他系统可能是.bash_login或.profile。)</p>
+</li>
+<li><p><strong>~&#x2F;.bashrc</strong><br>为当前用户设置专属的 bash 信息，当每次打开新的shell时，该文件被执行。理念类似于&#x2F;etc&#x2F;bashrc，只不过只对当前用户有效，<strong>不需要重启</strong>只需要打开新的shell即可生效。</p>
+</li>
+<li><p><strong>~&#x2F;.bash_logout</strong></p>
+<p>为当前用户，每次退出bash shell时执行该文件，可以把一些清理工作的命令放进这个文件。</p>
+</li>
+<li><p><strong>整体顺序：</strong><br>当登录Linux时，首先启动&#x2F;etc&#x2F;environment和&#x2F;etc&#x2F;profile，然后启动当前用户目录的&#x2F;.bash_profile，执行此文件时一般会调用&#x2F;.bashrc文件，而执行&#x2F;.bashrc时一般会调用&#x2F;etc&#x2F;bashrc，最后退出shell时，执行&#x2F;.bash_logout。</p>
+</li>
+</ol>
+</li>
+<li><p>软连接和环境变量的区别</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ln -s [源文件或者目录]  [目标文件或者目录]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>软连接会在选定的位置上生成镜像文件，不会占用磁盘空间。文件保持同步变化。似windws快捷方式</li>
+</ul>
+</li>
+<li><p>设置方案：</p>
+<ul>
+<li><p>方法一：直接<code>export PATH=&quot;/usr/lib/ccache:$PATH&quot;</code>，问题是只能使用一次。</p>
+</li>
+<li><p>方法二：在~&#x2F;.bashrc中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export PATH=/usr/lib/ccache:$PATH;</span><br></pre></td></tr></table></figure>
+
+<p>含义是在原有PATH之前添加一个新的目录&#x2F;usr&#x2F;lib&#x2F;ccache</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Makefile文件："><a href="#Makefile文件：" class="headerlink" title="Makefile文件："></a>Makefile文件：</h4><h5 id="基本结构："><a href="#基本结构：" class="headerlink" title="基本结构："></a>基本结构：</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">target ... : prerequisites ...</span><br><span class="line">    command</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>伪目标可以成为依赖</p>
+</li>
+<li><p>Include</p>
+</li>
+</ul>
+<h5 id="静态模式："><a href="#静态模式：" class="headerlink" title="静态模式："></a>静态模式：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;targets ...&gt; : &lt;target-pattern&gt; : &lt;prereq-patterns ...&gt;</span><br><span class="line">    &lt;commands&gt;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>targets:%.o: %.c</code>其中·<code>%.o: %.c</code>是一组依赖关系，表示的意思是<code>%(%.c)</code>，依赖模式 <code>%.c</code> 则取模式 <code>%.o</code> 的 <code>%</code>，也就是 <code>foo bar</code> ，并为其加下 <code>.c</code> 的后缀，<code>%.o</code>是<code>%.c</code>的父关系。</li>
+</ul>
+<h5 id="自动生成依赖性"><a href="#自动生成依赖性" class="headerlink" title="自动生成依赖性"></a>自动生成依赖性</h5><p>如果我们的main.c中有一句 <code>#include &quot;defs.h&quot;</code> ，那么我们的依赖关系应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main.o : main.c defs.h</span><br></pre></td></tr></table></figure>
+
+<p>这时候需要<code>-M</code>可以让编译器自动生成依赖关系。这里举一个大的工程让编译器自己生成依赖的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">%.d: %.c</span><br><span class="line">    @set -e; rm -f $@; \</span><br><span class="line">    $(CC) -M $(CPPFLAGS) $&lt; &gt; $@.$$$$; \</span><br><span class="line">    sed &#x27;s,\($*\)\.o[ :]*,\1.o $@ : ,g&#x27; &lt; $@.$$$$ &gt; $@; \</span><br><span class="line">    rm -f $@.$$$$</span><br></pre></td></tr></table></figure>
+
+<p>如果有一个C文件是name.c，那么 <code>%</code> 就是 <code>name</code> ， <code>$$$$</code> 意为一个随机编号，第二行生成的文件有可能是“name.d.12345”。</p>
+<h5 id="Example："><a href="#Example：" class="headerlink" title="Example："></a>Example：</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="variable">$(OBJ_DIR)</span>/%.o: %.c</span><br><span class="line">  @echo + CC <span class="variable">$&lt;</span></span><br><span class="line">  @mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">  @<span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line">  <span class="variable">$(<span class="built_in">call</span> call_fixdep, $(@:.o=.d)</span>, <span class="variable">$@</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$(@:.o=.d)</code>表示将<code>$@</code>中所有<code>.o</code>替换为<code>.d</code></li>
+</ul>
+<h5 id="书写命令"><a href="#书写命令" class="headerlink" title="书写命令"></a>书写命令</h5><p>和shell规则是一致的，每条命令开头必须以Tab开头，#是注释符。</p>
+<h5 id="显示命令"><a href="#显示命令" class="headerlink" title="显示命令"></a>显示命令</h5><p>一般来说make会把命令首先显示出来，如果不想把命令显示出来的话，就在前面添加@</p>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Makefile:@echo 正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">Makefile:echo 正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">echo 正在编译XXX模块......</span><br><span class="line">正在编译XXX模块......</span><br></pre></td></tr></table></figure>
+
+<p>调试：make执行时，带入make参数 <code>-n</code> 或 <code>--just-print</code> ，那么其只是显示命令，但不会执行命令。</p>
+<h5 id="命令的执行"><a href="#命令的执行" class="headerlink" title="命令的执行"></a>命令的执行</h5><p>命令的执行逻辑是：当依赖目标新于目标时，make会一条一条的执行其后面的命令。如果想要上一条命令的结果应用在吓一跳命令的时候，用;分隔。For  example:</p>
+<ul>
+<li>示例一：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exec:</span><br><span class="line">    cd /home/hchen</span><br><span class="line">    pwd</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>示例二：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exec:</span><br><span class="line">    cd /home/hchen; pwd</span><br></pre></td></tr></table></figure>
+
+<p>第一个例子里面的cd不会被执行，显示的是Makefile的目录，第二个pwd会显示出cd之后的目录。</p>
+<h5 id="命令出错"><a href="#命令出错" class="headerlink" title="命令出错"></a>命令出错</h5><p>在命令前面添加减号<code>-</code>，标记无论命令是否出错都认为是成功的。</p>
+<h5 id="嵌套执行Make"><a href="#嵌套执行Make" class="headerlink" title="嵌套执行Make"></a>嵌套执行Make</h5><p>为了方便管理大工程，会设置一个总的Makefile，然后在不同模块内再书写一个Makefile文件。</p>
+<p>假如子目录&#x2F;subdir下面有一个Makefile文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    cd subdir &amp;&amp; $(MAKE)</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    $(MAKE) -C subdir</span><br></pre></td></tr></table></figure>
+
+<p>但是顶层的变量并不会传递给下一层，如果要传递某些参数，声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export &lt;variable ...&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>示例一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable = value</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable = value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable := value</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
+
+<p>示例二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable += value</span><br></pre></td></tr></table></figure>
+
+<p>其等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable += value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，有两个变量，一个是 <code>SHELL</code> ，一个是 <code>MAKEFLAGS</code> ，这两个变量不管你是否export，其总是要传递到下层 Makefile中！这时候如果需要声明一些参数不传入下一层，则需要：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">unexport &lt;variable ...&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>但是make命令中的有几个参数并不往下传递，它们是 <code>-C</code> , <code>-f</code> , <code>-h</code>, <code>-o</code> 和 <code>-W</code> （有关Makefile参数的细节将在后面说明），如果你不想往下层传递参数，那么，你可以这样来：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    cd subdir &amp;&amp; $(MAKE) MAKEFLAGS=</span><br></pre></td></tr></table></figure>
+
+<p>如果你定义了环境变量 <code>MAKEFLAGS</code> ，那么你得确信其中的选项是大家都会用到的，如果其中有 <code>-t</code> , <code>-n</code> 和 <code>-q</code> 参数，那么将会有让你意想不到的结果，或许会让你异常地恐慌。</p>
+<p>还有一个在“嵌套执行”中比较有用的参数， <code>-w</code> 或是 <code>--print-directory</code> 会在make的过程中输出一些信息，让你看到目前的工作目录。比如，如果我们的下级make目录是“&#x2F;home&#x2F;hchen&#x2F;gnu&#x2F;make”，如果我们使用 <code>make -w</code> 来执行，那么当进入该目录时，我们会看到:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make: Entering directory `/home/hchen/gnu/make&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>而在完成下层make后离开目录时，我们会看到:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make: Leaving directory `/home/hchen/gnu/make&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>当你使用 <code>-C</code> 参数来指定make下层Makefile时， <code>-w</code> 会被自动打开的。如果参数中有 <code>-s</code> （ <code>--slient</code> ）或是 <code>--no-print-directory</code> ，那么， <code>-w</code> 总是失效的。</p>
+<h5 id="定义命令包"><a href="#定义命令包" class="headerlink" title="定义命令包"></a>定义命令包</h5><p>语法以 <code>define</code> 开始，以 <code>endef</code> 结束。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">define run-yacc</span><br><span class="line">yacc $(firstword $^)</span><br><span class="line">mv y.tab.c $@</span><br><span class="line">endef</span><br></pre></td></tr></table></figure>
+
+<p>这里，“run-yacc”是这个命令包的名字，其不要和Makefile中的变量重名。在 <code>define</code> 和 <code>endef</code> 中的两行就是命令序列。这个命令包中的第一个命令是运行Yacc程序，因为Yacc程序总是生成“y.tab.c”的文件，所以第二行的命令就是把这个文件改改名字。还是把这个命令包放到一个示例中来看看吧。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">foo.c : foo.y</span><br><span class="line">    $(run-yacc)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看见，要使用这个命令包，我们就好像使用变量一样。在这个命令包的使用中，命令包“run-yacc”中的 <code>$^</code> 就是 <code>foo.y</code> ， <code>$@</code> 就是 <code>foo.c</code> （有关这种以 <code>$</code> 开头的特殊变量，我们会在后面介绍），make在执行命令包时，命令包中的每个命令会被依次独立执行。</p>
+<h5 id="变量："><a href="#变量：" class="headerlink" title="变量："></a>变量：</h5><p>正常以<code>=</code>来定义的变量是可以后面定义前面的，因此对于类似<code>CFLAGS = $(CFLAGS) -O</code>会出现循环定义的问题，<code>:=</code> 操作符代替<code>=</code>就可以让前面的变量不能使用后面的变量。</p>
+<p><code>+=</code> 操作符给变量追加值，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">variable += more</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">variable := $(variable) more</span><br></pre></td></tr></table></figure>
+
+<p>高级用法：把变量的值再次当成变量：<code> $($(x))</code>，类似于嵌套。</p>
+<p><code>CFLAGS</code> 环境变量：优先使用<code>CFLAGS</code> 李敏的定义的变量，如果没有使用再使用系统变量。</p>
+<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><ul>
+<li><p>字符串处理函数：</p>
+<ul>
+<li>$(subst 1,2,$(3))：把“$(3)”中的所有“1”字串替换成“2”字串</li>
+</ul>
+</li>
+<li><p>文件名操作函数</p>
+<ul>
+<li>$(dir &lt;names…&gt;)：取目录函数，取得是name&#x2F;之前的目录。example:$(dir src&#x2F;foo.c hacks)<code>返回值是</code>src&#x2F; .&#x2F;</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -874,32 +1048,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【04物联网实习】华为云配置服务，在华为云上安装Node-RED并转发</title>
-    <url>/2021/07/09/%E3%80%9004%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1/</url>
-    <content><![CDATA[<p>​        <img src="/img/060344.jpg" alt="1"></p>
-<span id="more"></span>
-
-<h4 id="学习任务："><a href="#学习任务：" class="headerlink" title="学习任务："></a>学习任务：</h4><ul>
-<li>了解项目的架构</li>
-<li></li>
-</ul>
-<h4 id="一、背景了解"><a href="#一、背景了解" class="headerlink" title="一、背景了解"></a>一、背景了解</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714005341.jpg"></p>
-<p>应用层为Node-RED，平台层为华为云服务器，网络层为BC26模块，感知层为STM32单片机。</p>
-<p>可以学习LiteOS操作系统：华为面向物联网领域构建的统一物联网操作系统和中间件软件平台，其具有轻量级（内核小于10KB）、低功耗、互连互通、安全等关键特点。Lites目前主要应用于智能家居、穿戴式、车联网、智能抄表、工业互联网等物联网领域的智能硬件上。</p>
-<p><img src="/img/kikkkikik.png"></p>
-<p><img src="/img/%E5%9B%BE%E7%89%875.png"></p>
-<p><img src="/img/%E5%9B%BE%E7%89%876.png"></p>
-<p>二、OpenCPU方案对比</p>
-<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714012424.jpg"></p>
-<h4 id="三、华为云的环境配置"><a href="#三、华为云的环境配置" class="headerlink" title="三、华为云的环境配置"></a>三、华为云的环境配置</h4>]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【05物联网实习】CubeMX配合KEIL完成单片机开发</title>
     <url>/2021/07/10/%E3%80%9005%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91CubeMX%E9%85%8D%E5%90%88KEIL%E5%AE%8C%E6%88%90%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
@@ -926,6 +1074,32 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);</span><br><span class="line">HAL_Delay(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【04物联网实习】华为云配置服务，在华为云上安装Node-RED并转发</title>
+    <url>/2021/07/09/%E3%80%9004%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<p>​        <img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习任务："><a href="#学习任务：" class="headerlink" title="学习任务："></a>学习任务：</h4><ul>
+<li>了解项目的架构</li>
+<li></li>
+</ul>
+<h4 id="一、背景了解"><a href="#一、背景了解" class="headerlink" title="一、背景了解"></a>一、背景了解</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714005341.jpg"></p>
+<p>应用层为Node-RED，平台层为华为云服务器，网络层为BC26模块，感知层为STM32单片机。</p>
+<p>可以学习LiteOS操作系统：华为面向物联网领域构建的统一物联网操作系统和中间件软件平台，其具有轻量级（内核小于10KB）、低功耗、互连互通、安全等关键特点。Lites目前主要应用于智能家居、穿戴式、车联网、智能抄表、工业互联网等物联网领域的智能硬件上。</p>
+<p><img src="/img/kikkkikik.png"></p>
+<p><img src="/img/%E5%9B%BE%E7%89%875.png"></p>
+<p><img src="/img/%E5%9B%BE%E7%89%876.png"></p>
+<p>二、OpenCPU方案对比</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714012424.jpg"></p>
+<h4 id="三、华为云的环境配置"><a href="#三、华为云的环境配置" class="headerlink" title="三、华为云的环境配置"></a>三、华为云的环境配置</h4>]]></content>
       <categories>
         <category>程序</category>
       </categories>
@@ -1010,6 +1184,40 @@
       </tags>
   </entry>
   <entry>
+    <title>【08物联网实习】定时器TMER和状态机编写程序</title>
+    <url>/2021/07/14/%E3%80%9008%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%AE%9A%E6%97%B6%E5%99%A8TMER%E5%92%8C%E7%8A%B6%E6%80%81%E6%9C%BA%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h4><ul>
+<li>控制STM32使BC26模组开机，将串口1发送至串口2</li>
+<li>使用定时器代替结束符截断数据</li>
+<li>使用STM32的定时器，修改代码实现按键消抖</li>
+<li>使用状态机，修改代码实现按键消抖</li>
+<li>实现定时器截断串口数据</li>
+<li>用状态机控制</li>
+</ul>
+<h4 id="一、控制STM32使BC26模组开机，将串口1发送至串口2"><a href="#一、控制STM32使BC26模组开机，将串口1发送至串口2" class="headerlink" title="一、控制STM32使BC26模组开机，将串口1发送至串口2"></a>一、控制STM32使BC26模组开机，将串口1发送至串口2</h4><p>驼峰命名法：首字母大写，相邻单词之间也大写。</p>
+<h4 id="二、TIMER和HAL-Delay-10-的区别"><a href="#二、TIMER和HAL-Delay-10-的区别" class="headerlink" title="二、TIMER和HAL_Delay(10)的区别"></a>二、TIMER和HAL_Delay(10)的区别</h4><p>定时器和HAL_Delay的区别在于定时器开启之后在后台一直执行数数字的任务，但是如果在主程序中放置HAL_Delay之后将无法运行其他中断。</p>
+<p>在初始化定时器时要修改定时器的标志位为0</p>
+<p><img src="/img/image-20210716021008857.png" alt="image-20210716021008857"></p>
+<p><img src="/img/image-20210716012158980.png" alt="image-20210716012158980"></p>
+<p><img src="/img/image-20210716021522044.png" alt="image-20210716021522044"></p>
+<p>溢出时间的计算<br><img src="/img/image-20210716015247341.png" alt="image-20210716015247341"></p>
+<p>例如500ms&#x3D;（6399+1）*（4999+1）&#x2F;64</p>
+<p>不能设置PSC&#x3D;83999，ARR&#x3D;499，因为8399965535，超过了分频系数寄存器的范围。</p>
+<p>TIMER是一直在后台计时，到达设定时间标志位置一，HAL_Delay是通过cnt++来实现的，如果遇到其他中断可能计数被干扰，并且在技术的时候一直CPU在空转，浪费资源。</p>
+<p>按键的5ms来自于115200的波特率，发送四五个码字的间隔是5ms</p>
+<h4 id="三、使用状态机，修改代码实现按键消抖"><a href="#三、使用状态机，修改代码实现按键消抖" class="headerlink" title="三、使用状态机，修改代码实现按键消抖"></a>三、使用状态机，修改代码实现按键消抖</h4><h4 id="四、实现定时器截断串口数据"><a href="#四、实现定时器截断串口数据" class="headerlink" title="四、实现定时器截断串口数据"></a>四、实现定时器截断串口数据</h4><p><img src="/img/image-20210716023824623.png" alt="image-20210716023824623"></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【2020.3.10】今日小结 第一次搭建个人博客的心路和历程</title>
     <url>/2020/03/10/%E3%80%902020.3.10%E3%80%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BF%83%E8%B7%AF%E5%92%8C%E5%8E%86%E7%A8%8B/</url>
     <content><![CDATA[<blockquote>
@@ -1031,43 +1239,6 @@
 </li>
 </ul>
 ]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【2020.3.12】今日小结 更换成熟的主题优化博客框架</title>
-    <url>/2020/03/12/%E3%80%902020.3.12%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93%20%E6%9B%B4%E6%8D%A2%E6%88%90%E7%86%9F%E7%9A%84%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<p><img src="/images/cover4.jpg"></p>
-<span id="more"></span>
-
-<blockquote>
-<p>​    <em>今天花了半个小时时间将原来的yilia主题更换为了Ayer主题。根据作者的描述，Ayer一词词出多处，其中马来语中是“水”的意思，而在西班牙中是“昨天”的意思。可能是发音引起了所有种族人群的共鸣，这个词再两个截然不同的文明中竟然都带有一点点忧郁，纯净的气质。主题如其名，淡淡的，非浓郁的，清新的，轻，的感觉，第一眼就它了。</em></p>
-</blockquote>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
-
-<p>然后将以下复制到&#x2F;source&#x2F;categories&#x2F;index.md文件</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">page</span> <span class="string">tags</span></span><br></pre></td></tr></table></figure>
-
-<p>配置同分类一样</p>
-<h2 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h2><p>需要在文章顶部配置</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Gallery</span></span><br><span class="line"></span><br><span class="line"><span class="attr">albums:</span> [</span><br><span class="line">        [<span class="string">&quot;img_url&quot;</span>,<span class="string">&quot;img_caption&quot;</span>],</span><br><span class="line">        [<span class="string">&quot;img_url&quot;</span>,<span class="string">&quot;img_caption&quot;</span>]</span><br><span class="line">        ]</span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【DIY】撬开手机后盖的成就感爆棚</title>
-    <url>/2020/03/11/%E3%80%90DIY%E3%80%91%E6%92%AC%E5%BC%80%E6%89%8B%E6%9C%BA%E5%90%8E%E7%9B%96%E7%9A%84%E6%88%90%E5%B0%B1%E6%84%9F%E7%88%86%E6%A3%9A/</url>
-    <content><![CDATA[]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -1108,37 +1279,40 @@
       </tags>
   </entry>
   <entry>
-    <title>【08物联网实习】定时器TMER和状态机编写程序</title>
-    <url>/2021/07/14/%E3%80%9008%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%AE%9A%E6%97%B6%E5%99%A8TMER%E5%92%8C%E7%8A%B6%E6%80%81%E6%9C%BA%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
+    <title>【2020.3.12】今日小结 更换成熟的主题优化博客框架</title>
+    <url>/2020/03/12/%E3%80%902020.3.12%E3%80%91%E4%BB%8A%E6%97%A5%E5%B0%8F%E7%BB%93%20%E6%9B%B4%E6%8D%A2%E6%88%90%E7%86%9F%E7%9A%84%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<p><img src="/images/cover4.jpg"></p>
 <span id="more"></span>
 
-<h4 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h4><ul>
-<li>控制STM32使BC26模组开机，将串口1发送至串口2</li>
-<li>使用定时器代替结束符截断数据</li>
-<li>使用STM32的定时器，修改代码实现按键消抖</li>
-<li>使用状态机，修改代码实现按键消抖</li>
-<li>实现定时器截断串口数据</li>
-<li>用状态机控制</li>
-</ul>
-<h4 id="一、控制STM32使BC26模组开机，将串口1发送至串口2"><a href="#一、控制STM32使BC26模组开机，将串口1发送至串口2" class="headerlink" title="一、控制STM32使BC26模组开机，将串口1发送至串口2"></a>一、控制STM32使BC26模组开机，将串口1发送至串口2</h4><p>驼峰命名法：首字母大写，相邻单词之间也大写。</p>
-<h4 id="二、TIMER和HAL-Delay-10-的区别"><a href="#二、TIMER和HAL-Delay-10-的区别" class="headerlink" title="二、TIMER和HAL_Delay(10)的区别"></a>二、TIMER和HAL_Delay(10)的区别</h4><p>定时器和HAL_Delay的区别在于定时器开启之后在后台一直执行数数字的任务，但是如果在主程序中放置HAL_Delay之后将无法运行其他中断。</p>
-<p>在初始化定时器时要修改定时器的标志位为0</p>
-<p><img src="/img/image-20210716021008857.png" alt="image-20210716021008857"></p>
-<p><img src="/img/image-20210716012158980.png" alt="image-20210716012158980"></p>
-<p><img src="/img/image-20210716021522044.png" alt="image-20210716021522044"></p>
-<p>溢出时间的计算<br><img src="/img/image-20210716015247341.png" alt="image-20210716015247341"></p>
-<p>例如500ms&#x3D;（6399+1）*（4999+1）&#x2F;64</p>
-<p>不能设置PSC&#x3D;83999，ARR&#x3D;499，因为8399965535，超过了分频系数寄存器的范围。</p>
-<p>TIMER是一直在后台计时，到达设定时间标志位置一，HAL_Delay是通过cnt++来实现的，如果遇到其他中断可能计数被干扰，并且在技术的时候一直CPU在空转，浪费资源。</p>
-<p>按键的5ms来自于115200的波特率，发送四五个码字的间隔是5ms</p>
-<h4 id="三、使用状态机，修改代码实现按键消抖"><a href="#三、使用状态机，修改代码实现按键消抖" class="headerlink" title="三、使用状态机，修改代码实现按键消抖"></a>三、使用状态机，修改代码实现按键消抖</h4><h4 id="四、实现定时器截断串口数据"><a href="#四、实现定时器截断串口数据" class="headerlink" title="四、实现定时器截断串口数据"></a>四、实现定时器截断串口数据</h4><p><img src="/img/image-20210716023824623.png" alt="image-20210716023824623"></p>
-]]></content>
+<blockquote>
+<p>​    <em>今天花了半个小时时间将原来的yilia主题更换为了Ayer主题。根据作者的描述，Ayer一词词出多处，其中马来语中是“水”的意思，而在西班牙中是“昨天”的意思。可能是发音引起了所有种族人群的共鸣，这个词再两个截然不同的文明中竟然都带有一点点忧郁，纯净的气质。主题如其名，淡淡的，非浓郁的，清新的，轻，的感觉，第一眼就它了。</em></p>
+</blockquote>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>然后将以下复制到&#x2F;source&#x2F;categories&#x2F;index.md文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">page</span> <span class="string">tags</span></span><br></pre></td></tr></table></figure>
+
+<p>配置同分类一样</p>
+<h2 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h2><p>需要在文章顶部配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Gallery</span></span><br><span class="line"></span><br><span class="line"><span class="attr">albums:</span> [</span><br><span class="line">        [<span class="string">&quot;img_url&quot;</span>,<span class="string">&quot;img_caption&quot;</span>],</span><br><span class="line">        [<span class="string">&quot;img_url&quot;</span>,<span class="string">&quot;img_caption&quot;</span>]</span><br><span class="line">        ]</span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>程序</category>
+        <category>随笔</category>
       </categories>
       <tags>
-        <tag>程序</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【DIY】撬开手机后盖的成就感爆棚</title>
+    <url>/2020/03/11/%E3%80%90DIY%E3%80%91%E6%92%AC%E5%BC%80%E6%89%8B%E6%9C%BA%E5%90%8E%E7%9B%96%E7%9A%84%E6%88%90%E5%B0%B1%E6%84%9F%E7%88%86%E6%A3%9A/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -1363,23 +1537,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【听美剧说】从眼睛看穿一切</title>
-    <url>/2020/03/13/%E3%80%90%E5%90%AC%E7%94%B5%E5%BD%B1%E8%AF%B4%E3%80%91%E3%80%8A%E6%88%91%E7%9A%84%E5%A4%A9%E6%89%8D%E5%A5%B3%E5%8F%8B%E3%80%8B%E7%AC%AC%E4%B8%80%E8%87%B3%E7%AC%AC%E4%B8%89%E9%9B%86/</url>
-    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/13/8KQoo8.png" alt="睡梦中的童年埃莱娜"></p>
-<span id="more"></span>
-
-<p><img src="https://s1.ax1x.com/2020/03/13/8KQ7FS.png" alt="埃莱娜的眼睛--彷徨，迷惑，心事重重"></p>
-<p>​        前三集讲述的是童年时期的莱农和莉拉的生活，两个要好的朋友在升学考试的问题上关系出现破裂。眼神一举一动貌似胜过一颦一簇的温婉。似铁血柔光s，似无人深渊，似一个小世界。导演塞维尼奥·科斯坦佐对于人物的描绘出神入化，直击内心世界的秘密。前三集拍摄地均在没有几栋建筑的小镇，简单的甚至略带枯燥乏味。但这种单调中画龙点睛的一笔是人物的眼神。不必多说，不必细说，不用深说，也无需滔滔不绝，给一个一秒钟的眼神特写，足矣！</p>
-<p>​</p>
-]]></content>
-      <categories>
-        <category>观影</category>
-      </categories>
-      <tags>
-        <tag>观影</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>完善修复Hackintosh的一次经历</title>
     <url>/2020/05/25/%E5%A5%BD%E4%B9%85%E6%B2%A1%E7%94%A8%E9%BB%91%E8%8B%B9%E6%9E%9C%E4%BF%AE%E5%A4%8D%E4%BA%86%E4%B8%80%E4%BA%9Bbugs/</url>
     <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/25/ZquNxpgYmD6reS3.png" alt="QQ截图20200525230912.png"></p>
@@ -1423,200 +1580,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【听电影说】青春二字太过刺耳，多少人装作左耳</title>
-    <url>/2020/03/12/%E9%9D%92%E6%98%A5%E4%BA%8C%E5%AD%97%E5%A4%AA%E8%BF%87%E5%88%BA%E8%80%B3%EF%BC%8C%E5%A4%9A%E5%B0%91%E4%BA%BA%E8%A3%85%E4%BD%9C%E5%B7%A6%E8%80%B3/</url>
-    <content><![CDATA[<p><img src="/img/2020-3-13-1.jpg" alt="小耳朵"></p>
-<span id="more"></span>
-<p>​        首先，我承认我五分确实打的过于高了，这也是有原因的，对于一个能在自己的某一期时期能够引起共鸣的片子来说也很正常，毕竟2020了，谁也没事扒拉出来这种青春片来消磨时光。我想说的是因为我正在经历着这部片子里经历的不完整的剧情，而且刻骨铭心！</p>
-<p>​        我不知道但我相信这部片子里的剧情完完本本经历过的一切的人或许存在但存在的人或许不上豆瓣，因为这里充斥着无知 自大 自以为自己是救世主的一切，请问，您能安排自己的青春您凭什么就不可以相信这是别人的青春？就因为那个破酒吧您看到过，那个高考您经历过，那个开网店的创业故事您看中国合伙人看过，那个地道卖碟的人您从他身边走过吗？呵呵，好笑罢了。。</p>
-<p>​        事实上我前面说的那些我小的时候听到或者见到过，但是高考家长排队送饭，老师因为闯祸批评，一起拉着去上学，那时自己一个人在哭的情节我经历过！这更像是一个95后或者00后所经历过的吧。所以说这部片子也许把时间线弄得复杂弄得不合逻辑？但是为了使剧情合理化苏导做的一切也都顺理成章了。</p>
-<p>​        其次，我给这片打五分的原因是因为我好像从这里看到了我的未来，看到了这世界还有人在和我一样经历着这些，这种细腻温婉的感情难遇，难忘，难寻！我还是承认对于我来说这剧情确实太过理想化了，傻白甜怎么也不可能去做挡酒瓶，跟BL鬼混的情节，看暗恋的人能撞上人。。。我经历的事实没这么傻，我也希望以后不要有未来人模仿，因为真的很气人，傻白甜最后遍体鳞伤这难道就是每一个单纯孩子所必须承受的一切吗？我想问这个世界你们还有宽容心吗？</p>
-<p>​        你们所说的打胎什么的剧情我并没有太留意，因为它们并不重要，我甚至都没有意识有这些情节。我只知道左耳，左耳的表兄，等等这些人都能在我的生活或者我的记忆力找到影子，那部N95我也曾经使用过只不过那时我还没到高考的时期罢了。</p>
-<p>​        我明白，每个人都想自己的青春闪着光，永远难忘，可是请你不要忘了多少人在青春这个泥潭里反复挣扎，他们无处诉说，无人理解，只能自己默默在那些或真或假的电影里寻找所谓的想要的事实。他们也许真的逃不出青春的魔掌，或许是因为王菲左耳里唱的：青春没有红灯。有些痛要一直忍 一忍再忍 直到麻木不仁吧。</p>
-<p><strong>祝，你要坚强</strong></p>
-]]></content>
-      <categories>
-        <category>观影</category>
-      </categories>
-      <tags>
-        <tag>观影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vim的使用再学习</title>
-    <url>/2022/03/28/vim%E7%9A%84%E4%BD%BF%E7%94%A8%E5%86%8D%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p><img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_4867.jpg" alt="DSC_4867"></p>
-<span id="more"></span>
-
-<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><h4 id="Vim查找和替换"><a href="#Vim查找和替换" class="headerlink" title="Vim查找和替换"></a>Vim查找和替换</h4><p>在normal模式下按下<code>/</code>即可进入查找模式，输入要查找的字符串并按下回车。 Vim会跳转到第一个匹配。按下<code>n</code>查找下一个，按下<code>N</code>查找上一个。</p>
-<h4 id="Vim撤消和重做"><a href="#Vim撤消和重做" class="headerlink" title="Vim撤消和重做"></a>Vim撤消和重做</h4><ol>
-<li>u: 撤销上一步的操作。</li>
-<li>Ctrl+r: 将原来的插销重做一遍</li>
-</ol>
-<h4 id="Vim对行进行操作"><a href="#Vim对行进行操作" class="headerlink" title="Vim对行进行操作"></a>Vim对行进行操作</h4><h4 id="将CCache添加进PATH（环境变量区别：profile、environment、-bashrc、bashrc）"><a href="#将CCache添加进PATH（环境变量区别：profile、environment、-bashrc、bashrc）" class="headerlink" title="将CCache添加进PATH（环境变量区别：profile、environment、.bashrc、bashrc）"></a>将CCache添加进PATH（环境变量区别：profile、environment、.bashrc、bashrc）</h4><ul>
-<li><p>区别： </p>
-<ol>
-<li><p><strong>&#x2F;etc&#x2F;profile</strong><br>为系统的每个用户设置环境信息和启动程序，当用户第一次登录时，该文件被执行，其配置对所有登录的用户都有效。当被修改时，必须重启才会生效。英文描述：”System wide environment and startup programs, for login setup.”</p>
-</li>
-<li><p><strong>&#x2F;etc&#x2F;environment</strong></p>
-<p>系统的环境变量，&#x2F;etc&#x2F;profile是所有用户的环境变量，前者与登录用户无关，后者与登录用户有关，当同一变量在两个文件里有冲突时，以用户环境为准。</p>
-</li>
-<li><p><strong>&#x2F;etc&#x2F;bashrc</strong><br>为每个运行 bash shell 的用户执行该文件，当 bash shell 打开时，该文件被执行，其配置对所有使用bash的用户打开的每个bash都有效。当被修改后，不用重启只需要打开一个新的 bash 即可生效。英文描述：”System wide functions and aliases.”</p>
-</li>
-<li><p><strong>~&#x2F;.bash_profile</strong><br>为当前用户设置专属的环境信息和启动程序，当用户登录时该文件执行一次。默认情况下，它用于设置环境变量，并执行当前用户的 .bashrc 文件。理念类似于 &#x2F;etc&#x2F;profile，只不过只对当前用户有效，也<strong>需要重启才能生效</strong>。(注意：Centos7系统命名为.bash_profile，其他系统可能是.bash_login或.profile。)</p>
-</li>
-<li><p><strong>~&#x2F;.bashrc</strong><br>为当前用户设置专属的 bash 信息，当每次打开新的shell时，该文件被执行。理念类似于&#x2F;etc&#x2F;bashrc，只不过只对当前用户有效，<strong>不需要重启</strong>只需要打开新的shell即可生效。</p>
-</li>
-<li><p><strong>~&#x2F;.bash_logout</strong></p>
-<p>为当前用户，每次退出bash shell时执行该文件，可以把一些清理工作的命令放进这个文件。</p>
-</li>
-<li><p><strong>整体顺序：</strong><br>当登录Linux时，首先启动&#x2F;etc&#x2F;environment和&#x2F;etc&#x2F;profile，然后启动当前用户目录的&#x2F;.bash_profile，执行此文件时一般会调用&#x2F;.bashrc文件，而执行&#x2F;.bashrc时一般会调用&#x2F;etc&#x2F;bashrc，最后退出shell时，执行&#x2F;.bash_logout。</p>
-</li>
-</ol>
-</li>
-<li><p>软连接和环境变量的区别</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ln -s [源文件或者目录]  [目标文件或者目录]</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>软连接会在选定的位置上生成镜像文件，不会占用磁盘空间。文件保持同步变化。似windws快捷方式</li>
-</ul>
-</li>
-<li><p>设置方案：</p>
-<ul>
-<li><p>方法一：直接<code>export PATH=&quot;/usr/lib/ccache:$PATH&quot;</code>，问题是只能使用一次。</p>
-</li>
-<li><p>方法二：在~&#x2F;.bashrc中添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export PATH=/usr/lib/ccache:$PATH;</span><br></pre></td></tr></table></figure>
-
-<p>含义是在原有PATH之前添加一个新的目录&#x2F;usr&#x2F;lib&#x2F;ccache</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Makefile文件："><a href="#Makefile文件：" class="headerlink" title="Makefile文件："></a>Makefile文件：</h4><h5 id="基本结构："><a href="#基本结构：" class="headerlink" title="基本结构："></a>基本结构：</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">target ... : prerequisites ...</span><br><span class="line">    command</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>伪目标可以成为依赖</p>
-</li>
-<li><p>Include</p>
-</li>
-</ul>
-<h5 id="静态模式："><a href="#静态模式：" class="headerlink" title="静态模式："></a>静态模式：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;targets ...&gt; : &lt;target-pattern&gt; : &lt;prereq-patterns ...&gt;</span><br><span class="line">    &lt;commands&gt;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>targets:%.o: %.c</code>其中·<code>%.o: %.c</code>是一组依赖关系，表示的意思是<code>%(%.c)</code>，依赖模式 <code>%.c</code> 则取模式 <code>%.o</code> 的 <code>%</code>，也就是 <code>foo bar</code> ，并为其加下 <code>.c</code> 的后缀，<code>%.o</code>是<code>%.c</code>的父关系。</li>
-</ul>
-<h5 id="自动生成依赖性"><a href="#自动生成依赖性" class="headerlink" title="自动生成依赖性"></a>自动生成依赖性</h5><p>如果我们的main.c中有一句 <code>#include &quot;defs.h&quot;</code> ，那么我们的依赖关系应该是：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main.o : main.c defs.h</span><br></pre></td></tr></table></figure>
-
-<p>这时候需要<code>-M</code>可以让编译器自动生成依赖关系。这里举一个大的工程让编译器自己生成依赖的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">%.d: %.c</span><br><span class="line">    @set -e; rm -f $@; \</span><br><span class="line">    $(CC) -M $(CPPFLAGS) $&lt; &gt; $@.$$$$; \</span><br><span class="line">    sed &#x27;s,\($*\)\.o[ :]*,\1.o $@ : ,g&#x27; &lt; $@.$$$$ &gt; $@; \</span><br><span class="line">    rm -f $@.$$$$</span><br></pre></td></tr></table></figure>
-
-<p>如果有一个C文件是name.c，那么 <code>%</code> 就是 <code>name</code> ， <code>$$$$</code> 意为一个随机编号，第二行生成的文件有可能是“name.d.12345”。</p>
-<h5 id="Example："><a href="#Example：" class="headerlink" title="Example："></a>Example：</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="variable">$(OBJ_DIR)</span>/%.o: %.c</span><br><span class="line">  @echo + CC <span class="variable">$&lt;</span></span><br><span class="line">  @mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">  @<span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line">  <span class="variable">$(<span class="built_in">call</span> call_fixdep, $(@:.o=.d)</span>, <span class="variable">$@</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>$(@:.o=.d)</code>表示将<code>$@</code>中所有<code>.o</code>替换为<code>.d</code></li>
-</ul>
-<h5 id="书写命令"><a href="#书写命令" class="headerlink" title="书写命令"></a>书写命令</h5><p>和shell规则是一致的，每条命令开头必须以Tab开头，#是注释符。</p>
-<h5 id="显示命令"><a href="#显示命令" class="headerlink" title="显示命令"></a>显示命令</h5><p>一般来说make会把命令首先显示出来，如果不想把命令显示出来的话，就在前面添加@</p>
-<p>如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Makefile:@echo 正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">Makefile:echo 正在编译XXX模块......</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">echo 正在编译XXX模块......</span><br><span class="line">正在编译XXX模块......</span><br></pre></td></tr></table></figure>
-
-<p>调试：make执行时，带入make参数 <code>-n</code> 或 <code>--just-print</code> ，那么其只是显示命令，但不会执行命令。</p>
-<h5 id="命令的执行"><a href="#命令的执行" class="headerlink" title="命令的执行"></a>命令的执行</h5><p>命令的执行逻辑是：当依赖目标新于目标时，make会一条一条的执行其后面的命令。如果想要上一条命令的结果应用在吓一跳命令的时候，用;分隔。For  example:</p>
-<ul>
-<li>示例一：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exec:</span><br><span class="line">    cd /home/hchen</span><br><span class="line">    pwd</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>示例二：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exec:</span><br><span class="line">    cd /home/hchen; pwd</span><br></pre></td></tr></table></figure>
-
-<p>第一个例子里面的cd不会被执行，显示的是Makefile的目录，第二个pwd会显示出cd之后的目录。</p>
-<h5 id="命令出错"><a href="#命令出错" class="headerlink" title="命令出错"></a>命令出错</h5><p>在命令前面添加减号<code>-</code>，标记无论命令是否出错都认为是成功的。</p>
-<h5 id="嵌套执行Make"><a href="#嵌套执行Make" class="headerlink" title="嵌套执行Make"></a>嵌套执行Make</h5><p>为了方便管理大工程，会设置一个总的Makefile，然后在不同模块内再书写一个Makefile文件。</p>
-<p>假如子目录&#x2F;subdir下面有一个Makefile文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    cd subdir &amp;&amp; $(MAKE)</span><br></pre></td></tr></table></figure>
-
-<p>其等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    $(MAKE) -C subdir</span><br></pre></td></tr></table></figure>
-
-<p>但是顶层的变量并不会传递给下一层，如果要传递某些参数，声明：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export &lt;variable ...&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>示例一：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable = value</span><br></pre></td></tr></table></figure>
-
-<p>其等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable = value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
-
-<p>其等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable := value</span><br></pre></td></tr></table></figure>
-
-<p>其等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
-
-<p>示例二：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export variable += value</span><br></pre></td></tr></table></figure>
-
-<p>其等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable += value</span><br><span class="line">export variable</span><br></pre></td></tr></table></figure>
-
-<p>需要注意的是，有两个变量，一个是 <code>SHELL</code> ，一个是 <code>MAKEFLAGS</code> ，这两个变量不管你是否export，其总是要传递到下层 Makefile中！这时候如果需要声明一些参数不传入下一层，则需要：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">unexport &lt;variable ...&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>但是make命令中的有几个参数并不往下传递，它们是 <code>-C</code> , <code>-f</code> , <code>-h</code>, <code>-o</code> 和 <code>-W</code> （有关Makefile参数的细节将在后面说明），如果你不想往下层传递参数，那么，你可以这样来：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">subsystem:</span><br><span class="line">    cd subdir &amp;&amp; $(MAKE) MAKEFLAGS=</span><br></pre></td></tr></table></figure>
-
-<p>如果你定义了环境变量 <code>MAKEFLAGS</code> ，那么你得确信其中的选项是大家都会用到的，如果其中有 <code>-t</code> , <code>-n</code> 和 <code>-q</code> 参数，那么将会有让你意想不到的结果，或许会让你异常地恐慌。</p>
-<p>还有一个在“嵌套执行”中比较有用的参数， <code>-w</code> 或是 <code>--print-directory</code> 会在make的过程中输出一些信息，让你看到目前的工作目录。比如，如果我们的下级make目录是“&#x2F;home&#x2F;hchen&#x2F;gnu&#x2F;make”，如果我们使用 <code>make -w</code> 来执行，那么当进入该目录时，我们会看到:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make: Entering directory `/home/hchen/gnu/make&#x27;.</span><br></pre></td></tr></table></figure>
-
-<p>而在完成下层make后离开目录时，我们会看到:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make: Leaving directory `/home/hchen/gnu/make&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>当你使用 <code>-C</code> 参数来指定make下层Makefile时， <code>-w</code> 会被自动打开的。如果参数中有 <code>-s</code> （ <code>--slient</code> ）或是 <code>--no-print-directory</code> ，那么， <code>-w</code> 总是失效的。</p>
-<h5 id="定义命令包"><a href="#定义命令包" class="headerlink" title="定义命令包"></a>定义命令包</h5><p>语法以 <code>define</code> 开始，以 <code>endef</code> 结束。</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">define run-yacc</span><br><span class="line">yacc $(firstword $^)</span><br><span class="line">mv y.tab.c $@</span><br><span class="line">endef</span><br></pre></td></tr></table></figure>
-
-<p>这里，“run-yacc”是这个命令包的名字，其不要和Makefile中的变量重名。在 <code>define</code> 和 <code>endef</code> 中的两行就是命令序列。这个命令包中的第一个命令是运行Yacc程序，因为Yacc程序总是生成“y.tab.c”的文件，所以第二行的命令就是把这个文件改改名字。还是把这个命令包放到一个示例中来看看吧。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">foo.c : foo.y</span><br><span class="line">    $(run-yacc)</span><br></pre></td></tr></table></figure>
-
-<p>我们可以看见，要使用这个命令包，我们就好像使用变量一样。在这个命令包的使用中，命令包“run-yacc”中的 <code>$^</code> 就是 <code>foo.y</code> ， <code>$@</code> 就是 <code>foo.c</code> （有关这种以 <code>$</code> 开头的特殊变量，我们会在后面介绍），make在执行命令包时，命令包中的每个命令会被依次独立执行。</p>
-<h5 id="变量："><a href="#变量：" class="headerlink" title="变量："></a>变量：</h5><p>正常以<code>=</code>来定义的变量是可以后面定义前面的，因此对于类似<code>CFLAGS = $(CFLAGS) -O</code>会出现循环定义的问题，<code>:=</code> 操作符代替<code>=</code>就可以让前面的变量不能使用后面的变量。</p>
-<p><code>+=</code> 操作符给变量追加值，例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">variable += more</span><br></pre></td></tr></table></figure>
-
-<p>等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">variable := value</span><br><span class="line">variable := $(variable) more</span><br></pre></td></tr></table></figure>
-
-<p>高级用法：把变量的值再次当成变量：<code> $($(x))</code>，类似于嵌套。</p>
-<p><code>CFLAGS</code> 环境变量：优先使用<code>CFLAGS</code> 李敏的定义的变量，如果没有使用再使用系统变量。</p>
-<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><ul>
-<li><p>字符串处理函数：</p>
-<ul>
-<li>$(subst 1,2,$(3))：把“$(3)”中的所有“1”字串替换成“2”字串</li>
-</ul>
-</li>
-<li><p>文件名操作函数</p>
-<ul>
-<li>$(dir &lt;names…&gt;)：取目录函数，取得是name&#x2F;之前的目录。example:$(dir src&#x2F;foo.c hacks)<code>返回值是</code>src&#x2F; .&#x2F;</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>脑中一二物</title>
     <url>/2022/03/28/%E8%84%91%E4%B8%AD%E4%B8%80%E4%BA%8C%E7%89%A9/</url>
     <content><![CDATA[<p><img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_5242.jpg" alt="DSC_5242"></p>
@@ -1653,6 +1616,65 @@
       </categories>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Github升级SSH秘钥导致不能上传的问题</title>
+    <url>/2022/03/28/%E8%A7%A3%E5%86%B3Github%E5%8D%87%E7%BA%A7SSH%E7%A7%98%E9%92%A5%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E4%B8%8A%E4%BC%A0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p><img src="/img/DSC_5247.jpg" alt="1"></p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;123123@qq.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式已经不可用了，改为未使用下面的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>了解一下为什么这么做，难道原来的SHA-1不安全了吗？</p>
+<p>查询到自从2017年2月，Google 宣布攻破 SHA-1，几周前，研究人员宣布了 SHAttered，这是 SHA-1 哈希函数的第一次碰撞。从今天开始，GitHub.com 上的所有 SHA-1 计算都将检测并拒绝任何有证据证明是碰撞攻击一部分的 Git 内容。这确保了 GitHub 不能用作对我们的用户执行碰撞攻击的平台。</p>
+<p><a href="https://www.zdnet.com/article/gits-move-away-from-sha-1-version-2-29-brings-experimental-sha-256-support/"></a></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听电影说】青春二字太过刺耳，多少人装作左耳</title>
+    <url>/2020/03/12/%E9%9D%92%E6%98%A5%E4%BA%8C%E5%AD%97%E5%A4%AA%E8%BF%87%E5%88%BA%E8%80%B3%EF%BC%8C%E5%A4%9A%E5%B0%91%E4%BA%BA%E8%A3%85%E4%BD%9C%E5%B7%A6%E8%80%B3/</url>
+    <content><![CDATA[<p><img src="/img/2020-3-13-1.jpg" alt="小耳朵"></p>
+<span id="more"></span>
+<p>​        首先，我承认我五分确实打的过于高了，这也是有原因的，对于一个能在自己的某一期时期能够引起共鸣的片子来说也很正常，毕竟2020了，谁也没事扒拉出来这种青春片来消磨时光。我想说的是因为我正在经历着这部片子里经历的不完整的剧情，而且刻骨铭心！</p>
+<p>​        我不知道但我相信这部片子里的剧情完完本本经历过的一切的人或许存在但存在的人或许不上豆瓣，因为这里充斥着无知 自大 自以为自己是救世主的一切，请问，您能安排自己的青春您凭什么就不可以相信这是别人的青春？就因为那个破酒吧您看到过，那个高考您经历过，那个开网店的创业故事您看中国合伙人看过，那个地道卖碟的人您从他身边走过吗？呵呵，好笑罢了。。</p>
+<p>​        事实上我前面说的那些我小的时候听到或者见到过，但是高考家长排队送饭，老师因为闯祸批评，一起拉着去上学，那时自己一个人在哭的情节我经历过！这更像是一个95后或者00后所经历过的吧。所以说这部片子也许把时间线弄得复杂弄得不合逻辑？但是为了使剧情合理化苏导做的一切也都顺理成章了。</p>
+<p>​        其次，我给这片打五分的原因是因为我好像从这里看到了我的未来，看到了这世界还有人在和我一样经历着这些，这种细腻温婉的感情难遇，难忘，难寻！我还是承认对于我来说这剧情确实太过理想化了，傻白甜怎么也不可能去做挡酒瓶，跟BL鬼混的情节，看暗恋的人能撞上人。。。我经历的事实没这么傻，我也希望以后不要有未来人模仿，因为真的很气人，傻白甜最后遍体鳞伤这难道就是每一个单纯孩子所必须承受的一切吗？我想问这个世界你们还有宽容心吗？</p>
+<p>​        你们所说的打胎什么的剧情我并没有太留意，因为它们并不重要，我甚至都没有意识有这些情节。我只知道左耳，左耳的表兄，等等这些人都能在我的生活或者我的记忆力找到影子，那部N95我也曾经使用过只不过那时我还没到高考的时期罢了。</p>
+<p>​        我明白，每个人都想自己的青春闪着光，永远难忘，可是请你不要忘了多少人在青春这个泥潭里反复挣扎，他们无处诉说，无人理解，只能自己默默在那些或真或假的电影里寻找所谓的想要的事实。他们也许真的逃不出青春的魔掌，或许是因为王菲左耳里唱的：青春没有红灯。有些痛要一直忍 一忍再忍 直到麻木不仁吧。</p>
+<p><strong>祝，你要坚强</strong></p>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听美剧说】从眼睛看穿一切</title>
+    <url>/2020/03/13/%E3%80%90%E5%90%AC%E7%94%B5%E5%BD%B1%E8%AF%B4%E3%80%91%E3%80%8A%E6%88%91%E7%9A%84%E5%A4%A9%E6%89%8D%E5%A5%B3%E5%8F%8B%E3%80%8B%E7%AC%AC%E4%B8%80%E8%87%B3%E7%AC%AC%E4%B8%89%E9%9B%86/</url>
+    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/13/8KQoo8.png" alt="睡梦中的童年埃莱娜"></p>
+<span id="more"></span>
+
+<p><img src="https://s1.ax1x.com/2020/03/13/8KQ7FS.png" alt="埃莱娜的眼睛--彷徨，迷惑，心事重重"></p>
+<p>​        前三集讲述的是童年时期的莱农和莉拉的生活，两个要好的朋友在升学考试的问题上关系出现破裂。眼神一举一动貌似胜过一颦一簇的温婉。似铁血柔光s，似无人深渊，似一个小世界。导演塞维尼奥·科斯坦佐对于人物的描绘出神入化，直击内心世界的秘密。前三集拍摄地均在没有几栋建筑的小镇，简单的甚至略带枯燥乏味。但这种单调中画龙点睛的一笔是人物的眼神。不必多说，不必细说，不用深说，也无需滔滔不绝，给一个一秒钟的眼神特写，足矣！</p>
+<p>​</p>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
       </tags>
   </entry>
   <entry>
@@ -1710,28 +1732,6 @@
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决Github升级SSH秘钥导致不能上传的问题</title>
-    <url>/2022/03/28/%E8%A7%A3%E5%86%B3Github%E5%8D%87%E7%BA%A7SSH%E7%A7%98%E9%92%A5%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E4%B8%8A%E4%BC%A0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p><img src="/img/DSC_5247.jpg" alt="1"></p>
-<span id="more"></span>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;123123@qq.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>这种方式已经不可用了，改为未使用下面的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>了解一下为什么这么做，难道原来的SHA-1不安全了吗？</p>
-<p>查询到自从2017年2月，Google 宣布攻破 SHA-1，几周前，研究人员宣布了 SHAttered，这是 SHA-1 哈希函数的第一次碰撞。从今天开始，GitHub.com 上的所有 SHA-1 计算都将检测并拒绝任何有证据证明是碰撞攻击一部分的 Git 内容。这确保了 GitHub 不能用作对我们的用户执行碰撞攻击的平台。</p>
-<p><a href="https://www.zdnet.com/article/gits-move-away-from-sha-1-version-2-29-brings-experimental-sha-256-support/"></a></p>
-]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
       </tags>
   </entry>
 </search>
