@@ -19,6 +19,32 @@
       </tags>
   </entry>
   <entry>
+    <title>【2020.3.15】慢慢喜欢你</title>
+    <url>/2020/03/15/315%E5%B0%8F%E8%AE%B0-%E6%85%A2%E6%85%A2%E5%96%9C%E6%AC%A2%E4%BD%A0/</url>
+    <content><![CDATA[<p>​        <img src="https://gitee.com/mintfancy/mintfancy/raw/master/img/DSC_4872.jpg"></p>
+<span id="more"></span>
+
+<p>绿瓦红砖</p>
+<p>柳树和青苔</p>
+<p>过去和现在</p>
+<p>都一个</p>
+<p>样</p>
+<p>慢慢喜欢你</p>
+<p>慢慢的亲密</p>
+<p>慢慢和你走在一起</p>
+<p>慢慢我想配合你</p>
+<p>。。。。</p>
+<p>永远的莫文蔚</p>
+<p>永远的《慢慢喜欢你》</p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Django--初试web框架</title>
     <url>/2020/05/06/Django--%E5%88%9D%E8%AF%95web%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/08/diUD52rWwOSvJBx.jpg" alt="DSC_4902.jpg"></p>
@@ -85,89 +111,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from django.contrib import admin</span><br><span class="line">from django.urls import include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&#x27;polls/&#x27;, include(&#x27;polls.urls&#x27;)),</span><br><span class="line">    path(&#x27;admin/&#x27;, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
 <p>此时可以访问<code>http://127.0.0.1:8001/polls/</code>查看自己的第一个poll的创建情况。</p>
-]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【2020.3.15】慢慢喜欢你</title>
-    <url>/2020/03/15/315%E5%B0%8F%E8%AE%B0-%E6%85%A2%E6%85%A2%E5%96%9C%E6%AC%A2%E4%BD%A0/</url>
-    <content><![CDATA[<p>​        <img src="https://gitee.com/mintfancy/mintfancy/raw/master/img/DSC_4872.jpg"></p>
-<span id="more"></span>
-
-<p>绿瓦红砖</p>
-<p>柳树和青苔</p>
-<p>过去和现在</p>
-<p>都一个</p>
-<p>样</p>
-<p>慢慢喜欢你</p>
-<p>慢慢的亲密</p>
-<p>慢慢和你走在一起</p>
-<p>慢慢我想配合你</p>
-<p>。。。。</p>
-<p>永远的莫文蔚</p>
-<p>永远的《慢慢喜欢你》</p>
-]]></content>
-      <categories>
-        <category>摄影</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Django实战（1）</title>
-    <url>/2020/06/23/Django%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89/</url>
-    <content><![CDATA[<p><img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
-<span id="more"></span>
-
-<h5 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h5><ul>
-<li>搭建虚拟开发环境，使用Pycharm创建Django项目</li>
-<li>本地配置local_settings.py，通过.gitingnor文件排除推送文件目录</li>
-<li>Git共有仓库的使用</li>
-</ul>
-<h5 id="任务如下"><a href="#任务如下" class="headerlink" title="任务如下"></a>任务如下</h5><ul>
-<li>创建一个名为tracer的虚拟环境</li>
-<li>创建一个django项目：tracer</li>
-<li>建立一个git仓库名称为tracer</li>
-<li>总结文档</li>
-</ul>
-<ol>
-<li>虚拟开发环境的创建</li>
-</ol>
-<p>1.1 安装</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
-
-<p>1.2 创建虚拟环境</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">virtualenv 环境名称</span><br><span class="line"></span><br><span class="line"><span class="comment">#两种创建方式</span></span><br><span class="line"><span class="number">1</span>、virtualenv 环境名称 --python=python3<span class="number">.6</span></span><br><span class="line"><span class="number">2</span>、virtualenv 环境名称 --python=<span class="string">&#x27;c:\python\....exe&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>1.3 激活虚拟环境</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd scripts进入虚拟环境的文件</span><br><span class="line">.\activate 激活虚拟环境</span><br><span class="line">.\deactivate 退出虚拟环境</span><br></pre></td></tr></table></figure>
-
-<p>1.4 在虚拟环境中安装模块</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 install django==<span class="number">1.11</span><span class="number">.28</span></span><br></pre></td></tr></table></figure>
-
-<p>1.5 使用pycharm创建项目</p>
-<p><img src="/img/image-20200623212036274-1593493719162.png" alt="image-20200623212036274"></p>
-<p>1.6 设置settings.py</p>
-<p>在settings.py中加入下面的代码，再创建一个名为local_seetings.py的文件用来保存自己的配置，优先选用local_settings中的设置</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>: </span><br><span class="line">    <span class="keyword">from</span> .Local_settings <span class="keyword">import</span> * </span><br><span class="line"><span class="keyword">except</span> ImportError: </span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-
-<p>1.6 设置git的上传排出名单</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Django stuff: </span></span><br><span class="line">locaL_settings.py</span><br><span class="line">*.sqlite3</span><br><span class="line"></span><br><span class="line"><span class="comment"># database migrations</span></span><br><span class="line">*/migrations/*.py       //表示排除数据库迁移有关的文件</span><br><span class="line">!*/migrations/_init_.py //!表示排除后面路径下的文件</span><br></pre></td></tr></table></figure>
-
-<p>1.7 配置git远端服务器（测试）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">##本地部分</span></span><br><span class="line"></span><br><span class="line">git init //托管目录</span><br><span class="line">git add . // 将所有目录做一个提交</span><br><span class="line">git commit -m <span class="string">&#x27;text1&#x27;</span> //做一个提交的记录</span><br><span class="line"></span><br><span class="line"><span class="comment">##将本地仓库同步到远端</span></span><br><span class="line"></span><br><span class="line">git push https://github.com/heroamd/django.git master</span><br><span class="line"></span><br><span class="line"><span class="comment">##为了后续更加方便的推送到远端，给仓库地址添加一个别名</span></span><br><span class="line"></span><br><span class="line">git add origin https://github.com/heroamd/django.git //origin就代表后面仓库的地址</span><br><span class="line">    </span><br><span class="line"><span class="comment">##此后需要继续推送运行</span></span><br><span class="line"></span><br><span class="line">git push origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>1.8 使用git命令将仓库push到新的分支</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##在前面完成之后的最后一步，修改git push命令</span><br><span class="line"></span><br><span class="line">git push origin master:新分支的名字</span><br></pre></td></tr></table></figure>
-
-<p><img src="/img/image-20200625125328101-1593493763894.png" alt="image-20200625125328101"></p>
-<p>1.9 使用git命令克隆分支到本地</p>
 ]]></content>
       <categories>
         <category>程序</category>
@@ -245,6 +188,63 @@
 
 <p>此命令和直接使用python 是因为<code>manage.py</code>会设置<code>DJANGO_SETTINGS_MODULE</code> 环境变量，这个变量会让 Django 根据 <code>mysite/settings.py</code> 文件来设置 Python 包的导入路径。</p>
 <p>今天先酱紫吧~补一下Python的知识。</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django实战（1）</title>
+    <url>/2020/06/23/Django%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="/img/image-20200623201156306.png" alt="image-20200623201156306"></p>
+<span id="more"></span>
+
+<h5 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h5><ul>
+<li>搭建虚拟开发环境，使用Pycharm创建Django项目</li>
+<li>本地配置local_settings.py，通过.gitingnor文件排除推送文件目录</li>
+<li>Git共有仓库的使用</li>
+</ul>
+<h5 id="任务如下"><a href="#任务如下" class="headerlink" title="任务如下"></a>任务如下</h5><ul>
+<li>创建一个名为tracer的虚拟环境</li>
+<li>创建一个django项目：tracer</li>
+<li>建立一个git仓库名称为tracer</li>
+<li>总结文档</li>
+</ul>
+<ol>
+<li>虚拟开发环境的创建</li>
+</ol>
+<p>1.1 安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>1.2 创建虚拟环境</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">virtualenv 环境名称</span><br><span class="line"></span><br><span class="line"><span class="comment">#两种创建方式</span></span><br><span class="line"><span class="number">1</span>、virtualenv 环境名称 --python=python3<span class="number">.6</span></span><br><span class="line"><span class="number">2</span>、virtualenv 环境名称 --python=<span class="string">&#x27;c:\python\....exe&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>1.3 激活虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd scripts进入虚拟环境的文件</span><br><span class="line">.\activate 激活虚拟环境</span><br><span class="line">.\deactivate 退出虚拟环境</span><br></pre></td></tr></table></figure>
+
+<p>1.4 在虚拟环境中安装模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 install django==<span class="number">1.11</span><span class="number">.28</span></span><br></pre></td></tr></table></figure>
+
+<p>1.5 使用pycharm创建项目</p>
+<p><img src="/img/image-20200623212036274-1593493719162.png" alt="image-20200623212036274"></p>
+<p>1.6 设置settings.py</p>
+<p>在settings.py中加入下面的代码，再创建一个名为local_seetings.py的文件用来保存自己的配置，优先选用local_settings中的设置</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>: </span><br><span class="line">    <span class="keyword">from</span> .Local_settings <span class="keyword">import</span> * </span><br><span class="line"><span class="keyword">except</span> ImportError: </span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>1.6 设置git的上传排出名单</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Django stuff: </span></span><br><span class="line">locaL_settings.py</span><br><span class="line">*.sqlite3</span><br><span class="line"></span><br><span class="line"><span class="comment"># database migrations</span></span><br><span class="line">*/migrations/*.py       //表示排除数据库迁移有关的文件</span><br><span class="line">!*/migrations/_init_.py //!表示排除后面路径下的文件</span><br></pre></td></tr></table></figure>
+
+<p>1.7 配置git远端服务器（测试）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">##本地部分</span></span><br><span class="line"></span><br><span class="line">git init //托管目录</span><br><span class="line">git add . // 将所有目录做一个提交</span><br><span class="line">git commit -m <span class="string">&#x27;text1&#x27;</span> //做一个提交的记录</span><br><span class="line"></span><br><span class="line"><span class="comment">##将本地仓库同步到远端</span></span><br><span class="line"></span><br><span class="line">git push https://github.com/heroamd/django.git master</span><br><span class="line"></span><br><span class="line"><span class="comment">##为了后续更加方便的推送到远端，给仓库地址添加一个别名</span></span><br><span class="line"></span><br><span class="line">git add origin https://github.com/heroamd/django.git //origin就代表后面仓库的地址</span><br><span class="line">    </span><br><span class="line"><span class="comment">##此后需要继续推送运行</span></span><br><span class="line"></span><br><span class="line">git push origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1.8 使用git命令将仓库push到新的分支</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##在前面完成之后的最后一步，修改git push命令</span><br><span class="line"></span><br><span class="line">git push origin master:新分支的名字</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/image-20200625125328101-1593493763894.png" alt="image-20200625125328101"></p>
+<p>1.9 使用git命令克隆分支到本地</p>
 ]]></content>
       <categories>
         <category>程序</category>
@@ -498,20 +498,6 @@
       </tags>
   </entry>
   <entry>
-    <title>lilian</title>
-    <url>/2020/03/17/lilian/</url>
-    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/17/8aZd0g.png" alt="8aZd0g.png"></p>
-<span id="more"></span>
-
-<p>​                                      She found the lonely person ready to leave<br>​                                                           So I prayed at dusk<br>​                                                Until night she turned to hear</p>
-<p>​                                                      There is a beach far away<br>​                                            Lonely man is holding a sail at sea<br>​                                            If you see him return to the coast<br>​                                           Please tell him your name my name</p>
-<p>​                                                                       Lilian</p>
-]]></content>
-      <tags>
-        <tag>阅读</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STC15项目到层次原理图</title>
     <url>/2021/07/23/STC15%E9%A1%B9%E7%9B%AE%E5%88%B0%E5%B1%82%E6%AC%A1%E5%8E%9F%E7%90%86%E5%9B%BE/</url>
     <content><![CDATA[<p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
@@ -541,6 +527,20 @@
       </tags>
   </entry>
   <entry>
+    <title>lilian</title>
+    <url>/2020/03/17/lilian/</url>
+    <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/17/8aZd0g.png" alt="8aZd0g.png"></p>
+<span id="more"></span>
+
+<p>​                                      She found the lonely person ready to leave<br>​                                                           So I prayed at dusk<br>​                                                Until night she turned to hear</p>
+<p>​                                                      There is a beach far away<br>​                                            Lonely man is holding a sail at sea<br>​                                            If you see him return to the coast<br>​                                           Please tell him your name my name</p>
+<p>​                                                                       Lilian</p>
+]]></content>
+      <tags>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>openmv光耦和232通信</title>
     <url>/2021/08/13/openmv%E5%85%89%E8%80%A6%E5%92%8C232%E9%80%9A%E4%BF%A1/</url>
     <content><![CDATA[<p><img src="/img/image-20210722202713240.png" alt="image-20210722202713240"></p>
@@ -560,38 +560,6 @@
       </categories>
       <tags>
         <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【听电影说】《海边的曼彻斯特》给我的第一感</title>
-    <url>/2019/12/24/%E3%80%8A%E6%B5%B7%E8%BE%B9%E7%9A%84%E6%9B%BC%E5%BD%BB%E6%96%AF%E7%89%B9%E3%80%8B%E7%BB%99%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%84%9F/</url>
-    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/03/13/CJoQSnytHdv5kMa.jpg" alt="p2426030780.jpg"></p>
-<span id="more"></span>    
-
-<p>​        片子其实早就想看了，恰巧和主角处境一般时，生活或者其他方面不顺时刷影便提上议程。</p>
-<p>​        首先，整片的压抑感和主角低沉寡言的形象，拖的很长的故事线把整个片子的气氛压的很低，主角先是被炒，工作不顺后来哥哥的死。。。变故接踵而至，但是lee内心好像并没有因为这些变故而产生半点波澜，每天照旧的铲雪，像是照例一般的看完哥哥。。。。。。</p>
-<pre><code>      我印象很深的是当lee带小joe去完太平间，律师，看过亲生母亲。。。等等我完全感觉不到剧情的波澜，平淡的像一部无色的纪录片，同时lee像是另一世界的我一般相似，也许是有痛苦就应该克服之后走出去的固有正确价值观的教育下，我开始也很讨厌lee这样一个人，明明有很多机会可以不那么自闭，明明可以和randy聊聊天，明明可以接受ex的原谅，但是主角并没有接受。。。。。我甚至怀疑这部片子正是导演派来压抑我的，非常不明白lee为何不去尝试改变呢？仿佛逃避，回避，闭上眼或者酒吧闹事被打的抠鼻流血就是lee回应这个世界的唯一方法，好像报复一下这个世界就是惩罚了世界就是原谅了自己。
-
-      但是，在了解了lee自己酗酒后错烧房子并且两个女儿也未能幸免，这如同一个巨石死死地压在了主角lee的心上，我开始好奇为何在发达的西方国度心理健康治疗被看得高于肉体的治愈的这样一个社会环境下主角为什么不去选择治疗呢？可是钱来自哪里呀，难道要靠自己的自我迭新吗？我想这是对于这样一个落魄之人最好的解释。
-
-      改变确实是一条可以选择的方法或者途径，但是从来也没有必须要求一个人去选择直面过去，选择改头换面，这是本片给我的一个新颖的观点。
-
-     从前和小joe一样有朋友围绕，和老joe一起打鱼出海可以说小joe的&#39;&#39;正常&#39;&#39;生活他完全经历过，可是当他看到那个参加冰球队篮球队乐队还有好几个女友陪伴的青春横溢的小joe时，他选择了阻挠，甚至还想把joe带离那里，完全不顾joe的感受。我也很愤怒，你自己选择了逃避为何要带一个人一起上路呢？索性最后lee认识到了这点，把joe拖给了另一个比他更适合做父亲的一个家庭，说实话我为joe深深捏了一把汗。
-
-     社会的残酷，和家庭最大的区别我想已经很深刻的体现了，（这是我目前的理解上限，欢迎各位指正毕竟我还有很长的路走），社会仅仅会指正你的错误却不会主动引导你方向，而且指正你的方式也是冷酷无情带不了半点温度。
-
-     你选择改变首先意味着原谅，你的落魄不是惩罚社会也不是惩罚世界的手段，我想起院长的话，现代社会谁对谁也不会负责，如何保护自己可以说困扰这许许多多的人，不过我想，在美丽的阳光普照的曼彻斯特，有多好的阳光，有多么美丽的风景，眼前不能仅仅看到苍茫的雪路零下的温度呀！这也许是导演留在片尾的一丝曙光升华了整部电影。
-
-     但是倘若经历过那些不悦的时光，我想原谅和直面会让自己觉得自己一直带着一个人皮面具，独自时本色无疑群居时没事人一般，这也是痛苦的啊，这能归责于落魄无神的lee吗？
-
-     不是每个人都有选择麻木的必然，逃避也能逃避的很好，起码现在不难受哈哈。。。。。
-</code></pre>
-]]></content>
-      <categories>
-        <category>观影</category>
-      </categories>
-      <tags>
-        <tag>观影</tag>
       </tags>
   </entry>
   <entry>
@@ -766,6 +734,38 @@
       </categories>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听电影说】《海边的曼彻斯特》给我的第一感</title>
+    <url>/2019/12/24/%E3%80%8A%E6%B5%B7%E8%BE%B9%E7%9A%84%E6%9B%BC%E5%BD%BB%E6%96%AF%E7%89%B9%E3%80%8B%E7%BB%99%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%84%9F/</url>
+    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/03/13/CJoQSnytHdv5kMa.jpg" alt="p2426030780.jpg"></p>
+<span id="more"></span>    
+
+<p>​        片子其实早就想看了，恰巧和主角处境一般时，生活或者其他方面不顺时刷影便提上议程。</p>
+<p>​        首先，整片的压抑感和主角低沉寡言的形象，拖的很长的故事线把整个片子的气氛压的很低，主角先是被炒，工作不顺后来哥哥的死。。。变故接踵而至，但是lee内心好像并没有因为这些变故而产生半点波澜，每天照旧的铲雪，像是照例一般的看完哥哥。。。。。。</p>
+<pre><code>      我印象很深的是当lee带小joe去完太平间，律师，看过亲生母亲。。。等等我完全感觉不到剧情的波澜，平淡的像一部无色的纪录片，同时lee像是另一世界的我一般相似，也许是有痛苦就应该克服之后走出去的固有正确价值观的教育下，我开始也很讨厌lee这样一个人，明明有很多机会可以不那么自闭，明明可以和randy聊聊天，明明可以接受ex的原谅，但是主角并没有接受。。。。。我甚至怀疑这部片子正是导演派来压抑我的，非常不明白lee为何不去尝试改变呢？仿佛逃避，回避，闭上眼或者酒吧闹事被打的抠鼻流血就是lee回应这个世界的唯一方法，好像报复一下这个世界就是惩罚了世界就是原谅了自己。
+
+      但是，在了解了lee自己酗酒后错烧房子并且两个女儿也未能幸免，这如同一个巨石死死地压在了主角lee的心上，我开始好奇为何在发达的西方国度心理健康治疗被看得高于肉体的治愈的这样一个社会环境下主角为什么不去选择治疗呢？可是钱来自哪里呀，难道要靠自己的自我迭新吗？我想这是对于这样一个落魄之人最好的解释。
+
+      改变确实是一条可以选择的方法或者途径，但是从来也没有必须要求一个人去选择直面过去，选择改头换面，这是本片给我的一个新颖的观点。
+
+     从前和小joe一样有朋友围绕，和老joe一起打鱼出海可以说小joe的&#39;&#39;正常&#39;&#39;生活他完全经历过，可是当他看到那个参加冰球队篮球队乐队还有好几个女友陪伴的青春横溢的小joe时，他选择了阻挠，甚至还想把joe带离那里，完全不顾joe的感受。我也很愤怒，你自己选择了逃避为何要带一个人一起上路呢？索性最后lee认识到了这点，把joe拖给了另一个比他更适合做父亲的一个家庭，说实话我为joe深深捏了一把汗。
+
+     社会的残酷，和家庭最大的区别我想已经很深刻的体现了，（这是我目前的理解上限，欢迎各位指正毕竟我还有很长的路走），社会仅仅会指正你的错误却不会主动引导你方向，而且指正你的方式也是冷酷无情带不了半点温度。
+
+     你选择改变首先意味着原谅，你的落魄不是惩罚社会也不是惩罚世界的手段，我想起院长的话，现代社会谁对谁也不会负责，如何保护自己可以说困扰这许许多多的人，不过我想，在美丽的阳光普照的曼彻斯特，有多好的阳光，有多么美丽的风景，眼前不能仅仅看到苍茫的雪路零下的温度呀！这也许是导演留在片尾的一丝曙光升华了整部电影。
+
+     但是倘若经历过那些不悦的时光，我想原谅和直面会让自己觉得自己一直带着一个人皮面具，独自时本色无疑群居时没事人一般，这也是痛苦的啊，这能归责于落魄无神的lee吗？
+
+     不是每个人都有选择麻木的必然，逃避也能逃避的很好，起码现在不难受哈哈。。。。。
+</code></pre>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
       </tags>
   </entry>
   <entry>
@@ -1048,6 +1048,32 @@
       </tags>
   </entry>
   <entry>
+    <title>【04物联网实习】华为云配置服务，在华为云上安装Node-RED并转发</title>
+    <url>/2021/07/09/%E3%80%9004%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<p>​        <img src="/img/060344.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h4 id="学习任务："><a href="#学习任务：" class="headerlink" title="学习任务："></a>学习任务：</h4><ul>
+<li>了解项目的架构</li>
+<li></li>
+</ul>
+<h4 id="一、背景了解"><a href="#一、背景了解" class="headerlink" title="一、背景了解"></a>一、背景了解</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714005341.jpg"></p>
+<p>应用层为Node-RED，平台层为华为云服务器，网络层为BC26模块，感知层为STM32单片机。</p>
+<p>可以学习LiteOS操作系统：华为面向物联网领域构建的统一物联网操作系统和中间件软件平台，其具有轻量级（内核小于10KB）、低功耗、互连互通、安全等关键特点。Lites目前主要应用于智能家居、穿戴式、车联网、智能抄表、工业互联网等物联网领域的智能硬件上。</p>
+<p><img src="/img/kikkkikik.png"></p>
+<p><img src="/img/%E5%9B%BE%E7%89%875.png"></p>
+<p><img src="/img/%E5%9B%BE%E7%89%876.png"></p>
+<p>二、OpenCPU方案对比</p>
+<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714012424.jpg"></p>
+<h4 id="三、华为云的环境配置"><a href="#三、华为云的环境配置" class="headerlink" title="三、华为云的环境配置"></a>三、华为云的环境配置</h4>]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【05物联网实习】CubeMX配合KEIL完成单片机开发</title>
     <url>/2021/07/10/%E3%80%9005%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91CubeMX%E9%85%8D%E5%90%88KEIL%E5%AE%8C%E6%88%90%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<p><img src="/img/060344.jpg" alt="1"></p>
@@ -1074,32 +1100,6 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);</span><br><span class="line">HAL_Delay(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 
 ]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【04物联网实习】华为云配置服务，在华为云上安装Node-RED并转发</title>
-    <url>/2021/07/09/%E3%80%9004%E7%89%A9%E8%81%94%E7%BD%91%E5%AE%9E%E4%B9%A0%E3%80%91%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1/</url>
-    <content><![CDATA[<p>​        <img src="/img/060344.jpg" alt="1"></p>
-<span id="more"></span>
-
-<h4 id="学习任务："><a href="#学习任务：" class="headerlink" title="学习任务："></a>学习任务：</h4><ul>
-<li>了解项目的架构</li>
-<li></li>
-</ul>
-<h4 id="一、背景了解"><a href="#一、背景了解" class="headerlink" title="一、背景了解"></a>一、背景了解</h4><p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714005341.jpg"></p>
-<p>应用层为Node-RED，平台层为华为云服务器，网络层为BC26模块，感知层为STM32单片机。</p>
-<p>可以学习LiteOS操作系统：华为面向物联网领域构建的统一物联网操作系统和中间件软件平台，其具有轻量级（内核小于10KB）、低功耗、互连互通、安全等关键特点。Lites目前主要应用于智能家居、穿戴式、车联网、智能抄表、工业互联网等物联网领域的智能硬件上。</p>
-<p><img src="/img/kikkkikik.png"></p>
-<p><img src="/img/%E5%9B%BE%E7%89%875.png"></p>
-<p><img src="/img/%E5%9B%BE%E7%89%876.png"></p>
-<p>二、OpenCPU方案对比</p>
-<p><img src="/img/QQ%E6%88%AA%E5%9B%BE20210714012424.jpg"></p>
-<h4 id="三、华为云的环境配置"><a href="#三、华为云的环境配置" class="headerlink" title="三、华为云的环境配置"></a>三、华为云的环境配置</h4>]]></content>
       <categories>
         <category>程序</category>
       </categories>
@@ -1348,12 +1348,6 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2019/12/24/%E3%80%90FPGA%E3%80%91%E6%8F%90%E7%A4%BAerro17-39/</url>
-    <content><![CDATA[<p>​        </p>
-<span id="more"></span>]]></content>
-  </entry>
-  <entry>
     <title>【FPGA】状态机设计</title>
     <url>/2021/05/16/%E3%80%90FPGA%E3%80%91%E7%8A%B6%E6%80%81%E6%9C%BA%E8%AE%BE%E8%AE%A1/</url>
     <content><![CDATA[<p>​        <img src="/img/fpga_3.jpg" alt="cover"></p>
@@ -1395,6 +1389,12 @@
       <tags>
         <tag>程序</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2019/12/24/%E3%80%90FPGA%E3%80%91%E6%8F%90%E7%A4%BAerro17-39/</url>
+    <content><![CDATA[<p>​        </p>
+<span id="more"></span>]]></content>
   </entry>
   <entry>
     <title>【FPGA】编写测试程序</title>
@@ -1537,130 +1537,6 @@
       </tags>
   </entry>
   <entry>
-    <title>完善修复Hackintosh的一次经历</title>
-    <url>/2020/05/25/%E5%A5%BD%E4%B9%85%E6%B2%A1%E7%94%A8%E9%BB%91%E8%8B%B9%E6%9E%9C%E4%BF%AE%E5%A4%8D%E4%BA%86%E4%B8%80%E4%BA%9Bbugs/</url>
-    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/25/ZquNxpgYmD6reS3.png" alt="QQ截图20200525230912.png"></p>
-<span id="more"></span>
-
-<p>​    好久没用黑苹果系统了，打开之后发现系统臃肿不堪，非常卡顿，花几分钟时间简单分析一下原因：</p>
-<ul>
-<li><p>之前一时兴起安装了ID, C4D, PR, AE 等大型软件，占用了大量的固态盘空间，我买的是256GB的固态盘只剩下了20G不到的空间，算一下百分比就是还剩下7.8%左右的剩余空间。经过一波卸载，删掉之前做海报设计时的旧素材文件之后还剩下差不多50GB的空间，相当于扩展到了20%，这个范围不会严重影响固态硬盘的缓存性能也就是常说的满盘的情况。因为在固态颗粒售价很低的时候买的一条固态盘，所以先暂时凑活用一下以后在考虑升级的问题。</p>
-</li>
-<li><p>开机启动项太多，监控，各种小工具很多很多严重拖垮了开机时间和进入桌面的加载时间，删掉了一部分软件</p>
-</li>
-<li><p>第三部分是重中之重了，优化了EFI文件，之前自己折腾的时候黑苹果还有几处不完美的地方比如第一次进系统会时不时重启，不能开机之后连接HDMI接口造成了很多麻烦甚至不能高效的把系统当作一个完美的生产力工具，这次在制作毕业季明信片的时候我本人实在忍无可忍了决定试一试修复这些不必要的麻烦。</p>
-<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2></li>
-</ul>
-]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摆渡</title>
-    <url>/2020/03/13/%E6%91%86%E6%B8%A1/</url>
-    <content><![CDATA[<blockquote>
-<p>​        最近在哔哩哔哩看了好多北京大学的宣传电影，其中有一个我印象比较深，它从男生和女生和星空的角度分别描绘了一对北大情侣相爱，相别的爱情故事。不过我更感兴趣的是两个不同专业，不同性格的人通过北大广阔的平台意外相识的经历，如同Ayer一样纯粹，纯净。其中导演通过非常的剪辑手法和描述技巧，让原本已经玩烂的青春爱情校园故事蓬荜生辉，我从其中摘抄了一些句子觉得很有意思。</p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="在对的时间遇见对的人，这是童话"><a href="#在对的时间遇见对的人，这是童话" class="headerlink" title="在对的时间遇见对的人，这是童话"></a>在对的时间遇见对的人，这是童话</h2><h2 id="在错的时间遇见对的人，这才是青春"><a href="#在错的时间遇见对的人，这才是青春" class="headerlink" title="在错的时间遇见对的人，这才是青春"></a>在错的时间遇见对的人，这才是青春</h2><blockquote>
-<h3 id="什么是社会？社会是由自我繁殖的个体构建而成的社群。"><a href="#什么是社会？社会是由自我繁殖的个体构建而成的社群。" class="headerlink" title="什么是社会？社会是由自我繁殖的个体构建而成的社群。"></a>什么是社会？社会是由自我繁殖的个体构建而成的社群。</h3><h3 id="什么是喜欢？旺盛分泌的多巴胺，期限30个月。"><a href="#什么是喜欢？旺盛分泌的多巴胺，期限30个月。" class="headerlink" title="什么是喜欢？旺盛分泌的多巴胺，期限30个月。"></a>什么是喜欢？旺盛分泌的多巴胺，期限30个月。</h3><h3 id="什么是时光？时光是我们穿过的衣服，却再也脱不下来。"><a href="#什么是时光？时光是我们穿过的衣服，却再也脱不下来。" class="headerlink" title="什么是时光？时光是我们穿过的衣服，却再也脱不下来。"></a>什么是时光？时光是我们穿过的衣服，却再也脱不下来。</h3><h3 id="什么是美？从’’知道’’到达’’懂得’’。"><a href="#什么是美？从’’知道’’到达’’懂得’’。" class="headerlink" title="什么是美？从’’知道’’到达’’懂得’’。"></a>什么是美？从’’知道’’到达’’懂得’’。</h3></blockquote>
-<p><strong>不是现实支撑了梦想，而是梦想支撑着你的现实。</strong></p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>阅读</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>脑中一二物</title>
-    <url>/2022/03/28/%E8%84%91%E4%B8%AD%E4%B8%80%E4%BA%8C%E7%89%A9/</url>
-    <content><![CDATA[<p><img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_5242.jpg" alt="DSC_5242"></p>
-<span id="more"></span>
-
-<ul>
-<li><p><strong>在有先验信息的条件下如何进行发言 也是要自信 就是要大胆的show自己。</strong></p>
-<p>比如说刚刚开始的时候会被分配一些小任务 很有可能其他人敲两下就oK了 但是一定要给你做可能就是为了看一下你的能力 这时候需要你汇报工作一定要把观众当傻子 事无巨细的逻辑展示出来比跳来跳去觉得简单就可以跳要容易得多。</p>
-</li>
-<li><p><strong>偏激和笃定的平衡。</strong></p>
-</li>
-<li><p><strong>被分配任务以后一定要有一个自己的规划在那里，是宏观的大方向，之后再去关注小方向</strong>。</p>
-</li>
-<li><p>工作和科研是一样的 没有人告诉你方案 没人告诉你原理 工作不是证明题 也不存在一个一定的正确性，所以放平心态 敢于把自己的想法说出来并按照自己的做一阵子 其实其他人也不知道你这么做对还是不对。假如你是一个不自信的表述 或者自己做的时候自己也半信半疑没有深入 其他人就会以为这个方案不行</p>
-</li>
-</ul>
-<blockquote>
-<img src="C:\Users\qi\AppData\Roaming\Typora\typora-user-images\image-20220311120401352.png" alt="image-20220311120401352" style="zoom:50%;" />
-</blockquote>
-<ul>
-<li><p><strong>我感觉尽管自己之前被捧上天 但是我觉得自己的能力差距还是很大很大的。</strong></p>
-</li>
-<li><p><strong>逻辑性计划性</strong></p>
-</li>
-<li><p>不要陷入<strong>被分配任务–&gt;浅浅了解一下–&gt;看其他没有人做过–&gt;觉得这个方向不太行–&gt;开始质疑自己和团队</strong> 的怪圈</p>
-<p>因此在阅读代码的时候, 你只需要关心和当前进度相关的模块就可以了, 不要纠缠于和当前进度无关的代码, 否则将会给你的心灵带来不必要的恐惧.</p>
-</li>
-<li><p>基础知识（比如数学，英语，一些编程的语法等你觉得简单但是没啥用的东西）相当于工具，假如碰到一个难点没有好的办法，那肯定是没有掌握工具或者是工具的使用方法。<strong>其实每个知识都不应该是一个孤岛</strong>。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决Github升级SSH秘钥导致不能上传的问题</title>
-    <url>/2022/03/28/%E8%A7%A3%E5%86%B3Github%E5%8D%87%E7%BA%A7SSH%E7%A7%98%E9%92%A5%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E4%B8%8A%E4%BC%A0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p><img src="/img/DSC_5247.jpg" alt="1"></p>
-<span id="more"></span>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;123123@qq.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>这种方式已经不可用了，改为未使用下面的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>了解一下为什么这么做，难道原来的SHA-1不安全了吗？</p>
-<p>查询到自从2017年2月，Google 宣布攻破 SHA-1，几周前，研究人员宣布了 SHAttered，这是 SHA-1 哈希函数的第一次碰撞。从今天开始，GitHub.com 上的所有 SHA-1 计算都将检测并拒绝任何有证据证明是碰撞攻击一部分的 Git 内容。这确保了 GitHub 不能用作对我们的用户执行碰撞攻击的平台。</p>
-<p><a href="https://www.zdnet.com/article/gits-move-away-from-sha-1-version-2-29-brings-experimental-sha-256-support/"></a></p>
-]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【听电影说】青春二字太过刺耳，多少人装作左耳</title>
-    <url>/2020/03/12/%E9%9D%92%E6%98%A5%E4%BA%8C%E5%AD%97%E5%A4%AA%E8%BF%87%E5%88%BA%E8%80%B3%EF%BC%8C%E5%A4%9A%E5%B0%91%E4%BA%BA%E8%A3%85%E4%BD%9C%E5%B7%A6%E8%80%B3/</url>
-    <content><![CDATA[<p><img src="/img/2020-3-13-1.jpg" alt="小耳朵"></p>
-<span id="more"></span>
-<p>​        首先，我承认我五分确实打的过于高了，这也是有原因的，对于一个能在自己的某一期时期能够引起共鸣的片子来说也很正常，毕竟2020了，谁也没事扒拉出来这种青春片来消磨时光。我想说的是因为我正在经历着这部片子里经历的不完整的剧情，而且刻骨铭心！</p>
-<p>​        我不知道但我相信这部片子里的剧情完完本本经历过的一切的人或许存在但存在的人或许不上豆瓣，因为这里充斥着无知 自大 自以为自己是救世主的一切，请问，您能安排自己的青春您凭什么就不可以相信这是别人的青春？就因为那个破酒吧您看到过，那个高考您经历过，那个开网店的创业故事您看中国合伙人看过，那个地道卖碟的人您从他身边走过吗？呵呵，好笑罢了。。</p>
-<p>​        事实上我前面说的那些我小的时候听到或者见到过，但是高考家长排队送饭，老师因为闯祸批评，一起拉着去上学，那时自己一个人在哭的情节我经历过！这更像是一个95后或者00后所经历过的吧。所以说这部片子也许把时间线弄得复杂弄得不合逻辑？但是为了使剧情合理化苏导做的一切也都顺理成章了。</p>
-<p>​        其次，我给这片打五分的原因是因为我好像从这里看到了我的未来，看到了这世界还有人在和我一样经历着这些，这种细腻温婉的感情难遇，难忘，难寻！我还是承认对于我来说这剧情确实太过理想化了，傻白甜怎么也不可能去做挡酒瓶，跟BL鬼混的情节，看暗恋的人能撞上人。。。我经历的事实没这么傻，我也希望以后不要有未来人模仿，因为真的很气人，傻白甜最后遍体鳞伤这难道就是每一个单纯孩子所必须承受的一切吗？我想问这个世界你们还有宽容心吗？</p>
-<p>​        你们所说的打胎什么的剧情我并没有太留意，因为它们并不重要，我甚至都没有意识有这些情节。我只知道左耳，左耳的表兄，等等这些人都能在我的生活或者我的记忆力找到影子，那部N95我也曾经使用过只不过那时我还没到高考的时期罢了。</p>
-<p>​        我明白，每个人都想自己的青春闪着光，永远难忘，可是请你不要忘了多少人在青春这个泥潭里反复挣扎，他们无处诉说，无人理解，只能自己默默在那些或真或假的电影里寻找所谓的想要的事实。他们也许真的逃不出青春的魔掌，或许是因为王菲左耳里唱的：青春没有红灯。有些痛要一直忍 一忍再忍 直到麻木不仁吧。</p>
-<p><strong>祝，你要坚强</strong></p>
-]]></content>
-      <categories>
-        <category>观影</category>
-      </categories>
-      <tags>
-        <tag>观影</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【听美剧说】从眼睛看穿一切</title>
     <url>/2020/03/13/%E3%80%90%E5%90%AC%E7%94%B5%E5%BD%B1%E8%AF%B4%E3%80%91%E3%80%8A%E6%88%91%E7%9A%84%E5%A4%A9%E6%89%8D%E5%A5%B3%E5%8F%8B%E3%80%8B%E7%AC%AC%E4%B8%80%E8%87%B3%E7%AC%AC%E4%B8%89%E9%9B%86/</url>
     <content><![CDATA[<p><img src="https://s1.ax1x.com/2020/03/13/8KQoo8.png" alt="睡梦中的童年埃莱娜"></p>
@@ -1732,6 +1608,132 @@
       </categories>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>完善修复Hackintosh的一次经历</title>
+    <url>/2020/05/25/%E5%A5%BD%E4%B9%85%E6%B2%A1%E7%94%A8%E9%BB%91%E8%8B%B9%E6%9E%9C%E4%BF%AE%E5%A4%8D%E4%BA%86%E4%B8%80%E4%BA%9Bbugs/</url>
+    <content><![CDATA[<p>​        <img src="https://i.loli.net/2020/05/25/ZquNxpgYmD6reS3.png" alt="QQ截图20200525230912.png"></p>
+<span id="more"></span>
+
+<p>​    好久没用黑苹果系统了，打开之后发现系统臃肿不堪，非常卡顿，花几分钟时间简单分析一下原因：</p>
+<ul>
+<li><p>之前一时兴起安装了ID, C4D, PR, AE 等大型软件，占用了大量的固态盘空间，我买的是256GB的固态盘只剩下了20G不到的空间，算一下百分比就是还剩下7.8%左右的剩余空间。经过一波卸载，删掉之前做海报设计时的旧素材文件之后还剩下差不多50GB的空间，相当于扩展到了20%，这个范围不会严重影响固态硬盘的缓存性能也就是常说的满盘的情况。因为在固态颗粒售价很低的时候买的一条固态盘，所以先暂时凑活用一下以后在考虑升级的问题。</p>
+</li>
+<li><p>开机启动项太多，监控，各种小工具很多很多严重拖垮了开机时间和进入桌面的加载时间，删掉了一部分软件</p>
+</li>
+<li><p>第三部分是重中之重了，优化了EFI文件，之前自己折腾的时候黑苹果还有几处不完美的地方比如第一次进系统会时不时重启，不能开机之后连接HDMI接口造成了很多麻烦甚至不能高效的把系统当作一个完美的生产力工具，这次在制作毕业季明信片的时候我本人实在忍无可忍了决定试一试修复这些不必要的麻烦。</p>
+<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2></li>
+</ul>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>脑中一二物</title>
+    <url>/2022/03/28/%E8%84%91%E4%B8%AD%E4%B8%80%E4%BA%8C%E7%89%A9/</url>
+    <content><![CDATA[<img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/DSC_5242.jpg" alt="DSC_5242" style="zoom: 15%;" />
+
+<span id="more"></span>
+
+<ul>
+<li><p><strong>在有先验信息的条件下如何进行发言 也是要自信 就是要大胆的show自己。</strong></p>
+<p>比如说刚刚开始的时候会被分配一些小任务 很有可能其他人敲两下就oK了 但是一定要给你做可能就是为了看一下你的能力 这时候需要你汇报工作一定要把观众当傻子 事无巨细的逻辑展示出来比跳来跳去觉得简单就可以跳要容易得多。</p>
+</li>
+<li><p><strong>偏激和笃定的平衡。</strong></p>
+</li>
+<li><p><strong>被分配任务以后一定要有一个自己的规划在那里，是宏观的大方向，之后再去关注小方向</strong>。</p>
+</li>
+<li><p>工作和科研是一样的 没有人告诉你方案 没人告诉你原理 工作不是证明题 也不存在一个一定的正确性，所以放平心态 敢于把自己的想法说出来并按照自己的做一阵子 其实其他人也不知道你这么做对还是不对。假如你是一个不自信的表述 或者自己做的时候自己也半信半疑没有深入 其他人就会以为这个方案不行</p>
+</li>
+</ul>
+<blockquote>
+<img src="https://raw.githubusercontent.com/heroamd/xiuyuan.github.io/master/img/image-20220311120401352.png" alt="image-20220311120401352" style="zoom:50%;" />
+</blockquote>
+<ul>
+<li><p><strong>我感觉尽管自己之前被捧上天 但是我觉得自己的能力差距还是很大很大的。</strong></p>
+</li>
+<li><p><strong>逻辑性计划性</strong></p>
+</li>
+<li><p>不要陷入<strong>被分配任务–&gt;浅浅了解一下–&gt;看其他没有人做过–&gt;觉得这个方向不太行–&gt;开始质疑自己和团队</strong> 的怪圈</p>
+<p>因此在阅读代码的时候, 你只需要关心和当前进度相关的模块就可以了, 不要纠缠于和当前进度无关的代码, 否则将会给你的心灵带来不必要的恐惧.</p>
+</li>
+<li><p>基础知识（比如数学，英语，一些编程的语法等你觉得简单但是没啥用的东西）相当于工具，假如碰到一个难点没有好的办法，那肯定是没有掌握工具或者是工具的使用方法。<strong>其实每个知识都不应该是一个孤岛</strong>。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摆渡</title>
+    <url>/2020/03/13/%E6%91%86%E6%B8%A1/</url>
+    <content><![CDATA[<blockquote>
+<p>​        最近在哔哩哔哩看了好多北京大学的宣传电影，其中有一个我印象比较深，它从男生和女生和星空的角度分别描绘了一对北大情侣相爱，相别的爱情故事。不过我更感兴趣的是两个不同专业，不同性格的人通过北大广阔的平台意外相识的经历，如同Ayer一样纯粹，纯净。其中导演通过非常的剪辑手法和描述技巧，让原本已经玩烂的青春爱情校园故事蓬荜生辉，我从其中摘抄了一些句子觉得很有意思。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="在对的时间遇见对的人，这是童话"><a href="#在对的时间遇见对的人，这是童话" class="headerlink" title="在对的时间遇见对的人，这是童话"></a>在对的时间遇见对的人，这是童话</h2><h2 id="在错的时间遇见对的人，这才是青春"><a href="#在错的时间遇见对的人，这才是青春" class="headerlink" title="在错的时间遇见对的人，这才是青春"></a>在错的时间遇见对的人，这才是青春</h2><blockquote>
+<h3 id="什么是社会？社会是由自我繁殖的个体构建而成的社群。"><a href="#什么是社会？社会是由自我繁殖的个体构建而成的社群。" class="headerlink" title="什么是社会？社会是由自我繁殖的个体构建而成的社群。"></a>什么是社会？社会是由自我繁殖的个体构建而成的社群。</h3><h3 id="什么是喜欢？旺盛分泌的多巴胺，期限30个月。"><a href="#什么是喜欢？旺盛分泌的多巴胺，期限30个月。" class="headerlink" title="什么是喜欢？旺盛分泌的多巴胺，期限30个月。"></a>什么是喜欢？旺盛分泌的多巴胺，期限30个月。</h3><h3 id="什么是时光？时光是我们穿过的衣服，却再也脱不下来。"><a href="#什么是时光？时光是我们穿过的衣服，却再也脱不下来。" class="headerlink" title="什么是时光？时光是我们穿过的衣服，却再也脱不下来。"></a>什么是时光？时光是我们穿过的衣服，却再也脱不下来。</h3><h3 id="什么是美？从’’知道’’到达’’懂得’’。"><a href="#什么是美？从’’知道’’到达’’懂得’’。" class="headerlink" title="什么是美？从’’知道’’到达’’懂得’’。"></a>什么是美？从’’知道’’到达’’懂得’’。</h3></blockquote>
+<p><strong>不是现实支撑了梦想，而是梦想支撑着你的现实。</strong></p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【听电影说】青春二字太过刺耳，多少人装作左耳</title>
+    <url>/2020/03/12/%E9%9D%92%E6%98%A5%E4%BA%8C%E5%AD%97%E5%A4%AA%E8%BF%87%E5%88%BA%E8%80%B3%EF%BC%8C%E5%A4%9A%E5%B0%91%E4%BA%BA%E8%A3%85%E4%BD%9C%E5%B7%A6%E8%80%B3/</url>
+    <content><![CDATA[<p><img src="/img/2020-3-13-1.jpg" alt="小耳朵"></p>
+<span id="more"></span>
+<p>​        首先，我承认我五分确实打的过于高了，这也是有原因的，对于一个能在自己的某一期时期能够引起共鸣的片子来说也很正常，毕竟2020了，谁也没事扒拉出来这种青春片来消磨时光。我想说的是因为我正在经历着这部片子里经历的不完整的剧情，而且刻骨铭心！</p>
+<p>​        我不知道但我相信这部片子里的剧情完完本本经历过的一切的人或许存在但存在的人或许不上豆瓣，因为这里充斥着无知 自大 自以为自己是救世主的一切，请问，您能安排自己的青春您凭什么就不可以相信这是别人的青春？就因为那个破酒吧您看到过，那个高考您经历过，那个开网店的创业故事您看中国合伙人看过，那个地道卖碟的人您从他身边走过吗？呵呵，好笑罢了。。</p>
+<p>​        事实上我前面说的那些我小的时候听到或者见到过，但是高考家长排队送饭，老师因为闯祸批评，一起拉着去上学，那时自己一个人在哭的情节我经历过！这更像是一个95后或者00后所经历过的吧。所以说这部片子也许把时间线弄得复杂弄得不合逻辑？但是为了使剧情合理化苏导做的一切也都顺理成章了。</p>
+<p>​        其次，我给这片打五分的原因是因为我好像从这里看到了我的未来，看到了这世界还有人在和我一样经历着这些，这种细腻温婉的感情难遇，难忘，难寻！我还是承认对于我来说这剧情确实太过理想化了，傻白甜怎么也不可能去做挡酒瓶，跟BL鬼混的情节，看暗恋的人能撞上人。。。我经历的事实没这么傻，我也希望以后不要有未来人模仿，因为真的很气人，傻白甜最后遍体鳞伤这难道就是每一个单纯孩子所必须承受的一切吗？我想问这个世界你们还有宽容心吗？</p>
+<p>​        你们所说的打胎什么的剧情我并没有太留意，因为它们并不重要，我甚至都没有意识有这些情节。我只知道左耳，左耳的表兄，等等这些人都能在我的生活或者我的记忆力找到影子，那部N95我也曾经使用过只不过那时我还没到高考的时期罢了。</p>
+<p>​        我明白，每个人都想自己的青春闪着光，永远难忘，可是请你不要忘了多少人在青春这个泥潭里反复挣扎，他们无处诉说，无人理解，只能自己默默在那些或真或假的电影里寻找所谓的想要的事实。他们也许真的逃不出青春的魔掌，或许是因为王菲左耳里唱的：青春没有红灯。有些痛要一直忍 一忍再忍 直到麻木不仁吧。</p>
+<p><strong>祝，你要坚强</strong></p>
+]]></content>
+      <categories>
+        <category>观影</category>
+      </categories>
+      <tags>
+        <tag>观影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Github升级SSH秘钥导致不能上传的问题</title>
+    <url>/2022/03/28/%E8%A7%A3%E5%86%B3Github%E5%8D%87%E7%BA%A7SSH%E7%A7%98%E9%92%A5%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E4%B8%8A%E4%BC%A0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<img src="/img/DSC_5247.jpg" alt="DSC_52" style="zoom: 33%;" />
+
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;123123@qq.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式已经不可用了，改为未使用下面的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>了解一下为什么这么做，难道原来的SHA-1不安全了吗？</p>
+<p>查询到自从2017年2月，Google 宣布攻破 SHA-1，几周前，研究人员宣布了 SHAttered，这是 SHA-1 哈希函数的第一次碰撞。从今天开始，GitHub.com 上的所有 SHA-1 计算都将检测并拒绝任何有证据证明是碰撞攻击一部分的 Git 内容。这确保了 GitHub 不能用作对我们的用户执行碰撞攻击的平台。</p>
+<p><a href="https://www.zdnet.com/article/gits-move-away-from-sha-1-version-2-29-brings-experimental-sha-256-support/">参考</a></p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>程序</tag>
       </tags>
   </entry>
 </search>
