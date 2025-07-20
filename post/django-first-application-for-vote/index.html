@@ -1,0 +1,317 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Django: First Application - For vote | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django: First Application - For vote | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+在mysite/settings.py中配置数据库
+Python 内置SQLite，Django也默认使用SQLite作为默认数据库
+也可以更换数据库
+如果你想使用其他数据库，你需要安装合适的 database bindings ，然后改..." />
+    <meta name="keywords" content="Django" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Django: First Application - For vote
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-07
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/4Vif8Q5im/" class="post-tag">
+                  # Django
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/05/08/yPtn5MGoLrdFkAJ.jpg" alt="DSC_4750.jpg" loading="lazy"></figure>
+<h1 id="在mysitesettingspy中配置数据库">在<code>mysite/settings.py</code>中配置数据库</h1>
+<p>Python 内置SQLite，Django也默认使用SQLite作为默认数据库</p>
+<p>也可以更换数据库</p>
+<p>如果你想使用其他数据库，你需要安装合适的 <a href="https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-installation">database bindings</a> ，然后改变设置文件中 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a> <code>'default'</code> 项目中的一些键值：</p>
+<ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASE-ENGINE"><code>ENGINE</code></a> -- 可选值有 <code>'django.db.backends.sqlite3'</code>，<code>'django.db.backends.postgresql'</code>，<code>'django.db.backends.mysql'</code>，或 <code>'django.db.backends.oracle'</code>。其它 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/databases/#third-party-notes">可用后端</a>。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME"><code>NAME</code></a> - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑上的一个文件，在这种情况下， <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME"><code>NAME</code></a> 应该是此文件的绝对路径，包括文件名。默认值 <code>os.path.join(BASE_DIR, 'db.sqlite3')</code> 将会把数据库文件储存在项目的根目录。</li>
+</ul>
+<p>如果你不使用 SQLite，则必须添加一些额外设置，比如 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-USER"><code>USER</code></a> 、 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-PASSWORD"><code>PASSWORD</code></a> 、 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-HOST"><code>HOST</code></a> 等等。想了解更多数据库设置方面的内容，请看文档：<a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-DATABASES"><code>DATABASES</code></a> 。</p>
+<p>更改时区</p>
+<p><code>TIME_ZONE = 'UTC'</code></p>
+<p>为开启的应用创建一个数据表</p>
+<pre><code>python manage.py migrate
+</code></pre>
+<p>此命令会检查<code>INSTALLED_APPS </code>中的设置并未每一个应用创建一个所需要的数据表如果你感兴趣的话，运行你数据库的命令行工具，并输入 <code>\dt</code> (PostgreSQL)， <code>SHOW TABLES;</code> (MariaDB,MySQL)， <code>.schema</code> (SQLite)或者 <code>SELECT TABLE_NAME FROM USER_TABLES;</code> (Oracle) 来看看 Django 到底创建了哪些表。</p>
+<h2 id="创建模型">创建模型</h2>
+<p>在 Django 里写一个数据库驱动的 Web 应用的第一步是定义模型 - 也就是数据库结构设计和附加的其它元数据。</p>
+<p>在这个投票应用中，需要创建两个模型：问题 <code>Question</code> 和选项 <code>Choice</code>。<code>Question</code> 模型包括问题描述和发布时间。<code>Choice</code> 模型有两个字段，选项描述和当前得票数。每个选项属于一个问题。</p>
+<p>这些概念可以通过一个 Python 类来描述。按照下面的例子来编辑 <code>polls/models.py</code> 文件：</p>
+<pre><code>from django.db import models
+
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+</code></pre>
+<p>每个模型被表示为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model"><code>django.db.models.Model</code></a> 类的子类。每个模型有许多类变量，它们都表示模型里的一个数据库字段。</p>
+<p>每个字段都是 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类的实例 - 比如，字符字段被表示为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField"><code>CharField</code></a> ，日期时间字段被表示为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField"><code>DateTimeField</code></a> 。这将告诉 Django 每个字段要处理的数据类型。</p>
+<p>每个 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类实例变量的名字（例如 <code>question_text</code> 或 <code>pub_date</code> ）也是字段名，所以最好使用对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。</p>
+<p>你可以使用可选的选项来为 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有提供此名称，Django 将会使用对机器友好的名称，也就是变量名。在上面的例子中，我们只为 <code>Question.pub_date</code> 定义了对人类友好的名字。对于模型内的其它字段，它们的机器友好名也会被作为人类友好名使用。</p>
+<p>定义某些 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 类实例需要参数。例如 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField"><code>CharField</code></a> 需要一个 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField.max_length"><code>max_length</code></a> 参数。这个参数的用处不止于用来定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。</p>
+<p><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field"><code>Field</code></a> 也能够接收多个可选参数；在上面的例子中：我们将 <code>votes</code> 的 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.Field.default"><code>default</code></a> 也就是默认值，设为0。</p>
+<p>注意在最后，我们使用 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey"><code>ForeignKey</code></a> 定义了一个关系。这将告诉 Django，每个 <code>Choice</code> 对象都关联到一个 <code>Question</code> 对象。Django 支持所有常用的数据库关系：多对一、多对多和一对一。</p>
+<p><a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey">模型字段参考链接</a></p>
+<h1 id="激活模型">激活模型</h1>
+<p>Django应用不包含在当前安装的Django上，因此是可插拔的。</p>
+<p>为了在工程中使用应用<code>polls</code>这个应用，我们需要在<code>INSTALLED_APPS</code>中添加设置，因为 <code>PollsConfig</code> 类写在文件 <code>polls/apps.py</code> 中，所以它的点式路径是 <code>'polls.apps.PollsConfig'</code></p>
+<p>在文件 <code>mysite/settings.py</code> 中 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS"><code>INSTALLED_APPS</code></a> 子项添加点式路径后，它看起来像这样：</p>
+<pre><code>INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+</code></pre>
+<p>添加后项目中就包含了polls这个应用，运行如下代码：</p>
+<pre><code>python manage.py makemigrations polls
+</code></pre>
+<p>注意一定要保存之后再运行命令</p>
+<p>运行</p>
+<pre><code>python manage.py makemigrations polls
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-yaml">Migrations for 'polls':
+  polls/migrations/0001_initial.py
+    - Create model Question
+    - Create model Choice
+</code></pre>
+<p><code>makemigrations</code>命令会Django检测模型文件的修改并且把修改的部分存储为一次<code>迁移</code></p>
+<p>迁移的数据存储在<code>polls/migrations/0001_initial.py</code> 里</p>
+<p>Django 有一个自动执行数据库迁移并同步管理你的数据库结构的命令 - 这个命令是 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a>，我们马上就会接触它 - 但是首先，让我们看看迁移命令会执行哪些 SQL 语句。<a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-sqlmigrate"><code>sqlmigrate</code></a> 命令接收一个迁移的名称，然后返回对应的 SQL：</p>
+<pre><code>python manage.py sqlmigrate polls 0001
+</code></pre>
+<p>注意：这个 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-sqlmigrate"><code>sqlmigrate</code></a> 命令并没有真正在你的数据库中的执行迁移 - 相反，它只是把命令输出到屏幕上，让你看看 Django 认为需要执行哪些 SQL 语句。这在你想看看 Django 到底准备做什么，或者当你是数据库管理员，需要写脚本来批量处理数据库时会很有用。</p>
+<p>现在，再次运行 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>migrate</code></a> 命令，在数据库里创建新定义的模型的数据表：</p>
+<pre><code>python manage.py migrate
+</code></pre>
+<p><code>migrate</code>命令选中所有还没有执行过的迁移并应用在数据库上，也就是对模型的更改同步到数据库结构上。</p>
+<p>总结一下，改变模型所需要的三步：</p>
+<ul>
+<li>编辑 <code>models.py</code> 文件，改变模型。</li>
+<li>运行 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-makemigrations"><code>python manage.py makemigrations</code></a> 为模型的改变生成迁移文件。</li>
+<li>运行 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate"><code>python manage.py migrate</code></a> 来应用数据库迁移。</li>
+</ul>
+<h1 id="初试api">初试API</h1>
+<p>进入交互式命令行，尝试一下Django为你创建的各种API</p>
+<pre><code>python manage.py shell
+</code></pre>
+<p>此命令和直接使用python 是因为<code>manage.py</code>会设置<code>DJANGO_SETTINGS_MODULE</code> 环境变量，这个变量会让 Django 根据 <code>mysite/settings.py</code> 文件来设置 Python 包的导入路径。</p>
+<p>今天先酱紫吧~补一下Python的知识。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%9C%A8mysitesettingspy%E4%B8%AD%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93">在<code>mysite/settings.py</code>中配置数据库</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B">创建模型</a></li>
+</ul>
+</li>
+<li><a href="#%E6%BF%80%E6%B4%BB%E6%A8%A1%E5%9E%8B">激活模型</a></li>
+<li><a href="#%E5%88%9D%E8%AF%95api">初试API</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/django-try-web-construction/">
+              <h3 class="post-title">
+                Django: Try Web construction
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

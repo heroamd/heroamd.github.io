@@ -1,0 +1,385 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FPGA: State-Machine | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="FPGA: State-Machine | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="​		
+​        状态机是许多数字系统的核心部件，是一类重要的时序逻辑电路。通常，状态机的状态数量有限，称为有限状态机（FSM）。由于状态机所有触发器的时钟由同一脉冲边沿触发，故也称之为同步状态机。
+​        根据输入、输出..." />
+    <meta name="keywords" content="HDL" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              FPGA: State-Machine
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-05-16
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/0x18zqnqC/" class="post-tag">
+                  # HDL
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>​		<img src="https://heroamd.github.io/post-images/fpga_3.jpg" alt="cover" loading="lazy"></p>
+<p>​        状态机是许多数字系统的核心部件，是一类重要的时序逻辑电路。通常，状态机的状态数量有限，称为有限状态机（FSM）。由于状态机所有触发器的时钟由同一脉冲边沿触发，故也称之为同步状态机。</p>
+<p>​        根据输入、输出及状态之间的关系，状态机可分为两类，一类是Moore 状态机，其输出值只取决于当前状态，与输入值无关；另一类是Mealy 状态机，其输出值不但和当前状态有关，还和输入值相关。<br>
+一般来说，状态机的设计包含下列设计步骤：<br>
+（1）根据需求和设计原则，确定是Moore 型还是Mealy 型状态机。<br>
+（2）分析状态机的所有状态，对每一状态选择合适的编码方式进行编码。<br>
+（3）根据状态转移关系和输出绘出状态转移图。<br>
+（4）构建合适的状态机结构，对状态机进行硬件描述。</p>
+<p>​		状态机的描述通常有三种方法，称为一段式状态机、两段式状态机、三段式状态机。状态机的描述通常包含以下四部分：<br>
+（1）利用参数定义语句parameter 描述状态机各个状态名称，即状态编码。状态编码通常有很多方法，包含自然二进制编码、One-hot 编码、格雷编码等。<br>
+（2）用时序的always 块描述状态触发器实现状态存储。<br>
+（3）使用敏感表和case 语句（也采用if-else 等价语句）描述状态转换逻辑。<br>
+（4）描述状态机的输出逻辑。</p>
+<h4 id="11-一段式状态机">1.1 一段式状态机</h4>
+<p>仅包含一个state寄存器，直接一个case语句进行赋值，最后通过assign进行赋值</p>
+<pre><code class="language-verilog">module detect (input clk_i, input rst_n_i, output out_o);
+reg out_r; //与输出对应的寄存器变量
+//状态声明和状态编码
+reg [1:0] state;
+parameter [1:0] S0=2'b00;
+parameter [1:0] S1=2'b01;
+parameter [1:0] S2=2'b10;
+parameter [1:0] S3=2'b11;
+always@(posedge clk_i) begin
+if(!rst_n_i) begin
+state&lt;=0;
+out_r&lt;=1'b0;
+end
+else
+case(state)
+S0 : begin
+out_r&lt;=1'b0;
+state&lt;= S1;
+end
+S1 :begin
+out_r&lt;=1'b1;
+state&lt;= S2;
+    end
+S2 :begin
+out_r&lt;=1'b0;
+state&lt;= S3;
+end
+S3 :begin
+out_r&lt;=1'b1;
+end
+endcase
+end
+assign out_o=out_r; //更新输出值
+endmodule
+</code></pre>
+<h4 id="12-两段式状态机">1.2 两段式状态机</h4>
+<p>两个状态包括现在状态和下一个状态，程序包括一个状态转移，即将下一个状态赋值给当前状态</p>
+<pre><code class="language-verilog">module detect_2(input clk_i, input rst_n_i, output out_o);
+reg out_r; //与输出对应的寄存器变量
+//状态声明和状态编码
+reg [1:0] Current_state;
+reg [1:0] Next_state;
+parameter [1:0] S0=2'b00;
+parameter [1:0] S1=2'b01;
+parameter [1:0] S2=2'b10;
+parameter [1:0] S3=2'b11;
+//时序逻辑：描述状态转换，！！！固定！！！
+always@(posedge clk_i) begin
+if(!rst_n_i)
+Current_state&lt;=0;
+else
+Current_state&lt;=Next_state;
+end
+//组合逻辑：描述下一状态和输出
+always@(*) begin //always@(*)意思是说敏感变量由综合器根据always 里面的输入变量自动添加，不用自己考虑。
+case(Current_state)
+S0 : begin
+out_r=1'b0;
+Next_state= S1;
+end
+S1 : begin
+out_r=1'b1;
+Next_state= S2;
+end
+S2 : begin
+out_r=1'b0;
+Next_state= S3;
+end
+S3 : begin
+out_r=1'b1;
+Next_state=Next_state;
+end
+endcase
+end
+assign out_o=out_r; //更新输出值
+endmodule
+</code></pre>
+<h4 id="1-3-三段式状态机">1. 3 三段式状态机</h4>
+<p>​		三段式状态机在第一个always 模块采用同步时序逻辑方式描述状态转移，第二个always 模块采用组合逻辑方式描述状态转移规律，第三个 always 描述电路的输出。通常让输出信号经过寄存器缓存之后再输出，消除电路毛刺。这种状态机也是比较推崇的，主要是由于维护方便，<strong>组合逻辑与时序逻辑完全独立</strong>。</p>
+<pre><code class="language-verilog">module detect(input clk_i, input rst_n_i, output out_o);
+reg out_r; //与输出对应的寄存器变量
+//状态声明和状态编码
+reg [1:0] Current_state;
+reg [1:0] Next_state;
+parameter [1:0] S0=2'b00;
+parameter [1:0] S1=2'b01;
+parameter [1:0] S2=2'b10;
+parameter [1:0] S3=2'b11;
+//时序逻辑：描述状态转换
+always@(posedge clk_i) begin
+if(!rst_n_i)
+Current_state&lt;=0;
+else
+Current_state&lt;=Next_state;
+end
+//组合逻辑：描述下一状态
+always@(*) begin
+case(Current_state)
+S0:
+Next_state = S1;
+S1:
+Next_state = S2;
+S2:
+Next_state = S3;
+S3:
+Next_state = Next_state;
+default :
+Next_state = S0;
+endcase
+end
+//输出逻辑：让输出out，经过寄存器out_r 锁存后输出，消除毛刺
+always@(posedge clk_i)
+begin
+if(!rst_n_i)
+out_r&lt;=1'b0;
+else begin
+case(Current_state)
+S0,S2:
+out_r&lt;=1'b0;
+S1,S3:
+out_r&lt;=1'b1;
+default :
+out_r&lt;=out_r;
+endcase
+end
+end
+assign out_o=out_r; //更新输出值
+endmodule
+out_r&lt;=1'b1;
+default :
+out_r&lt;=out_r;
+endcase
+end
+end
+assign out_o=out_r; //更新输出值
+endmodule
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#11-%E4%B8%80%E6%AE%B5%E5%BC%8F%E7%8A%B6%E6%80%81%E6%9C%BA">1.1 一段式状态机</a></li>
+<li><a href="#12-%E4%B8%A4%E6%AE%B5%E5%BC%8F%E7%8A%B6%E6%80%81%E6%9C%BA">1.2 两段式状态机</a></li>
+<li><a href="#1-3-%E4%B8%89%E6%AE%B5%E5%BC%8F%E7%8A%B6%E6%80%81%E6%9C%BA">1. 3 三段式状态机</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/fpga-behavior-model/">
+              <h3 class="post-title">
+                FPGA: Behavior model
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,358 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FPGA: TestBench | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="FPGA: TestBench | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+Verilog HDL 本身可以描述输入信号，并将输入加载到被测模块，然后取得输出。Verilog HDL 中把测试程序称为testbench。
+1.1 测试模块
+module 模块名_TB（端口列表）;
+变量声明（reg、wire、pa..." />
+    <meta name="keywords" content="HDL" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              FPGA: TestBench
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-05-24
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/0x18zqnqC/" class="post-tag">
+                  # HDL
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/fpga_3.jpg" alt="fpga_3" loading="lazy"></figure>
+<p>Verilog HDL 本身可以描述输入信号，并将输入加载到被测模块，然后取得输出。Verilog HDL 中把测试程序称为testbench。</p>
+<h5 id="11-测试模块">1.1 测试模块</h5>
+<pre><code class="language-verilog">module 模块名_TB（端口列表）;
+变量声明（reg、wire、parameter）
+顺序行为建模（initial、always）
+被测试模块实例化（module instantiation）
+监控和比较输出响应（task、function）
+endmodule
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-verilog">module Func_TB();          //对Func模块进行测试
+reg[3:0] n;
+reg reset,clk;
+wire[31:0] result;
+initial //定义激励向量
+begin
+n=0; reset=1; clk=0;
+for(n=0;n&lt;=15;n=n+1)
+#100 n=n;
+end
+always #5 clk=~clk; //产生时钟信号,每隔5个时间翻转一次，时延单位由‘timescale 宏定义
+Func Func_inst(.clk(clk),.n(n),.result(result),.reset(reset));//例化被测试模块
+endmodule
+</code></pre>
+<ol>
+<li>模块名_TB 是测试模块名，其命名方式与普通模块名相同，为了便于阅读一般都将其命名为与被测模块相关，例如被测的是加法器，其模块名为adder，那么它的测试程序一般命名为adder_TB。</li>
+<li>变量声明用于声明<strong>线网</strong>和<strong>寄存器</strong>，<strong>产生输入信号以及取得输出信号都是通过这些变量进行的</strong></li>
+<li>顺序行为建模部分用initial 语句或always 语句产生所需要的输入信号。</li>
+<li>被测试模块实例化是把被测模块实例化。实例化之后被测模块就被“嵌入”到了测试模块，<strong>被测模块的输入和输出端都与测试模块内的线网或寄存器相连</strong>，于是连接到输入端的线网和寄存器上值的变化就被当作输入信号传入被测模块，连接到输出端的线网和寄存器上就能得到输出信号。</li>
+<li>输出监测部分通过一些系统任务输出测试结果，并把测试结果与预想的设计结果做比较，例如用显示任务$display 可以把结果值输出显示，或者把测试结果导入VCD 文件。这部分工作大都可以在仿真工具上完成，在仿真器中可以自由控制测试进程并随时通过波形窗口查看输出结果。</li>
+</ol>
+<h5 id="12-产生激励信号">1.2 产生激励信号</h5>
+<ol>
+<li>用语言描述激励信号可以自由控制信号的形式，通过时延等方式可以轻松实现各种输入波形。在测试中通常需要的波形有两类: 一组特定值序列形成的波形、具有重复模式的波形。</li>
+<li>为了能生成一个具有重复模式的波形，如时钟信号，容易想到应该使用always 语句，<strong>但是仅仅使用always 语句是不够的，应该同时使用一个initial 语句做初始赋值</strong>。initial语句在只运行一次。</li>
+</ol>
+<p>例1：使用initial 语句产生特定值序列</p>
+<pre><code class="language-verilog">initial
+begin
+Reset = 0;
+#100 Reset = 1;
+#80 Reset = 0;
+#30 Reset = 1;
+end
+</code></pre>
+<p>例2：使用always 语句产生重复的值序列</p>
+<pre><code class="language-verilog">parameter REPEAT_DELAY = 35;  //参数型变量parameter
+integer A;
+always
+begin
+A = 0;
+#7 A = 25;
+#2 A = 5;
+#8 A = 10;
+#6 A = 5;
+#REPEAT_DELAY;
+End
+</code></pre>
+<p>例3：产生周期信号</p>
+<pre><code class="language-verilog">module Gen_Clk();
+reg Clk ;
+parameter PERIOD = 10;
+initial
+Clk = 0; //为Clk_A 赋初值为0
+always
+#(PERIOD/2) Clk=~Clk; //在Clk_A 上产生一个时钟信号
+endmodule
+</code></pre>
+<h5 id="13-从文本文件中读取和写入向量">1.3 从文本文件中读取和写入向量</h5>
+<p>​		当输入数据较多时，为了简化测试程序使用系统任务$readmemb，它可以从文本文件中读取数据，所以可以把所有数据放在某个文本文件中，在测试程序中只需要用这个系统任务读取数据就可以了。被读取的数据中不仅仅可以包含输入数据，还可以包含期望的输出数据，在测试程序把这两种数据都读入之后可以直接根据输出进行判断，检查这个模块的功能是否正确。</p>
+<pre><code class="language-verilog">//3 位加法器
+module add (a,b, sum);
+input[2:0] a,b;
+output[3:0] sum;
+reg[3:0] sum;
+always @(a or b)
+begin
+sum=a+b;
+end
+endmodule
+//测试程序
+module add_TB();
+parameter BITS =  10, WORDS= 2 ;
+reg [1:BITS] Vmem [1:WORDS] ;
+reg[2:0] A , B , Sum_Ex; //测试用标准输出值
+integer J;
+wire [4:0] Sum;
+add add_inst (A, B, Sum) ; //例化被测试的模块
+initial
+begin
+integer Data _Out_File;
+Data _Out_File = $fopen (&quot; data.Out &quot;) ; //打开文件data.Out
+$readmemb (&quot;test.vec&quot;, Vmem ) ; //从文件test.vec 中读取数据并将数据存储在Vmem 中
+for (J = 1; J &lt;= WORDS; J = J + 1)
+begin
+{A, B, Sum_Ex } = Vmem [J] ; //每个数据被分成3部分分配给3个变量
+#5; //延迟5个时间单位等待电路稳定
+if (Sum!==Sum_Ex) //如果某个结果不正确（Sum 或Sum_Ex 与期待值不符）
+$display (&quot;Mismatch on vector %b &quot;, Vmem [J] ) ; //就输出显示这个数据有误
+else
+$display (&quot;No mismatch on vector %b&quot;, Vmem [J] ) ; //若一切正常就输出显示结果正确
+$fdisplay (Data _Out_File,&quot;Input = %b%b, Output = %b &quot;, A, B, Sum) ;
+//将输入向量和输出结果输入到文件
+end
+$fclose (Data _Out_File) ; //关闭文件mon.Out
+end
+endmodule
+说明：假设在测试程序中要读取的文本文件是“test.vec”，文件中有两个10 位的向量数
+据，它们的前3 位对应输入的加数A，4～6 位对应输入的加数B，第7～10 位是期待的
+正确输出。每次从文本文件中读取数据时，都把数据分成上述的3 部分，并分别交给测试
+模块内的不同变量，因为读入的数据中包含期待的正确输出结果，所以可以在测试程序内
+进行校验。
+测试模块中首先定义存储器Vmem，其字长为10bit，存储器字数对应于文件中数据
+的个数。在initial 语句内，首先用系统任务$readmemb 把文件“test.vec”中的数据读入存
+储器Vmem 中。然后，for 循环将把每个数据都分成3 部分并分配给3 个变量，这3 个变
+量分别对应输入值和期待的正确输出值。时延5 个单位时间等待模块稳定并输出结果，
+把输出结果与期待的结果做比较。如果出现不匹配的情况，则输出不匹配消息。
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#11-%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9D%97">1.1 测试模块</a></li>
+<li><a href="#12-%E4%BA%A7%E7%94%9F%E6%BF%80%E5%8A%B1%E4%BF%A1%E5%8F%B7">1.2 产生激励信号</a></li>
+<li><a href="#13-%E4%BB%8E%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E5%90%91%E9%87%8F">1.3 从文本文件中读取和写入向量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/fpga-circuit-synthesisdd/">
+              <h3 class="post-title">
+                FPGA: Circuit synthesis
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daily: Restart blog | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Daily: Restart blog | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+1.Hexo 实现私密文章加密
+cd /Hexo
+npm install hexo-blog-encrypt
+vim /Hexo/_config.yml  添加如下内容
+# Security
+## 文章加密 hexo-blog-encry..." />
+    <meta name="keywords" content="Blog" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Daily: Restart blog
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-11
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/t5VJXDxG0/" class="post-tag">
+                  # Blog
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/1712557706756.jpg" alt="" loading="lazy"></figure>
+<h1 id="1hexo-实现私密文章加密">1.Hexo 实现私密文章加密</h1>
+<pre><code class="language-yaml">cd /Hexo
+npm install hexo-blog-encrypt
+vim /Hexo/_config.yml  添加如下内容
+# Security
+## 文章加密 hexo-blog-encrypt
+encrypt:
+    enable: true
+然后在想加密的文章头部添加上对应字段，如
+---
+title: hello world
+date: 2016-03-30 21:18:02   
+tags:       
+password: 12345   （密码）
+abstract: Welcome to my blog, enter password to read. 
+message: Welcome to my blog, enter password to read.     
+---
+password: 是该博客加密使用的密码
+abstract: 是该博客的摘要，会显示在博客的列表页
+message: 这个是博客查看时，密码输入框上面的描述性文字
+</code></pre>
+<h1 id="2hexo-实现鼠标点击爱心">2.Hexo 实现鼠标点击爱心</h1>
+<p>在</p>
+<pre><code>hexo/themes/yilia/source
+</code></pre>
+<p>文件目录下添加</p>
+<pre><code>love.js
+</code></pre>
+<pre><code class="language-javascript">!function(e,t,a){function r(){for(var e=0;e&lt;s.length;e++)s[e].alpha&lt;=0?(t.body.removeChild(s[e].el),s.splice(e,1)):(s[e].y--,s[e].scale+=.004,s[e].alpha-=.013,s[e].el.style.cssText=&quot;left:&quot;+s[e].x+&quot;px;top:&quot;+s[e].y+&quot;px;opacity:&quot;+s[e].alpha+&quot;;transform:scale(&quot;+s[e].scale+&quot;,&quot;+s[e].scale+&quot;) rotate(45deg);background:&quot;+s[e].color+&quot;;z-index:99999&quot;);requestAnimationFrame(r)}function n(){var t=&quot;function&quot;==typeof e.onclick&amp;&amp;e.onclick;e.onclick=function(e){t&amp;&amp;t(),o(e)}}function o(e){var a=t.createElement(&quot;div&quot;);a.className=&quot;heart&quot;,s.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:c()}),t.body.appendChild(a)}function i(e){var a=t.createElement(&quot;style&quot;);a.type=&quot;text/css&quot;;try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a)}function c(){return&quot;rgb(&quot;+~~(255*Math.random())+&quot;,&quot;+~~(255*Math.random())+&quot;,&quot;+~~(255*Math.random())+&quot;)&quot;}var s=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)},i(&quot;.heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}&quot;),n(),r()}(window,document);
+</code></pre>
+<p>在</p>
+<pre><code>hexo/themes/yilia/layout/_partial/footer.ejs
+</code></pre>
+<p>文件的最后， 添加以下代码：</p>
+<pre><code class="language-javascript">&lt;!--页面点击小红心--&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/love.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h1 id="3修改版权注释的信息">3.修改版权注释的信息</h1>
+<p>前面的网址改不了，准备之后有时间学一学css和js再说</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#1hexo-%E5%AE%9E%E7%8E%B0%E7%A7%81%E5%AF%86%E6%96%87%E7%AB%A0%E5%8A%A0%E5%AF%86">1.Hexo 实现私密文章加密</a></li>
+<li><a href="#2hexo-%E5%AE%9E%E7%8E%B0%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83">2.Hexo 实现鼠标点击爱心</a></li>
+<li><a href="#3%E4%BF%AE%E6%94%B9%E7%89%88%E6%9D%83%E6%B3%A8%E9%87%8A%E7%9A%84%E4%BF%A1%E6%81%AF">3.修改版权注释的信息</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/daily-di-yi-ci-da-jian-ge-ren-bo-ke-de-xin-lu-he-li-cheng/">
+              <h3 class="post-title">
+                Daily: The journey of building a personal blog for the first time
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

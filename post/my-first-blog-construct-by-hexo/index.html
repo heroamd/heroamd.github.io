@@ -1,0 +1,331 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My first Blog construct by hexo | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="My first Blog construct by hexo | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+​		本着踩边所有坑的态度历经两天建成了自己的第一个博客，当然这是第一篇文章，可见此文章的地位非同一般。果不其然，其间遇见了各路小鬼在太岁头上动土。包括但不限于网络问题无法上传至根服务器，没有网站前端知识导致的修改代码问题.....遍历了..." />
+    <meta name="keywords" content="Blog" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              My first Blog construct by hexo
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-09
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/t5VJXDxG0/" class="post-tag">
+                  # Blog
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <blockquote>
+<p>​		本着踩边所有坑的态度历经两天建成了自己的第一个博客，当然这是第一篇文章，可见此文章的地位非同一般。果不其然，其间遇见了各路小鬼在太岁头上动土。包括但不限于网络问题无法上传至根服务器，没有网站前端知识导致的修改代码问题.....遍历了所有办法几乎是十八般武艺全都用上...第一篇文章测试一下网站的标签功能是否正常，以及建立起一套标准的写文章到发文章的可靠路径，毕竟不是什么时间都有大把精力用在客制化主题上，博客还是主要以记录为目的的。</p>
+</blockquote>
+<h1 id="全局代码"><strong>全局代码</strong></h1>
+<pre><code class="language-yaml">hexo init        ####安装
+hexo g           ###生成
+hexo clean       ###清除缓存
+hexo d           ###上传
+</code></pre>
+<h3 id="更改git代理"><strong>更改git代理</strong></h3>
+<pre><code class="language-yaml">git config --global http.proxy http://127.0.0.1:10809
+git config --global https.proxy https://127.0.0.1:10809
+</code></pre>
+<h3 id="取消代理"><strong>取消代理</strong></h3>
+<pre><code class="language-yaml">git config --global --unset http.proxy
+git config --global --unset https.proxy
+</code></pre>
+<h3 id="按装一个插件来同步"><strong>按装一个插件来同步：</strong></h3>
+<pre><code class="language-yaml">npm install hexo-deployer-git --save
+</code></pre>
+<h3 id="git-yilia主题"><strong>git yilia主题</strong></h3>
+<pre><code class="language-yaml">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
+</code></pre>
+<p>在<code>blog/_config.yml</code>中加入<code>themes</code>信息和<code>github库</code>信息</p>
+<pre><code class="language-yaml">type: git
+repo: https://github.com/heroamd/heroamd.github.io.git
+branch: master
+</code></pre>
+<p>在<code>blog\source</code>加入<code>CNAME</code>文件以改变域名，这个路径里面的所有文件都将会生成并放置在网站的根目录下。</p>
+<p>tips:<strong>所有代码前面不能加空格~~</strong></p>
+<h3 id="生成ssh添加到github"><strong>生成SSH添加到GitHub</strong></h3>
+<pre><code class="language-yaml">git config --global user.name &quot;heroamd&quot;
+git config --global user.email &quot;icenet11@163.com&quot;
+</code></pre>
+<h3 id="检查是否正确"><strong>检查是否正确</strong></h3>
+<pre><code class="language-go">git config user.email
+</code></pre>
+<h3 id="配置ssh"><strong>配置ssh</strong></h3>
+<pre><code class="language-go">ssh-keygen -t rsa -C &quot;icenet11@163.com&quot;
+</code></pre>
+<h3 id="连接一下服务器测试是否成功"><strong>连接一下服务器测试是否成功</strong></h3>
+<pre><code class="language-go">ssh -T git@github.com
+</code></pre>
+<h3 id="如果提示"><strong>如果提示</strong></h3>
+<pre><code>Hi heroamd! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<h3 id="表示成功">表示成功！！</h3>
+<pre><code>cnpm install --save hexo-deployer-git
+</code></pre>
+<h3 id="添加github的ip记录"><strong>添加Github的ip记录</strong></h3>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+<h4 id="备份一下本电脑的代理端口排除的目录">备份一下本电脑的代理端口排除的目录</h4>
+<pre><code>localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;windows10.microdone.cn
+</code></pre>
+<h1 id="修改图片和头像"><strong>修改图片和头像</strong></h1>
+<p><code>themes/yilia/source/</code>下，可添加一个 <code>assets</code> 文件夹，里面存放图片资源即可</p>
+<pre><code class="language-yaml"># 微信二维码图片
+weixin:  /assets/wechat.png
+# 头像图片
+avatar:  /assets/head.jpg
+# 网页图标
+favicon:  /assets/head.jpg
+</code></pre>
+<h1 id="所有文章模块的更改">所有文章模块的更改</h1>
+<p>1、请确保node版本大于6.2<br>
+2、在博客根目录（注意不是yilia根目录）执行以下命令：<br>
+<code>npm i hexo-generator-json-content --save</code></p>
+<p>3、在根目录_config.yml里添加配置：</p>
+<pre><code class="language-yaml">  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</code></pre>
+<p>tips: 注意空格</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%85%A8%E5%B1%80%E4%BB%A3%E7%A0%81"><strong>全局代码</strong></a><br>
+*
+<ul>
+<li><a href="#%E6%9B%B4%E6%94%B9git%E4%BB%A3%E7%90%86"><strong>更改git代理</strong></a></li>
+<li><a href="#%E5%8F%96%E6%B6%88%E4%BB%A3%E7%90%86"><strong>取消代理</strong></a></li>
+<li><a href="#%E6%8C%89%E8%A3%85%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6%E6%9D%A5%E5%90%8C%E6%AD%A5"><strong>按装一个插件来同步：</strong></a></li>
+<li><a href="#git-yilia%E4%B8%BB%E9%A2%98"><strong>git yilia主题</strong></a></li>
+<li><a href="#%E7%94%9F%E6%88%90ssh%E6%B7%BB%E5%8A%A0%E5%88%B0github"><strong>生成SSH添加到GitHub</strong></a></li>
+<li><a href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE"><strong>检查是否正确</strong></a></li>
+<li><a href="#%E9%85%8D%E7%BD%AEssh"><strong>配置ssh</strong></a></li>
+<li><a href="#%E8%BF%9E%E6%8E%A5%E4%B8%80%E4%B8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><strong>连接一下服务器测试是否成功</strong></a></li>
+<li><a href="#%E5%A6%82%E6%9E%9C%E6%8F%90%E7%A4%BA"><strong>如果提示</strong></a></li>
+<li><a href="#%E8%A1%A8%E7%A4%BA%E6%88%90%E5%8A%9F">表示成功！！</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0github%E7%9A%84ip%E8%AE%B0%E5%BD%95"><strong>添加Github的ip记录</strong></a>
+<ul>
+<li><a href="#%E5%A4%87%E4%BB%BD%E4%B8%80%E4%B8%8B%E6%9C%AC%E7%94%B5%E8%84%91%E7%9A%84%E4%BB%A3%E7%90%86%E7%AB%AF%E5%8F%A3%E6%8E%92%E9%99%A4%E7%9A%84%E7%9B%AE%E5%BD%95">备份一下本电脑的代理端口排除的目录</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E5%92%8C%E5%A4%B4%E5%83%8F"><strong>修改图片和头像</strong></a></li>
+<li><a href="#%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0%E6%A8%A1%E5%9D%97%E7%9A%84%E6%9B%B4%E6%94%B9">所有文章模块的更改</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/manchester-by-the-sea/">
+              <h3 class="post-title">
+                Movie: Manchester by the Sea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,301 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title> Django(3) | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title=" Django(3) | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="​		
+学习内容
+
+网络相关原理
+HTTP协议
+
+
+
+学习任务
+
+
+
+1.1 网络相关原理
+
+在应用层和传输层之间有一个虚拟层 》socket 套接字&gt;相当于一个接口，在开发时只需要调用接口就可以。
+C/S架构和B/S架构：custo..." />
+    <meta name="keywords" content="Django" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+               Django(3)
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-28
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/4Vif8Q5im/" class="post-tag">
+                  # Django
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>​		<img src="https://heroamd.github.io/post-images/image-20200623201156306.png" alt="image-20200623201156306" loading="lazy"></p>
+<p><strong>学习内容</strong></p>
+<ul>
+<li>网络相关原理</li>
+<li>HTTP协议</li>
+<li></li>
+<li></li>
+</ul>
+<p><strong>学习任务</strong></p>
+<ul>
+<li></li>
+</ul>
+<p>1.1 <strong>网络相关原理</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/image-20200627190533303.png" alt="image-20200627190533303" loading="lazy"></figure>
+<p>在应用层和传输层之间有一个虚拟层 <mark>》socket 套接字</mark>&gt;相当于一个接口，在开发时只需要调用接口就可以。</p>
+<p>C/S架构和B/S架构：customer to servers/ brossow to servers</p>
+<p>S相当于远端服务器，用户端相当于B或者S，区别在于用户端是浏览器还是客户端。</p>
+<p>远端服务器：</p>
+<ol>
+<li>socket服务端</li>
+<li>绑定IP和端口</li>
+<li>监听</li>
+<li>等待连接</li>
+<li>接受连接</li>
+<li>接收数据</li>
+<li>返回数据</li>
+<li>断开连接</li>
+</ol>
+<p>浏览器（socket客户端）</p>
+<ol start="5">
+<li>socket客户端</li>
+<li>连接百度上的socket服务端</li>
+<li>发送数据</li>
+<li>接收数据</li>
+<li>断开连接</li>
+</ol>
+<p>1.2 <strong>HTTP协议</strong></p>
+<ol>
+<li>
+<p>是一个应用层协议</p>
+</li>
+<li>
+<p>默认端口是80，注意HTTPS的默认端口是443</p>
+</li>
+<li>
+<p>工作原理是请求/响应</p>
+</li>
+<li>
+<p>HTTP的请求方法（八种）</p>
+<p>a. GET--简单访问，获取资源</p>
+<p>b. POST--提交数据</p>
+<p>c. HEAD--</p>
+<p><a href="https://www.cnblogs.com/maple-shaw/articles/9060408.html">详细介绍</a></p>
+</li>
+</ol>
+<p>1.3 HTTP<strong>状态码</strong></p>
+<p>状态码的第一个数字代表当前响应的类型</p>
+<ul>
+<li>1xx——请求被服务器接受，继续处理</li>
+<li>2xx——请求成功被服务器接受并且接受</li>
+<li>3xx——重定向，需要后续操作才能处理</li>
+<li>4xx——请求错误，请求中含有错误无法被执行</li>
+<li>5xx——服务器处理请求发生错误</li>
+</ul>
+<p>1.4 <strong>URL</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://heroamd.github.io/post-images/image-20200630132527226.png" alt="image-20200630132527226" loading="lazy"></figure>
+<p>1.5 HTTP<strong>请求格式</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://heroamd.github.io/post-images/image-20200630132215297.png" alt="image-20200630132215297" loading="lazy"></figure>
+<p>/r/n 为回车换行符</p>
+<p>get请求类型没有请求数据</p>
+<p>1.6</p>
+<p>1.7 返回HTML的内容</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/django2-1/">
+              <h3 class="post-title">
+                Django(2)
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

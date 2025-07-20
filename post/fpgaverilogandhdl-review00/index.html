@@ -1,0 +1,315 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FPGA：Verilog＆HDL Review | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="FPGA：Verilog＆HDL Review | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+1、verilog语言语法格式：
+模块定义：
+module 模块名(端口列表)
+    端口声明（input,output,inout）
+    变量声明(reg,wire,parameter)参数型，宏定义变量参数
+    数据流行为建..." />
+    <meta name="keywords" content="HDL" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              FPGA：Verilog＆HDL Review
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-05-04
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/0x18zqnqC/" class="post-tag">
+                  # HDL
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/1712563476939.jpg" alt="" loading="lazy"></figure>
+<h4 id="1-verilog语言语法格式">1、verilog语言语法格式：</h4>
+<p>模块定义：</p>
+<pre><code class="language-verilog">module 模块名(端口列表)
+    端口声明（input,output,inout）
+    变量声明(reg,wire,parameter)参数型，宏定义变量参数
+    数据流行为建模
+    顺序行为建模(always)
+    模块调用语句
+    任务及函数
+endmodule
+        
+module NAND(in1,in2,out); //NAND 模块
+input in1,in2; //两个输入端口in1 和in2
+output out; //一个输出端口out
+assign out=~(in1&amp;in2); //连续赋值语句
+endmodule //NAND 模块结束
+</code></pre>
+<p>模块实例化（模块调用）:</p>
+<pre><code class="language-verilog">module AND(in1,in2,out); //AND 模块
+input in1,in2;//两个输入端口in1 和in2
+output out;//一个输出端口out
+wire w1;//一个模块内部连线wire
+NAND NAND_inst1(in1,in2,w1);//调用（实例化）一个NAND 子模块
+NAND NAND inst2(w1,w1,out);//再调用（实例化）一个NAND 子模块
+endmodule //AND 模块结束
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="/images/FPGA_1.jpg" alt="" loading="lazy"></figure>
+<h5 id="2-verilog中的常量和变量">2、verilog中的常量和变量</h5>
+<h5 id="21常量">2.1常量</h5>
+<p><code>0</code> <code>1</code> <code>z</code>（未知） <code>x</code>（高阻，必须位于条件语句下） <code>z</code>和<code>x</code>不区分大小写</p>
+<h6 id="211-整型常量">2.1.1 整型常量</h6>
+<p>十进制数格式 32 //十进制数32<br>
+<code>-15</code> //十进制数-15<br>
+<code>4’b1101</code> //4 位二进制数<br>
+<code>5’o37 </code>//5 位八进制数<br>
+<code>4’d2</code> //4 位十进制数<br>
+<code>8’h2A </code>//8 位十六进制<br>
+基数格式，[位宽]’进制    值域。位宽定义常量的位数，可选项；进制可以是b 或B（表示二进制），o或O（表示八进制），d 或D（表示十进制），h 或H（表示十六进制）之一；值域是一个数字序列，其形式应与进制定义的形式相符。</p>
+<p>#####　2.1.2 实数型常量</p>
+<p>十进制格式，由数字和小数点组成（必须有小数点） <code>2.05 //其值为2.05</code><br>
+指数格式，由数字和字符 e（E）组成，e（E）的前 <code>3.6E2 //其值为 360.0</code><br>
+面必须要有数字而且后面必须为整数</p>
+<p>######　2.1.3 字符串型常量</p>
+<p>字符串常量是由一对双引号括起来的字符序列。出现在双引号内的任何字符（包括空格和下划线）都将被作为字符串的一部分。<br>
+exg: <code>ERROR&quot;,&quot;REACHED－&gt;HERE&quot;</code></p>
+<h6 id="2-14-参数型">2. 1.4 参数型</h6>
+<p><code>parameter 参数名 = 表达式; parameter MSB = 7;   //定义参数MSB 为常量7</code></p>
+<h4 id="22-变量">2.2 变量</h4>
+<p><code>wire</code>只可以连续赋值，<code>reg</code>在过程赋值中<br>
+<code>wire</code>只要输入有变化，输出马上无条件变化，<code>reg</code>有触发才会输出<br>
+<code>wire</code>中模块之间输入、输出相互连接用wire；输入/输出端口(inout)只可以用wire，<code>reg</code>在always 等过程块中被赋值的信号，往往代表触发器，但不一定是触发器。（时序逻辑电路中常常被综合为D 触发器；纯组合逻辑电路中被综合为连线）</p>
+<h4 id="3-表达式">3 表达式</h4>
+<h5 id="31操作数">3.1操作数</h5>
+<p>1、位选择<code>reg[7:0] State;  State[1] //寄存器位选择</code></p>
+<p>2、部分选择<code>State[3:0] //寄存器部分选择</code></p>
+<h5 id="32操作数">3.2操作数</h5>
+<figure data-type="image" tabindex="3"><img src="img/FPGA_2.jpg" alt="" loading="lazy"></figure>
+<h4 id="4-预处理指令">4 预处理指令</h4>
+<p>VerilogHDL 共有8 组预处理指令：<br>
+<code>（1）‘define,‘undef （2）‘ifdef,‘else,‘endif （3）‘include （4）‘timescale （5）‘resetall （6）‘default_nettype （7）‘unconnected_drive,‘nounconnected_drive （8）‘celldefine,‘endcelldefine</code></p>
+<p>verilog注意事项：定义标识符：<code>module adder;</code> <code>reg</code>且单个标识符的总字符数不能多于1024,注意需要避开保留字(关键词)注意关键词必须是小写的，可以用此来区分。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-verilog%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F">1、verilog语言语法格式：</a>
+<ul>
+<li><a href="#2-verilog%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F">2、verilog中的常量和变量</a></li>
+<li><a href="#21%E5%B8%B8%E9%87%8F">2.1常量</a>
+<ul>
+<li><a href="#211-%E6%95%B4%E5%9E%8B%E5%B8%B8%E9%87%8F">2.1.1 整型常量</a></li>
+<li><a href="#2-14-%E5%8F%82%E6%95%B0%E5%9E%8B">2. 1.4 参数型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#22-%E5%8F%98%E9%87%8F">2.2 变量</a></li>
+<li><a href="#3-%E8%A1%A8%E8%BE%BE%E5%BC%8F">3 表达式</a>
+<ul>
+<li><a href="#31%E6%93%8D%E4%BD%9C%E6%95%B0">3.1操作数</a></li>
+<li><a href="#32%E6%93%8D%E4%BD%9C%E6%95%B0">3.2操作数</a></li>
+</ul>
+</li>
+<li><a href="#4-%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4">4 预处理指令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/django4/">
+              <h3 class="post-title">
+                Django(4)
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

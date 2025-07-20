@@ -1,0 +1,309 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Record：On headless server install (with no root permission) mesa/osmesa to use pyrender.offscreen render | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Record：On headless server install (with no root permission) mesa/osmesa to use pyrender.offscreen render | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Preface: Pyrender是Python/conda的一个用于渲染的库，其底层利用GPU的openGL的interface作为API调用，但是在一些没有显卡的服务器上（仅含有加速计算卡tesla V100 32G），GPU驱动往往不..." />
+    <meta name="keywords" content="Unix/Linux" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Record：On headless server install (with no root permission) mesa/osmesa to use pyrender.offscreen render
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-01-06
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/0NYjb30pM/" class="post-tag">
+                  # Unix/Linux
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>Preface: Pyrender是Python/conda的一个用于渲染的库，其底层利用GPU的openGL的interface作为API调用，但是在一些没有显卡的服务器上（仅含有加速计算卡tesla V100 32G），GPU驱动往往不包含图形渲染部分或者普通非root用户没有访问用于显示的GPU的驱动接口的权限，具体表现为，在运行含有下面内容的py脚本：</p>
+<p>pyrender.OffscreenRenderer()<br>
+会提示下面的内容，然后程序会长时间卡住一直没有反应：</p>
+<p>ibEGL warning: failed to open /dev/dri/renderD134: Permission denied</p>
+<p>libEGL warning: failed to open /dev/dri/renderD134: Permission denied</p>
+<p>in glCheckError<br>
+baseOperation = baseOperation,<br>
+OpenGL.error.GLError: GLError(<br>
+err = 12289,<br>
+baseOperation = eglInitialize,<br>
+cArguments = (<br>
+&lt;OpenGL._opaque.EGLDisplay_pointer object at 0x7f5371c77560&gt;,<br>
+c_long(0),<br>
+c_long(0),<br>
+),<br>
+result = 0<br>
+)<br>
+那么能否在服务器端不用GPU实现离屏渲染呢headless server use pyrender but not need add new GPU or ROOT authority？答案是：YES。目前已经有使用Osmesa/mesa仿照OpenGL的interface调用CPU来实现off-screen渲染了，是不是很酷？</p>
+<p>别高兴的太早哦，由于Osmesa模拟的是GPU的渲染API，所以安装起来还是有些难度的：参考Pyrender的官网文档中提供的Installation mannul，可以通过apt-get install ，如下安装好mesa的库：</p>
+<p>sudo apt update<br>
+sudo wget https://github.com/mmatl/travis_debs/raw/master/xenial/mesa_18.3.3-0.deb<br>
+sudo dpkg -i ./mesa_18.3.3-0.deb || true<br>
+sudo apt install -f<br>
+But......我既然没有apt的权限，apt的缓存路径也被administration locked了，我怎么还可能sudo呢？多少有点循环论证法了，如果我可以sudo，那么我大可以为server端显卡安装一个驱动来原生的支持offscreen。</p>
+<p>这时候，Pyrender的作者很贴心的为我们提供了第二种费时费力但是适用于所有人的操作方式——source code install way源码安装：</p>
+<p>首先，下载mesa的源代码之前，需要你具备以下依赖的packages：</p>
+<p>sudo apt-get install llvm-6.0 freeglut3 freeglut3-dev<br>
+一般来说只需要安装llvm-6.0即可，llvm顾名思义Low Level Virtual Machine，干的是编译器的活，类似于GCC？能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。那么安装llvm也不是一件容易的事情，既然是服务器，不妨大胆一些，也使用源码进行安装，绕开sudo的魔鬼权限要求：</p>
+<p>First,download tar package for here.</p>
+<p>得到一个llvm-6.0.0.src.tar.xz，mkdir一个你自己的Path，把它放进去，然后：</p>
+<p>tar -xf {your path}/llvm-6.0.0.src.tar.xz<br>
+之后走的是编译，build，安装的流程，大家应该很熟悉了：</p>
+<p>因为我在跟随官网的手册安装时，遇到了问题，可能是没看懂语序的问题导致没有正常设置好PREFIX路径导致的，因此郁闷了好久！果然拉的功课还是要补回来的，人在江湖飘，该走的路要走完。。。我在下面给出了要自定义install path的安装方式，替换掉{}的内容就可以了。</p>
+<p>mkdir build<br>
+cmake -DCMAKE_INSTALL_PREFIX={!!!!!your install path!!!!} ..<br>
+如果无所谓，我不需要自定义路径，okok那我也提供一种方式给您，虽然我很不理解为什么会有这种奇奇怪怪的需求，莫非您就是r.....ooter？</p>
+<p>cmake ..<br>
+正经人可以进行到下一步了，请你Don't cmake twice!!!!! Just select one of it is enough!!!!</p>
+<p>cmake --build .<br>
+cmake --build . --target install<br>
+之后需要添加以下环境变量，然后source一下，如果卡在这的话就可以关掉屏幕，换个方向接着做了</p>
+<p>export LLVM_HOME=/usr/lib/clang+llvm-9.0.0/bin<br>
+export PATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mi>L</mi><mi>V</mi><msub><mi>M</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">LLVM_HOME:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>PATH<br>
+OK！恭喜你，完成了非root安装llvm-6.0.0，GOOD!</p>
+<p>Then, 从这里下载 release of Mesa from here. Unpack the source and go to the source folder:这里给出了免阅读Manual的方法，直接运行即可：</p>
+<p>wget https://archive.mesa3d.org/mesa-18.3.3.tar.gz<br>
+tar xfv mesa-18.3.3.tar.gz<br>
+cd mesa-18.3.3<br>
+在make之前，需要加一点configure，执行下面的代码，注意需要替换两处Path，到这里安装失败了就是你路径有问题，不成功就亲自打开路径看看，尤其是如果遇到you need llvm-6.0 or newer version类似的问题：</p>
+<p>./configure --prefix={!!!!!!where you want to install!!!!!!!!!}<br>
+--enable-opengl --disable-gles1 --disable-gles2   <br>
+--disable-va --disable-xvmc --disable-vdpau       <br>
+--enable-shared-glapi                             <br>
+--disable-texture-float                           <br>
+--enable-gallium-llvm --enable-llvm-shared-libs   <br>
+--with-gallium-drivers=swrast,swr                 <br>
+--disable-dri --with-dri-drivers=                 <br>
+--disable-egl --with-egl-platforms= --disable-gbm <br>
+--disable-glx                                     <br>
+--disable-osmesa --enable-gallium-osmesa          <br>
+ac_cv_path_LLVM_CONFIG={!!!!!!!!!!!where your llvm install path!!!!!!!!!}/bin/llvm-config<br>
+稍等个几十分钟就又碰到新的问题了，Don't panic! 苍天饶过谁？</p>
+<p>一般运气不太好的就会碰到如下错误，查了GPT-4.0他应该也不会。</p>
+<p>In file included from rasterizer/archrast/archrast.cpp:30:<br>
+./rasterizer/common/os.h:167:20: error: ‘void _mm256_storeu2_m128i(__m128i*, __m128i*, __m256i)’ redeclared inline without ‘gnu_inline’ attribute<br>
+167 | static INLINE void _mm256_storeu2_m128i(__m128i* hi, __m128i* lo, __m256i a)<br>
+|                    ^~~~~~~~~~~~~~~~~~~~<br>
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:43,<br>
+from /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:32,<br>
+from ./rasterizer/common/os.h:99,<br>
+from rasterizer/archrast/archrast.cpp:30:<br>
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:1587:1: note: ‘void _mm256_storeu2_m128i(__m128i_u*, __m128i_u*, __m256i)’ previously defined here<br>
+1587 | _mm256_storeu2_m128i (__m128i_u *__PH, __m128i_u *__PL, __m256i __A)<br>
+| ^~~~~~~~~~~~~~~~~~~~<br>
+make[5]: *** [Makefile:3023: rasterizer/archrast/libswrAVX_la-archrast.lo] Error 1<br>
+这时候需要打开os.h：</p>
+<p>在166 line 左右的下面的位置添加注释：</p>
+<p>// Intrinsic not defined in gcc<br>
+//static INLINE void _mm256_storeu2_m128i(__m128i* hi, __m128i* lo, __m256i a)<br>
+//{<br>
+//    _mm_storeu_si128((__m128i*)lo, _mm256_castsi256_si128(a));<br>
+//    _mm_storeu_si128((__m128i*)hi, _mm256_extractf128_si256(a, 0x1));<br>
+//}<br>
+重新编译，OK，你又会遇到llvm的问题，下面是大量的undefined 数据类型的问题，哈哈哈，虽然写到这里我已经手累了。但还是接着记录下去吧。</p>
+<p>undefined reference to <code>LLVMConstInt' undefined reference to </code>LLVMInt32TypeInContext'<br>
+undefined reference to <code>LLVMConstInt' undefined reference to </code>LLVMBuildGEP'<br>
+。。。。。。。。<br>
+莫慌，我们来分析一下：</p>
+<p>/osmesa/mesa-18.3.3/src/gallium/drivers/llvmpipe/lp_state_setup.c:479: undefined reference to <code>LLVMBuildFMul' /usr/bin/ld: ../../../../src/gallium/drivers/llvmpipe/.libs/libllvmpipe.a(lp_state_setup.o): in function </code>lp_build_const_int32':<br>
+/osmesa/mesa-18.3.3/src/gallium/drivers/llvmpipe/lp_state_setup.c:479，这个是error发生的位置，打开看看呢：</p>
+<p>attribv[0] = LLVMBuildFMul(b, attribv[0], v0_oow, &quot;v0_oow_v0a&quot;);<br>
+attribv[1] = LLVMBuildFMul(b, attribv[1], v1_oow, &quot;v1_oow_v1a&quot;);<br>
+attribv[2] = LLVMBuildFMul(b, attribv[2], v2_oow, &quot;v2_oow_v2a&quot;);<br>
+}<br>
+这是个LLVM的路径，但是我们不是已经安装过了吗？你丫的为啥还找不到？接着看/usr/bin/ld: ？？？这是个什么东西？我没有/usr/bin下面的权限啊，你咋又回到这里去找链接了？那你能找到都奇怪了！经过我的不懈努力，这个是Clang的问题，也就是LLVM的问题，这当然不是我的问题。别搞了，give up</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/openmv-optocoupler-and-232-communication/">
+              <h3 class="post-title">
+                OpenMV optocoupler and RS232 communication
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

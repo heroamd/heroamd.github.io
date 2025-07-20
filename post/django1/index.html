@@ -1,0 +1,324 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Django(1) | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django(1) | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+学习内容
+
+搭建虚拟开发环境，使用Pycharm创建Django项目
+本地配置local_settings.py，通过.gitingnor文件排除推送文件目录
+Git共有仓库的使用
+
+任务如下
+
+创建一个名为tracer的虚拟环境
+创建一..." />
+    <meta name="keywords" content="Django" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Django(1)
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-23
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/4Vif8Q5im/" class="post-tag">
+                  # Django
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/image-20200623201156306.png" alt="image-20200623201156306" loading="lazy"></figure>
+<h5 id="学习内容">学习内容</h5>
+<ul>
+<li>搭建虚拟开发环境，使用Pycharm创建Django项目</li>
+<li>本地配置local_settings.py，通过.gitingnor文件排除推送文件目录</li>
+<li>Git共有仓库的使用</li>
+</ul>
+<h5 id="任务如下">任务如下</h5>
+<ul>
+<li>创建一个名为tracer的虚拟环境</li>
+<li>创建一个django项目：tracer</li>
+<li>建立一个git仓库名称为tracer</li>
+<li>总结文档</li>
+</ul>
+<ol>
+<li>虚拟开发环境的创建</li>
+</ol>
+<p>1.1 安装</p>
+<pre><code>pip3 install virtualenv
+</code></pre>
+<p>1.2 创建虚拟环境</p>
+<pre><code class="language-python">virtualenv 环境名称
+
+#两种创建方式
+1、virtualenv 环境名称 --python=python3.6
+2、virtualenv 环境名称 --python='c:\python\....exe'
+</code></pre>
+<p>1.3 激活虚拟环境</p>
+<pre><code>cd scripts进入虚拟环境的文件
+.\activate 激活虚拟环境
+.\deactivate 退出虚拟环境
+</code></pre>
+<p>1.4 在虚拟环境中安装模块</p>
+<pre><code class="language-python">pip3 install django==1.11.28
+</code></pre>
+<p>1.5 使用pycharm创建项目</p>
+<figure data-type="image" tabindex="2"><img src="https://heroamd.github.io/post-images/image-20200623212036274-1593493719162.png" alt="image-20200623212036274" loading="lazy"></figure>
+<p>1.6 设置settings.py</p>
+<p>在settings.py中加入下面的代码，再创建一个名为local_seetings.py的文件用来保存自己的配置，优先选用local_settings中的设置</p>
+<pre><code class="language-python">try: 
+    from .Local_settings import * 
+except ImportError: 
+    pass
+</code></pre>
+<p>1.6 设置git的上传排出名单</p>
+<pre><code class="language-python"># Django stuff: 
+locaL_settings.py
+*.sqlite3
+
+# database migrations
+*/migrations/*.py       //表示排除数据库迁移有关的文件
+!*/migrations/_init_.py //!表示排除后面路径下的文件
+</code></pre>
+<p>1.7 配置git远端服务器（测试）</p>
+<pre><code class="language-python">##本地部分
+
+git init //托管目录
+git add . // 将所有目录做一个提交
+git commit -m 'text1' //做一个提交的记录
+
+##将本地仓库同步到远端
+
+git push https://github.com/heroamd/django.git master
+
+##为了后续更加方便的推送到远端，给仓库地址添加一个别名
+
+git add origin https://github.com/heroamd/django.git //origin就代表后面仓库的地址
+    
+##此后需要继续推送运行
+
+git push origin master
+
+</code></pre>
+<p>1.8 使用git命令将仓库push到新的分支</p>
+<pre><code>##在前面完成之后的最后一步，修改git push命令
+
+git push origin master:新分支的名字
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://heroamd.github.io/post-images/image-20200625125328101-1593493763894.png" alt="image-20200625125328101" loading="lazy"></figure>
+<p>1.9 使用git命令克隆分支到本地</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AE%B9">学习内容</a></li>
+<li><a href="#%E4%BB%BB%E5%8A%A1%E5%A6%82%E4%B8%8B">任务如下</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/hackintosh-apfs-filesystem-encryption-and-decryption/">
+              <h3 class="post-title">
+                Hackintosh APFS FileSystem Encryption and decryption
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

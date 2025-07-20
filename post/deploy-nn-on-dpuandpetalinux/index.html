@@ -1,0 +1,1186 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deploy Neural-Network on DPU&amp;PetaLinux | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Deploy Neural-Network on DPU&amp;PetaLinux | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="PYNQ Z2
+
+
+
+download official board files for vivado.
+https://pynq.readthedocs.io/en/latest/overlay_design_methodology/bo..." />
+    <meta name="keywords" content="DPU" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Deploy Neural-Network on DPU&amp;PetaLinux
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-02-08
+              </span>
+              <span>
+                26 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/I9UZxYTDE/" class="post-tag">
+                  # DPU
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h2 id="pynq-z2">PYNQ Z2</h2>
+<figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/1712555382079.png" alt="" loading="lazy"></figure>
+<ol>
+<li>
+<p>download official board files for vivado.</p>
+<p>https://pynq.readthedocs.io/en/latest/overlay_design_methodology/board_settings.html#base-overlay-project</p>
+</li>
+</ol>
+<p>​	   import: <code>Help&gt;Add Design Tools or Devices...</code>(Alert: 2019.1 version of vivado is obsolete. Please choose the next method)</p>
+<p>​	or. you can import by unzip pynq-z2.zip，and copy it to <code>&lt;install path&gt;\Xilinx\Vivado\2019.2\data\boards\board_files</code></p>
+<p>​	for vivado2022.1, you can through search and download keywords pynq.</p>
+<ol start="2">
+<li>
+<p>Creat block design. input name and next.</p>
+</li>
+<li>
+<p>Reference: PG338. But it is for UltraScale+ serial boards.</p>
+</li>
+<li>
+<p>Downloads DPU IP for Vivado： try the two scheme:</p>
+<ol>
+<li>(OLD IP DPU_140)https://github.com/JinChen-tw/pynqz2_dpu140?tab=readme-ov-file</li>
+<li>(NEWEST IP DPU 410--DPUCZDX8G)https://github.com/Xilinx/Vitis-AI/tree/v3.0/dpu ,it support MPSoc but not support pynq</li>
+</ol>
+</li>
+<li>
+<p>Add IP in vivado. Into IP catelog, right click and add Repository.</p>
+</li>
+<li>
+<p>Go to IP integrator and creat block design. If you have created block design follow 2. , then it is no necessary to creat a new one.</p>
+</li>
+<li>
+<p>Add DPU ip in the block design and Add Processing system. Then begin to routing. Reference by <a href="https://docs.xilinx.com/r/3.2-English/pg338-dpu/Port-Descriptions">PG338</a>,dpu signal description as follow:</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Signal Name</th>
+<th style="text-align:center">Interface Type</th>
+<th style="text-align:center">Width</th>
+<th style="text-align:center">I/O</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S_AXI</td>
+<td style="text-align:center">Memory mapped AXI slave interface</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">I/O</td>
+<td style="text-align:center">32-bit memory mapped AXI interface for registers.</td>
+</tr>
+<tr>
+<td style="text-align:center">s_axi_aclk</td>
+<td style="text-align:center">Clock</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">AXI clock input for S_AXI</td>
+</tr>
+<tr>
+<td style="text-align:center">s_axi_aresetn</td>
+<td style="text-align:center">Reset</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">Active-Low reset for S_AXI</td>
+</tr>
+<tr>
+<td style="text-align:center">dpu_2x_clk</td>
+<td style="text-align:center">Clock</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">Input clock used for DSP blocks in the DPU. The frequency is twice that of m_axi_dpu_aclk.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpu_2x_resetn</td>
+<td style="text-align:center">Reset</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">Active-Low reset for DSP blocks</td>
+</tr>
+<tr>
+<td style="text-align:center">m_axi_dpu_aclk</td>
+<td style="text-align:center">Clock</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">Input clock used for DPU general logic.</td>
+</tr>
+<tr>
+<td style="text-align:center">m_axi_dpu_aresetn</td>
+<td style="text-align:center">Reset</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">Active-Low reset for DPU general logic</td>
+</tr>
+<tr>
+<td style="text-align:center">DPUx_M_AXI_INSTR</td>
+<td style="text-align:center">Memory mapped AXI master interface</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">I/O</td>
+<td style="text-align:center">32-bit memory mapped AXI interface for DPU instructions.</td>
+</tr>
+<tr>
+<td style="text-align:center">DPUx_M_AXI_DATA0</td>
+<td style="text-align:center">Memory mapped AXI master interface</td>
+<td style="text-align:center">64 or 128</td>
+<td style="text-align:center">I/O</td>
+<td style="text-align:center">64-bit AXI interface for Zynq7000 series and 128-bit for MPSoC series.</td>
+</tr>
+<tr>
+<td style="text-align:center">DPUx_M_AXI_DATA1</td>
+<td style="text-align:center">Memory mapped AXI master interface</td>
+<td style="text-align:center">64 or 128</td>
+<td style="text-align:center">I/O</td>
+<td style="text-align:center">64-bit AXI interface for Zynq7000 series and 128-bit for Zynq MP series.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpu_interrupt</td>
+<td style="text-align:center">Interrupt</td>
+<td style="text-align:center">1~4</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">Active-High interrupt output from DPU. The data width is determined by the number of DPU cores.</td>
+</tr>
+<tr>
+<td style="text-align:center">SFM_M_AXI (optional)</td>
+<td style="text-align:center">Memory mapped AXI master interface</td>
+<td style="text-align:center">128</td>
+<td style="text-align:center">I/O</td>
+<td style="text-align:center">128-bit memory mapped AXI interface for softmax data.</td>
+</tr>
+<tr>
+<td style="text-align:center">sfm_interrupt (optional)</td>
+<td style="text-align:center">Interrupt</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">Active-High interrupt output from softmax module.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpu_2x_clk_ce (optional)</td>
+<td style="text-align:center">Clock enable</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">Clock enable signal for controlling the input DPU 2x clock when DPU 2x clock gating is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:center">The softmax interface only appears when the softmax option in the DPU is enabled.</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>As follow, you need to connect clk and clk_2x, rst separatly. On the left hand, from the properties to change Name. Connect port as following picture:</p>
+<figure data-type="image" tabindex="2"><img src="https://heroamd.github.io/post-images/image-20240123223617288-1706181430590-1.png" alt="image-20240123223617288" loading="lazy"></figure>
+<ol start="8">
+<li>
+<p>Pay attention to the dpu 'DATAWIDTH same with the PS HP AXI width. And modified clk_wizard rst as low activate.</p>
+</li>
+<li>
+<p>Assign Address. Auto and make sure the ps address is 16M.</p>
+<figure data-type="image" tabindex="3"><img src="https://heroamd.github.io/post-images/image-20240123223511384.png" alt="image-20240123223511384" loading="lazy"></figure>
+</li>
+<li>
+<p>Sources. Generate Output Products. Create HDL wrapper. Let Vivado manager wrapper and auto-update. Add XDC(If have). Generate bitstream.</p>
+<blockquote>
+<p>Alert: <strong>Cannot decrypt IEEE-1735 envelope&quot;, when I build FPGA design with DPUCZDX8G v3.4.0 IP by Vivado 2022.1</strong></p>
+<p>Vivado version must match with DPU IP</p>
+<table>
+<thead>
+<tr>
+<th>Software Tools Version</th>
+<th>DPUCZDX8G IP Version</th>
+<th>Vitis AI Release Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2022.2</td>
+<td>4.1</td>
+<td>v3.0</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2022.1</td>
+<td>4.0</td>
+<td>v2.5</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2021.2</td>
+<td>3.4</td>
+<td>v2.0</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2021.1</td>
+<td>3.3</td>
+<td>v1.4</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2020.2</td>
+<td>3.3</td>
+<td>v1.3</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2020.1</td>
+<td>3.2</td>
+<td>v1.2</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2019.2</td>
+<td>3.2</td>
+<td>v1.1</td>
+</tr>
+<tr>
+<td>Vivado / Vitis / PetaLinux 2019.1</td>
+<td>3.1</td>
+<td>v1.0</td>
+</tr>
+<tr>
+<td>Vivado / PetaLinux 2019.1</td>
+<td>3.0</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Vivado / PetaLinux 2018.2</td>
+<td>2.0</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Vivado / PetaLinux 2018.1</td>
+<td>1.0</td>
+<td>First Release</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Software Tools Version</th>
+<th>DPUCVDX8G IP Version</th>
+<th>Vitis AI Release Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vitis / PetaLinux 2022.2</td>
+<td>1.3</td>
+<td>v3.0</td>
+</tr>
+<tr>
+<td>Vitis / PetaLinux 2022.1</td>
+<td>1.2</td>
+<td>v2.5</td>
+</tr>
+<tr>
+<td>Vitis / PetaLinux 2021.2</td>
+<td>1.1</td>
+<td>v2.0</td>
+</tr>
+<tr>
+<td>Vitis / PetaLinux 2021.1</td>
+<td>1.0</td>
+<td>v1.4</td>
+</tr>
+<tr>
+<td>Vitis / PetaLinux 2020.2</td>
+<td>Early Access</td>
+<td>v1.3</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Software Tools Version</th>
+<th>DPUCV2DX8G IP Version</th>
+<th>Vitis AI Release Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vitis / PetaLinux 2022.2</td>
+<td>Early Access</td>
+<td>v3.0</td>
+</tr>
+</tbody>
+</table>
+<figure data-type="image" tabindex="4"><img src="https://heroamd.github.io/post-images/image-20240123161441595.png" alt="image-20240123161441595" loading="lazy"></figure>
+</blockquote>
+<ol start="10">
+<li>
+<p>Use vivado2022.2 and try again. Generate bitstream</p>
+<blockquote>
+<p>Project quickly migration Tips:</p>
+<ul>
+<li>File. Export Block Design -&gt; xxx.tcl</li>
+</ul>
+<p>Resource is unmeet:</p>
+<p>[DRC UTLZ-1] Resource utilization: DSP48E1 over-utilized in Top Level Design (This design requires more DSP48E1 cells than are available in the target device. This design requires 709 of such cell types but only 220 compatible sites are available in the target device. Please analyze your synthesis results and constraints to ensure the design is mapped to Xilinx primitives as expected. If so, please consider targeting a larger device.)</p>
+<ul>
+<li>Decrease IP size and retry</li>
+<li><img src="https://heroamd.github.io/post-images/image-20240124150827001.png" alt="image-20240124150827001" loading="lazy"></li>
+<li><img src="https://heroamd.github.io/post-images/image-20240123232611227.png" alt="image-20240123232611227" loading="lazy"></li>
+<li><img src="https://heroamd.github.io/post-images/image-20240123232627088.png" alt="image-20240123232627088" loading="lazy"></li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>File. Export. Export Hardware Platform. have Include-bitstream on. Finish</p>
+</li>
+<li>
+<p>Compile PetaLinux image for start up PS: Reference <a href="https://docs.xilinx.com/r/2022.1-English/ug1144-petalinux-tools-reference-guide">UG1144</a></p>
+<p>Notice. choose the 2022.1 version of Guide.</p>
+<p>Before installation: Requirments are as below:</p>
+<blockquote>
+<p>The PetaLinux tools installation requirements are:</p>
+<ul>
+<li>Minimum workstation requirements:
+<ul>
+<li>8 GB RAM (recommended minimum for Xilinx® tools)</li>
+<li>2 GHz CPU clock or equivalent (minimum of eight cores)</li>
+<li>100 GB free HDD space</li>
+<li>Supported OS:
+<ul>
+<li>Red Hat Enterprise Workstation/Server 7.4, 7.5, 7.6, 7.7, 7.9, 8.2 (64-bit), 8.3, 8.4, 8.5, 8.6</li>
+<li>CentOS Workstation/Server 7.4, 7.5, 7.6, 7.7, 7.9</li>
+<li>Ubuntu Linux Workstation/Server 18.04.1, 18.04.2, 18.04.3, 18.04.4, 18.04.5, 18.04.06, 20.04, 20.04.1, 20.04.2, 20.04.3 ,20.04.4 (64-bit)</li>
+<li>SUSE Linux 15.2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="https://heroamd.github.io/post-images/image-20240123233953738.png" alt="image-20240123233953738" loading="lazy"></li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p>STEP by STEP:</p>
+<p>In general, the PetaLinux tools follow a sequential workflow model. The table below provides an example design workflow, demonstrating the order in which the tasks should be completed and the corresponding tool or workflow for that task.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Design Flow Step</th>
+<th style="text-align:center">Tool / Workflow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Hardware platform creation (for custom hardware only)</td>
+<td style="text-align:center">Vivado® design tools</td>
+</tr>
+<tr>
+<td style="text-align:center">Create a PetaLinux project</td>
+<td style="text-align:center"><code>petalinux-create -t project</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Initialize a PetaLinux project (for custom hardware only)</td>
+<td style="text-align:center"><code>petalinux-config --get-hw-description</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Configure system-level options</td>
+<td style="text-align:center"><code>petalinux-config</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Create user components</td>
+<td style="text-align:center"><code>petalinux-create -t COMPONENT</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Configure U-Boot</td>
+<td style="text-align:center"><code>petalinux-config -c u-boot</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Configure the Linux kernel</td>
+<td style="text-align:center"><code>petalinux-config -c kernel</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Configure the root filesystem</td>
+<td style="text-align:center"><code>petalinux-config -c rootfs</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Build the system</td>
+<td style="text-align:center"><code>petalinux-build</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Package for deploying the system</td>
+<td style="text-align:center"><code>petalinux-package</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Boot the system for testing</td>
+<td style="text-align:center"><code>petalinux-boot</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Upgrades the workspace</td>
+<td style="text-align:center"><code>petalinux-upgrade</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Use Yocto devtools command</td>
+<td style="text-align:center"><code>petalinux-devtool</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Use debug utilities</td>
+<td style="text-align:center"><code>petalinux-util</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ol>
+<li>
+<p>Downloads required packages:</p>
+<blockquote>
+<ul>
+<li>The PetaLinux tools installation requirements are met. See the <a href="https://docs.xilinx.com/r/Uw6ckv~7z2dU7kcsYewrCQ/vtWJTJKVQAXpDcy7ot4ujQ">Installation Requirements</a> for more information.</li>
+<li>The PetaLinux installer is downloaded. You can download PetaLinux installer from <a href="https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-design-tools.html">PetaLinux Downloads</a>.</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>Install requirement</p>
+<blockquote>
+<pre><code>sudo dpkg --add-architecture i386
+sudo apt update -y
+</code></pre>
+<pre><code>sudo apt install --no-install-recommends -y gawk gcc make net-tools libncurses5-dev tftpd zlib1g-dev libssl-dev wget zlib1g:i386 python vim tofrodos iproute2 xvfb  build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev git make net-tools flex bison libselinux1 gnupg diffstat chrpath socat xterm autoconf libtool tar unzip texinfo gcc-multilib libsdl1.2-dev libglib2.0-dev screen pax gzip language-pack-en libtool-bin cpio lib32z1 lsb-release vim-common libgtk2.0-dev libstdc++6:i386
+</code></pre>
+</blockquote>
+</li>
+<li>
+<p>Installing the Petalinux Tool, you can specify an installation path[optional] reference UG1144</p>
+<pre><code>chmod 755 ./petalinux-v&lt;petalinux-version&gt;-final-installer.run
+./petalinux-v&lt;petalinux-version&gt;-final-installer.run 
+</code></pre>
+</li>
+<li>
+<p>PetaLinux Woking Environment Setup</p>
+<ul>
+<li>
+<p>For Bash as user login shell:</p>
+<pre><code>$ source &lt;path-to-installed-PetaLinux&gt;/settings.sh
+</code></pre>
+</li>
+<li>
+<p>Verilfy that the working environment has been set:</p>
+<pre><code>echo $PETALINUX
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Installing a Preferred eSDK as part of the PetaLinux Tool(There are many other architecture platform supported)</p>
+<ul>
+<li>
+<p>To install eSDKs for all Xilinx® supported architectures like Zynq, Zynq UltraScale+ MPSoC, Versal®, MicroBlaze</p>
+<pre><code> $ ./petalinux-v&lt;petalinux-version&gt;-final-installer.run --dir &lt;INSTALL_DIR&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Project creation using PetaLinux BSP</p>
+<p>PetaLinux board support packages (BSPs) are reference designs on supported boards for you to start working with and customizing your own projects.</p>
+<ul>
+<li>
+<p>This section assumes that the following prerequisites have been satisfied:</p>
+<ul>
+<li>PetaLinux BSP is downloaded. You can download PetaLinux BSP from <a href="https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-design-tools.html">PetaLinux Downloads</a>.</li>
+<li>PetaLinux Working Environment Setup is completed. For more details, see <a href="https://docs.xilinx.com/r/Uw6ckv~7z2dU7kcsYewrCQ/HScRXO4xHAc2XrkXrl72BA">PetaLinux Working Environment Setup</a>.</li>
+</ul>
+</li>
+<li>
+<p>Create a Project from a BSP</p>
+<ul>
+<li>
+<pre><code>cd /home/user
+</code></pre>
+</li>
+<li>
+<pre><code>petalinux-create -t project -s &lt;path-to-bsp&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>IMPORTANT!</strong> you need to create a new project following these step, BSP is including the hardware platform information.</p>
+<pre><code> petalinux-create --type project --template &lt;PLATFORM&gt; --name &lt;PROJECT_NAME&gt;
+</code></pre>
+<p>The parameters are as follows: --template <PLATFORM></p>
+<p>- The following platform types are supported:</p>
+<ul>
+<li><code>versal-net</code> (for Versal-Net ACAP)</li>
+<li><code>versal</code> (for Versal ACAP)</li>
+<li><code>zynqMP</code> (for Zynq UltraScale+ MPSoC)</li>
+<li><code>zynq</code> (for Zynq-7000 devices)</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>Exporting Hardware Platform to PetaLinux Project.(We have done as upon, *.xsa(A hardware description file with the information about the processing system). During the project initialization or update. Petalinux will generates a device tree source file, U-boot configuration head files(only MicroBlaze only).</p>
+</li>
+<li>
+<p>Importing Hardware Configuration</p>
+<pre><code>cd &lt;plnx-proj-root&gt;
+</code></pre>
+<pre><code>petalinux-config --get-hw-description &lt;path to xsa file&gt;
+</code></pre>
+<blockquote>
+<p>ERROR: Failed to generate /home/xilinx/dpu_pynq_z2/build/misc/config/Kconfig.syshw</p>
+<p><code>sudo apt-get install libtinfo5</code></p>
+</blockquote>
+</li>
+</ol>
+<img src="./pic/image-20240124124702549.png" alt="image-20240124124702549" style="zoom:50%;" />
+<ol start="16">
+<li>
+<p>Change Linux kernal settings(Exactly based on this <a href="http://www.aiotlab.org/teaching/fpga/DPU%20on%20PYNQ-Z2%20Petalinux.pdf">SLIDES</a>. 台北大学)</p>
+<figure data-type="image" tabindex="9"><img src="https://heroamd.github.io/post-images/image-20240124132633573.png" alt="image-20240124132633573" loading="lazy"></figure>
+</li>
+</ol>
+<ul>
+<li>DTG Settings-&gt;Kernel Bootargs-&gt;disable <code>generate boot args automatically</code> and enter the following bootargs in <code>user set kernel bootargs</code></li>
+</ul>
+<pre><code>console=ttyPS0,115200 root=/dev/mmcblk0p2 rw earlyprintk quiet rootfstype=ext4 rootwait cma=256M
+</code></pre>
+<ul>
+<li>Image Packaging Configuration-&gt;Root filesystem type (SD card)</li>
+<li>Save and Exit</li>
+</ul>
+<ol start="17">
+<li>
+<p>According to <a href="https://docs.xilinx.com/r/en-US/pg338-dpu/Introduction?tocId=3xsG16y_QFTWvAJKHbisEw">UG338</a>. Change <code>&lt;path to plnx project&gt;/project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi</code> as Follow:</p>
+<pre><code>/include/ &quot;system-conf.dtsi&quot;
+&amp;amba {
+	xlnk {
+		compatible = &quot;xlnx,xlnk-1.0&quot;;
+	};
+};
+&amp;amba{
+	dpu{
+	    #address-cells = &lt;1&gt;;
+    	    #size-cells = &lt;1&gt;;
+    	    compatible = &quot;xilinx,dpu&quot;;
+    	    base-addr = &lt;0x4f000000&gt;;     //CHANGE THIS ACCORDING TO YOUR DESIGN
+
+	    dpucore {
+	        compatible = &quot;xilinx,dpucore&quot;;
+	        interrupt-parent = &lt;&amp;intc&gt;;
+	        interrupts = &lt;0 29 4&gt;; //CHANGE THIS ACCORDING TO YOUR DESIGN
+	        core-num = &lt;0x1&gt;; //CHANGE THIS ACCORDING TO YOUR DESIGN
+	    };
+	};
+};
+
+</code></pre>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Parameter</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">dpu</td>
+<td style="text-align:center">Node entry for DPU device. This does not need to be modified.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpu-&gt;base-addr</td>
+<td style="text-align:center">DPU base register address assigned in the hardware design.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpu-&gt;compatible</td>
+<td style="text-align:center">Fixed value set to &quot;xilinx,dpu&quot;.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpucore-&gt;compatible</td>
+<td style="text-align:center">Fixed value set to &quot;xilinx,dpucore&quot;.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpucore-&gt;core-num</td>
+<td style="text-align:center">Number of DPU cores specified in the hardware configuration.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpucore-&gt;interrupt-parent</td>
+<td style="text-align:center">Point to interrupt control device.<strong>Note:</strong> “intc” for Zynq-7000 devices and “gic” for Zynq UltraScale+ devices.</td>
+</tr>
+<tr>
+<td style="text-align:center">dpucore-&gt;interrupts</td>
+<td style="text-align:center"><em>Example: interrupts = &lt;0x0 106 0x1 0x0 107 0x1&gt;;</em>  Interrupt configuration for the DPU IP cores. There are three fields for each DPU core, and the second value in each field corresponds to the interrupt number. The interrupt numbers must match the hardware configuration. For the above sample, the triplet “0x0 106 0x1” is for DPU core 0 with interrupt number 106, and the triplet “0x0 107 0x1” is for DPU core 1 with interrupt number 107. The other two values in the triplet “0x0” and “0x1” are fixed values and do not need to be changed.**Pay Attention! The Interrupt number means a number of interrupt, but not refer to the amount! **</td>
+</tr>
+<tr>
+<td style="text-align:center">softmax -&gt;core-num</td>
+<td style="text-align:center">This value is fixed to “0x1” if softmax is added to the project in the hardware configuration.</td>
+</tr>
+<tr>
+<td style="text-align:center">softmax-&gt;compatible</td>
+<td style="text-align:center">Fixed value set to “xilinx, smfc”.</td>
+</tr>
+<tr>
+<td style="text-align:center">softmax-&gt;interrupt-parent</td>
+<td style="text-align:center">Point to interrupt control device.<strong>Note:</strong> “intc” for Zynq-7000 devices and “gic” for Zynq UltraScale+ MPSoC devices.</td>
+</tr>
+<tr>
+<td style="text-align:center">softmax-&gt;interrupts</td>
+<td style="text-align:center">Interrupt configuration for the Softmax in DPU. The second value in this field corresponds to the interrupt number. The interrupt numbers must match the hardware configuration. For the above sample, the triplet “0x0 110 0x1” is for the Softmax with interrupt number 110. The other two values in the triplet “0x0” and “0x1” are fixed values and do not need to be changed.</td>
+</tr>
+</tbody>
+</table>
+<ol start="18">
+<li>
+<p>Use ZCU102-dpu-trd-2019-1-timer.bsp</p>
+<p>Targeted reference design (TRD) provides instructions on how to use the DPUCZDX8G with a Xilinx SoC platform to build and run deep neural network applications.</p>
+<ul>
+<li>Why dose ZCU102 can used in ZYNQ-7000Soc?</li>
+</ul>
+<blockquote>
+<p>The Zynq® UltraScale+™ MPSoC platform is used to create this TRD. It can also be used for a Zynq®-7000 SoC platform using the same flow. The TRD can be accessed through this link: https://www.xilinx.com/products/intellectual-property/dpu.html#overview</p>
+<ul>
+<li>Vivado DPU TRD Flow<br>
+For the Vivado DPU TRD Flow, see the https://github.com/Xilinx/Vitis-AI/blob/master/DPU-TRD/prj/Vivado/README.md</li>
+</ul>
+<p>WHTA IS .BSP, AND WHY I NEED TO ADD XILINX-ZCU102-TRD INTO KERNAL PATH?</p>
+<ul>
+<li>
+<p>BSP is a package of configured petalinux projects. If you want to see what is configured, you can directly create the petalinux project with BSP.</p>
+<p>I understand that this BSP is mainly related to driver/lib/runtime required for good DPU/Vitis-AI.</p>
+</li>
+</ul>
+<p>Unfortunately, the DPU 3.0 provided at <a href="https://www.xilinx.com/member/forms/download/design-license-xef.html?filename=zcu102-dpu-trd-2019-1-190809.zip">DPU TRD v3.0 for ZCU102</a> has timelimt of 8 hours, this time limit start from the time when you synthesized the project[PG338 v3.0 says: &quot;the DPU records the time that the DPU project was synthesized&quot;].</p>
+</blockquote>
+</li>
+</ol>
+<p>​	This tutorial contains information about:</p>
+<p>​	Setting up the ZCU102 evaluation board and run the TRD.<br>
+​	Changing the configuration of DPU.</p>
+<p>​    I found this pages from <a href="https://github.com/Xilinx/Vitis-AI/tree/3.0/src/vai_petalinux_recipes">Vitis-AI3.0 repo</a>, it introduce how to install the Vitis-AI libaries. It introduce two ways as follow:</p>
+<ul>
+<li>To rebuild the system by configuring PetaLinux. <strong>(Build-Time)</strong></li>
+<li>To install VAI3.0 to the target leveraging a pre-built package. <strong>(Run-Time)</strong> See the board setup instructions for details of the online installation <a href="https://xilinx.github.io/Vitis-AI/3.0/html/docs/workflow-system-integration.html#vitis-ai-online-installation">process</a></li>
+</ul>
+<p>Here choose first way:</p>
+<ul>
+<li>Using <code>recipes-vitis-ai</code> in this repo.</li>
+<li>Upgrading PetaLinux esdk.</li>
+</ul>
+<p><strong>How to use <code>recipes-vitis-ai</code></strong></p>
+<p><strong>Note</strong><br>
+<code>recipes-vitis-ai</code> enables <strong>Vitis flow by default</strong>. If want to use it in vivado flow, please comment the following line in <code>recipes-vitis-ai/vart/vart_3.0.bb</code></p>
+<pre><code>#PACKAGECONFIG_append = &quot; vitis&quot;
+</code></pre>
+<p>Copy <code>recipes-vitis-ai</code> folder to <code>&lt;petalinux project&gt;/project-spec/meta-user/</code></p>
+<pre><code>cp src/vai_petalinux_recipes/recipes-vitis-ai &lt;petalinux project&gt;/project-spec/meta-user/
+</code></pre>
+<p>Edit <code>&lt;petalinux project&gt;/project-spec/meta-user/conf/user-rootfsconfig</code> file, appending the following lines:</p>
+<pre><code>CONFIG_vitis-ai-library
+CONFIG_vitis-ai-library-dev
+CONFIG_vitis-ai-library-dbg
+</code></pre>
+<p>Source PetaLinux tool and run <code>petalinux-config -c rootfs</code> command. Select the following option.</p>
+<pre><code>Select user packages ---&gt;
+Select [*] vitis-ai-library
+</code></pre>
+<blockquote>
+<p><strong>Additionally:</strong></p>
+<ul>
+<li>Petalinux Package Groups -&gt; petalinuxgroup-petalinux-opencv -&gt; opencv, opencv-dev</li>
+<li>Filesystem Packages -&gt; console -&gt; utils -&gt; pkgconfig -&gt; pkgconfig, pkgconfig-dev</li>
+</ul>
+</blockquote>
+<p>Then, save it and exit.</p>
+<p><strong>Note the following:</strong>(Not work)😥</p>
+<ul>
+<li>After you run the above successfully, the vitis-ai-library, VART3.0 and the dependent packages will all be installed into rootfs image.</li>
+<li>If you want to compile the example on the target, please select the <code>vitis-ai-library-dev</code> and <code>packagegroup-petalinux-self-hosted</code>. Then, recompile the system.</li>
+<li>If you want to use vaitracer tool, please select the <code>vitis-ai-library-dbg</code>. And copy <code>recipes-vai-kernel</code> folder to <code>&lt;petalinux project&gt;/project-spec/meta-user/</code>. Then, recompile the system.</li>
+</ul>
+<pre><code>cp src/vai_petalinux_recipes/recipes-vai-kernel &lt;petalinux project&gt;/project-spec/meta-user/
+</code></pre>
+<p><strong>How to use <code>Upgrade PetaLinux esdk</code></strong></p>
+<p>Run the following commands to upgrade the PetaLinux. Accordig to <em>Note that <code>2022.2_update1</code> will be released approximately 1 month after Vitis 3.0 release. The name of <code>2022.2_update1</code> may be changed. Please modify it accordingly.</em> So as below:</p>
+<pre><code>source &lt;petalinux-v2022.2&gt;/settings
+petalinux-upgrade -u http://petalinux.xilinx.com/sswreleases/rel-v2022/sdkupdate/2022.2_update1/ -p &quot;aarch64&quot;
+</code></pre>
+<p>Run <code>petalinux-build</code></p>
+<blockquote>
+<p>**ERROR: ** (/home/xilinx/dpu_pynq_z2/components/yocto/layers/meta-openembedded/meta-oe/recipes-graphics/graphviz/graphviz_2.44.1.bb:do_configure) failed with exit code '1'</p>
+<figure data-type="image" tabindex="10"><img src="https://heroamd.github.io/post-images/image-20240124231103369.png" alt="image-20240124231103369" loading="lazy"></figure>
+<p>Then. How  to solve this problem? What is sstate and what is Yocto?</p>
+<ul>
+<li>rootfs is a file system that be mounted first after Linux Kernel boot.  Booting Linux kernel need rootfs and linux kernel.</li>
+<li>Petalinux integrate Yocto TOOLS to construct rootfs.</li>
+<li>recommend <a href="https://news.accelerationrobotics.com/ros2-humble-yocto-petalinux/#graphviz-dpkg-architecture-command-not-found">This ARTICLE</a></li>
+<li><code>Yocto</code>: an open source collaboration project that helps developers create custom Linux-based systems for embedded products, regardless of the hardware architecture.</li>
+<li><code>Recipe</code>: A set of instructions for building packages. A recipe describes where you get source code, which patches to apply, how to configure the source, how to compile it and so on. Recipes also describe dependencies for libraries or for other recipes.</li>
+<li>We can follow <a href="https://blog.csdn.net/qq_41873311/article/details/128170279">this artical</a> to download sstate locally and compile it.</li>
+</ul>
+<p>Actually, it caused by <code>dpkg-architecture: command not found</code></p>
+<ul>
+<li>apt-get install dpkg-dev</li>
+</ul>
+<p>But this is a Linux kernel problem. It can be solve by following:</p>
+<ul>
+<li>
+<pre><code>sudo apt-get remove libtcl8.6
+sudo apt-get update
+sudo apt-get install blt libopencv-contrib-dev libopencv-dev libopencv-viz-dev libopencv-viz4.5d libtcl8.6
+</code></pre>
+</li>
+</ul>
+<p>Then meet: <code>recipe vitis-ai-library-3.0-r0: task do_compile: Failed</code>. Reference : <a href="https://github.com/Xilinx/Vitis-AI/issues/855">ISSUE855</a></p>
+<ul>
+<li>
+<pre><code>modify recipes-vitis-ai/vitis-ai-library/vitisai.inc if you want to try as soon as possible:
+BRANCH = &quot;master&quot;
+SRC_URI = &quot;git://github.com/Xilinx/Vitis-AI.git;protocol=https;branch=${BRANCH}&quot;
+SRCREV = &quot;c26eae36f034d5a2f9b2a7bfe816b8c43311a4f8&quot;
+</code></pre>
+<p><strong>But I finally not use this method but still solve this.</strong></p>
+</li>
+<li>
+<figure data-type="image" tabindex="11"><img src="https://heroamd.github.io/post-images/image-20240125003221978.png" alt="image-20240125003221978" loading="lazy"></figure>
+</li>
+</ul>
+<p>About vitis-ai-3.0 compile error: recipe-sysroot-native/usr/lib/arm-xilinx-linux-gnueabi/gcc/arm-xilinx-linux-gnueabi/11.2.0/include/arm_neon.h:4403:50: error: argument 2 must be a constant immediate<br>
+4403 |   return (uint8x16_t)__builtin_neon_vshru_nv16qi ((int8x16_t) __a, __b);</p>
+<blockquote>
+<figure data-type="image" tabindex="12"><img src="https://heroamd.github.io/post-images/image-20240125155942653.png" alt="image-20240125155942653" loading="lazy"></figure>
+</blockquote>
+<p>Try to use the second method and try again. (Install Runtime version driver), but Here is the troubleshoot:</p>
+<img src="./pic/image-20240125211103725.png" alt="image-20240125211103725" style="zoom:50%;" />
+<ul>
+<li>
+<p>try this: But not work</p>
+<p>execute petalinux-config -c rootfs. search or find packagegroup-petalinux-self-hosted option, select it and save. Then build the rootfs again.</p>
+<p>CONFIG_imagefeature-package-mangement=y</p>
+</li>
+<li>
+<p>Github comment receive reply:</p>
+</li>
+<li>
+<img src="./pic/image-20240126004925661.png" alt="image-20240126004925661" style="zoom:50%;" />
+<img src="./pic/image-20240126004252332.png" alt="image-20240126004252332" style="zoom:50%;" />
+<p>What's the means of  <code>NEON code</code>,</p>
+<p>Recording The resolution step as below:</p>
+<ol>
+<li>use ezone and username to download files</li>
+</ol>
+<figure data-type="image" tabindex="13"><img src="https://heroamd.github.io/post-images/image-20240126093553187.png" alt="image-20240126093553187" loading="lazy"></figure>
+<ol start="2">
+<li>
+<p>replace the <code>image_util.cpp</code>to the path <code>/home/xilinx/dpu_pynq_z2/build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/vitis-ai-library/3.0-r0/git/src/vai_library/math</code></p>
+</li>
+<li>
+<p>add <code>CONFIG_XILINX_DPU=y</code>to <code>/home/xilinx/dpu_pynq_z2/project-spec/meta-user/recipes-kernel/linux/linux-xlnx</code></p>
+</li>
+<li>
+<p>disable zocl &amp; xrt: # BUT IN MY DEFAULT FILE NO NEED TO EDIT!!</p>
+<pre><code>sed -i 's/CONFIG_xrt=y/\# CONFIG_xrt is not set/' ${plnxdir}/project-spec/configs/rootfs_config
+        sed -i 's/CONFIG_xrt-dev=y/\# CONFIG_xrt-dev is not set/' ${plnxdir}/project-spec/configs/rootfs_config
+        sed -i 's/CONFIG_zocl=y/\# CONFIG_zocl is not set/' ${plnxdir}/project-spec/configs/rootfs_config
+</code></pre>
+</li>
+<li>
+<p>install recommended packages to rootfs</p>
+<pre><code>cp -arf ${recipesdir}/recipes-core ${plnxdir}/project-spec/meta-user/
+cp -arf ${recipesdir}/recipes-vitis-ai ${plnxdir}/project-spec/meta-user/
+</code></pre>
+</li>
+<li>
+<p>enable package management and auto login. Worth to know is that sed command will auto backup teh old file to 'xxx.old'</p>
+<pre><code>sed -i '/# CONFIG_imagefeature-package-management is not set/c CONFIG_imagefeature-package-management\=y' ${plnxdir}/project-spec/configs/rootfs_config
+sed -i '/# CONFIG_imagefeature-debug-tweaks is not set/c CONFIG_imagefeature-debug-tweaks\=y'           ${plnxdir}/project-spec/configs/rootfs_config
+sed -i '/# CONFIG_auto-login is not set/c CONFIG_auto-login\=y' ${plnxdir}/project-spec/configs/rootfs_config
+</code></pre>
+</li>
+<li>
+<p>set rootfs type EXT4</p>
+<pre><code>        sed -i 's|CONFIG_SUBSYSTEM_ROOTFS_INITRD=y|# CONFIG_SUBSYSTEM_ROOTFS_INITRD is not set|' ${plnxdir}/project-spec/configs/config
+        sed -i 's|# CONFIG_SUBSYSTEM_ROOTFS_EXT4 is not set|CONFIG_SUBSYSTEM_ROOTFS_EXT4=y|' ${plnxdir}/project-spec/configs/config
+        sed -i '/CONFIG_SUBSYSTEM_INITRD_RAMDISK_LOADADDR=/d' ${plnxdir}/project-spec/configs/config
+        echo 'CONFIG_SUBSYSTEM_SDROOT_DEV=&quot;/dev/mmcblk0p2&quot;' &gt;&gt; ${plnxdir}/project-spec/configs/config
+</code></pre>
+</li>
+<li>
+<p>set hostname to xilinx-zcu102-trd</p>
+<pre><code>sed -i '/CONFIG_SUBSYSTEM_HOSTNAME=/c CONFIG_SUBSYSTEM_HOSTNAME\=&quot;xilinx-zc702-trd&quot;' ${plnxdir}/project-spec/configs/config
+</code></pre>
+</li>
+<li>
+<p>Change parrallel threads to a larger number based on your machine</p>
+<pre><code>sed -i '/CONFIG_YOCTO_BB_NUMBER_THREADS=&quot;4&quot;/c CONFIG_YOCTO_BB_NUMBER_THREADS=&quot;40&quot;' ${plnxdir}/project-spec/configs/config
+        CONFIG_YOCTO_BB_NUMBER_THREADS=&quot;30&quot;
+</code></pre>
+</li>
+<li>
+<p>Enable external kernel build for dpu driver. BUT IT ONLY DISPLAY THE MODIFIED CONTENT ON THE TERMINAL AND WON'T ACTUALLY MODIFY THE FILE</p>
+<pre><code>sed '1 a\CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT_LOCAL_SRC_PATH=&quot;${PROOT}/components/ext_sources/linux-xlnx-dpu&quot;' ${plnxdir}/project-spec/configs/config
+
+sed '1 a\CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_LIC_FILES_CHKSUM_LOCAL__SRC=&quot;&quot;' ${plnxdir}/project-spec/configs/config
+</code></pre>
+</li>
+<li>
+<p>Enable external kernel build for dpu driver.</p>
+<pre><code>sed -i '/CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_LINUX__XLNX is not set/c\CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_LINUX__XLNX=y' ${plnxdir}/project-spec/configs/config
+        sed -i '/CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT__LOCAL__SRC is not set/c\CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT__LOCAL__SRC=y' ${plnxdir}/project-spec/configs/config
+        sed -i -e '$aCONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT_LOCAL_SRC_PATH=&quot;${PROOT}/components/ext_sources/linux-xlnx-dpu&quot;' ${plnxdir}/project-spec/configs/config
+        sed -i -e '$aCONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_LIC_FILES_CHKSUM_LOCAL__SRC=&quot;&quot;' ${plnxdir}/project-spec/configs/config
+</code></pre>
+</li>
+<li>
+<p>custom kernel</p>
+<pre><code>customize_kernel()
+{
+   mkdir -p ${plnxdir}/components/ext_sources
+   cd ${plnxdir}/components/ext_sources
+   git clone https://github.com/Xilinx/linux-xlnx linux-xlnx-dpu
+   chmod -R +777 linux-xlnx-dpu
+   sed -i '/depends on ARCH_ZYNQMP || MICROBLAZE/c\depends on ARCH_ZYNQMP || MICROBLAZE || ARCH_ZYNQ' ${plnxdir}/components/ext_sources/linux-xlnx-dpu/drivers/misc/Kconfig
+}
+</code></pre>
+</li>
+<li>
+<p>build</p>
+<pre><code>build_proj() {
+        cd ${plnxdir}
+        petalinux-config --get-hw-description=${xsadir} --silentconfig
+        petalinux-config -c kernel --silentconfig
+        petalinux-config -c rootfs --silentconfig
+        petalinux-build
+        cd ${plnxdir}/images/linux
+        petalinux-package --boot --fsbl zynq_fsbl.elf --u-boot u-boot.elf  --fpga system.bit --force
+        #petalinux-package --wic --bootfile &quot;BOOT.BIN boot.scr zImage system.dtb&quot; --wic-extra-args &quot;-c gzip&quot;
+}
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<ol start="19">
+<li>
+<p>Package <code>BOOT.BIN</code>、 <code>image.ub</code>、<code>rootfs.tar.gz</code></p>
+<pre><code>petalinux-package --boot --force --fsbl images/linux/zynq_fsbl.elf --fpga images/linux/*.bit --u-boot
+</code></pre>
+</li>
+<li>
+<p>[optional] Package project</p>
+<pre><code>petalinux-package --bsp -p . -o xilinx-pynq-z2-v2019.1-dpu3.0.bsp
+</code></pre>
+</li>
+<li>
+<p>Generate Boot image for ZYNQ-7000 Devices(<a href="https://docs.xilinx.com/r/2022.2-English/ug1144-petalinux-tools-reference-guide/Generate-Boot-Image-for-Zynq-7000-Devices">UG1144</a>)</p>
+<blockquote>
+<ul>
+<li>
+<p>Generate Boot Image</p>
+<pre><code>petalinux-package --boot --u-boot
+</code></pre>
+</li>
+<li>
+<p>Generate MCS Image</p>
+<p>An MCS image for ZYNQ usually contains a First stage boot loader image(FSBL)</p>
+<pre><code>petalinux-package --boot --u-boot --format MCS
+</code></pre>
+</li>
+<li>
+<p>Execute the following command to generate the MCS image to boot up to U-boot using prebuilt images:</p>
+<pre><code>cd &lt;plnx-proj-root&gt;
+petalinux-package --boot --u-boot pre-built/linux/images/u-boot.elf --dtb pre-built/linux/images/system.dtb --fsbl pre-built/linux/images/zynq_fsbl.elf --format MCS 
+</code></pre>
+</li>
+<li>
+<p>Execute the following command to generate the MCS image to boot up to Linux using build images:</p>
+<pre><code>petalinux-package --boot --u-boot --kernel --offset 0x1080000 --format MCS
+</code></pre>
+</li>
+<li>
+<p>Execute the following command to generate the MCS image to boot up to Linux using prebuilt images:</p>
+<pre><code>cd &lt;plnx-proj-dir&gt;
+petalinux-package --boot --u-boot pre-built/linux/images/u-boot.elf --dtb pre-built/linux/images/system.dtb --fsbl pre-built/linux/images/zynq_fsbl.elf --kernel pre-built/linux/images/image.ub --offset 0x1080000 --boot-script pre-built/linux/images/boot.scr --format MCS
+</code></pre>
+<p>This generates boot.mcs in images/linux directory containing images to boot up to Linux using Fit image(with tiny root file system if <code>switch_root</code> enabled) loaded at 0x1080000 Flash offset.</p>
+</li>
+<li>
+<p>Packaging Prebuilt Images</p>
+<ul>
+<li>Change into the root directory of your project.</li>
+</ul>
+<pre><code>cd &lt;plnx-proj-root&gt;
+</code></pre>
+<ul>
+<li>Use<code>petalinux-package --prebuilt</code> to package the prebuilt images.</li>
+</ul>
+<pre><code>petalinux-package --prebuilt --fpga &lt;FPGA bitstream&gt;
+</code></pre>
+</li>
+<li>
+<p>Booting PetaLinux Image on Hardware with an SD Card</p>
+<ul>
+<li>
+<p>Partition the SD card by following <a href="https://docs.xilinx.com/r/Uw6ckv~7z2dU7kcsYewrCQ/BiNguO3Glg8JtY_eoXdfug">Partitioning and Formatting an SD Card</a>.</p>
+<ul>
+<li>For partitioning and formatting an SD card, the following tools are required:
+<ul>
+<li>fdisk</li>
+<li>mkfs</li>
+</ul>
+</li>
+<li>etc. more</li>
+<li>refer:https://docs.xilinx.com/r/2022.2-English/ug1144-petalinux-tools-reference-guide/Partitioning-and-Formatting-an-SD-Card</li>
+</ul>
+</li>
+<li>
+<p>Copy the following files from <code>&lt;plnx-proj-root&gt;/images/linux or &lt;plnx-proj-root&gt;/pre-built/linux/images/</code>into the boot directory of the first partition, which is in FAT32 format in the SD card:</p>
+<ul>
+<li>
+<p>BOOT.BIN</p>
+</li>
+<li>
+<p>image.ub</p>
+</li>
+<li>
+<p>boot.scr</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Mount the ext4 partition and extract the <code>rootfs.tar.gz</code> folder into the ext4 partition of the SD card with <code>sudo</code> permissions.</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h2 id="deployment">Deployment</h2>
+<p>follow this url: https://github.com/Xilinx/Vitis-AI-Tutorials/tree/1.4/Feature_Tutorials/pytorch-subgraphs</p>
+<p>I meet this Error:</p>
+<figure data-type="image" tabindex="14"><img src="https://heroamd.github.io/post-images/image-20240227171332078.png" alt="image-20240227171332078" loading="lazy"></figure>
+<p>Thus, I follow <a href="https://support.xilinx.com/s/question/0D52E00006hpYnISAU/missing-libvartcpurunnerso-on-zcu104?language=en_US">this solution</a> that let me try Graph::runner and meet:</p>
+<figure data-type="image" tabindex="15"><img src="https://heroamd.github.io/post-images/image-20240227171456162.png" alt="image-20240227171456162" loading="lazy"></figure>
+<p>Following <a href="https://xilinx.github.io/Vitis-AI//3.5/html/doxygen/api/python/create__graph__runner_8py.html">this Pages</a>. I try Graph runner but I find graph api only support full graph but not support subgraph. What is the different between XIR and VART?</p>
+<blockquote>
+<p>Xilinx Intermediate Representation (XIR) is a graph-based intermediate representation of the AI algorithms which is designed for compilation and efficient deployment of the DPU on the FPGA platform.</p>
+</blockquote>
+<figure data-type="image" tabindex="16"><img src="https://heroamd.github.io/post-images/image-20240227171708215.png" alt="image-20240227171708215" loading="lazy"></figure>
+<p>Aditionally: How to make sure DPU driver is integrated properly?</p>
+<ul>
+<li><code>lsmod</code></li>
+<li><code>cat /proc/interrupts | grep dpu</code></li>
+<li><code>show_dpu</code></li>
+<li><code>xdputil query</code></li>
+</ul>
+<p>Additionally: About Bitbaker and ninja</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#pynq-z2">PYNQ Z2</a></li>
+<li><a href="#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/recordon-headless-server-install-with-no-root-permission-mesaosmesa-to-use-pyrenderoffscreen-render/">
+              <h3 class="post-title">
+                Record：On headless server install (with no root permission) mesa/osmesa to use pyrender.offscreen render
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

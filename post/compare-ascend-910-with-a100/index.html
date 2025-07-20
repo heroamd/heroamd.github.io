@@ -1,0 +1,321 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compare Ascend 910 with A100 | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Compare Ascend 910 with A100 | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Preface:
+
+The significant differences between Ascend's inter-chip interconnect HCCS and NVIDIA's NVLINK.
+Ascend's provid..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Compare Ascend 910 with A100
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-04-11
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h5 id="preface">Preface:</h5>
+<ul>
+<li>The significant differences between Ascend's inter-chip interconnect HCCS and NVIDIA's NVLINK.</li>
+<li>Ascend's provided system expansion solutions are limited; in contrast, NVIDIA can offer a complete range of interconnect expansion solutions from NVlink, NVSwitch to Infiniband, and Ethernet</li>
+<li>The software ecosystem supported by Ascend also needs to be compatible with CUDA in order to be more widely accepted by users, which presents a significant gap compared to NVIDIA.</li>
+</ul>
+<h5 id="architecture">Architecture:</h5>
+<ul>
+<li>Ascend910 the core of computation is Vitruvian(2019')</li>
+<li>nvidia a100 AMPERE(2020')</li>
+</ul>
+<h5 id="ascend910">Ascend910:</h5>
+<p>Ascend 910 adopts a chiplet design, consisting of a total of 8 dies, including 4 HBM dies, 2 dummy dies, 1 SoC die, and 1 NIMBUS die. The two dummy dies are utilized to maintain overall mechanical stress balance of the chip. The total bandwidth of the four HBM dies is 1.2TB/s. The overall layout of Ascend 910 is illustrated in the diagram below:</p>
+<figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/image-20240411112216042.png" alt="" loading="lazy"></figure>
+<p>Die size:</p>
+<figure data-type="image" tabindex="2"><img src="https://heroamd.github.io/post-images/image-20240411112304668.png" alt="" loading="lazy"></figure>
+<p>Soc die is used to computation. TSMC 7nm fabracation, size 456mm2, 512TOPS INT8, The physical layout of the SoC die is as follows:</p>
+<figure data-type="image" tabindex="3"><img src="https://heroamd.github.io/post-images/image-20240411112512757.png" alt="" loading="lazy"></figure>
+<p>The SoC die includes 32 Ascend-Max cores, 16 Arm V8 TaiShan CPU cores with CPU LLC, a video codec (Digital Vision Pre-Processor), supporting decoding of 128 channels of full HD video, and an on-chip network (NoC) connecting the aforementioned components. The NoC adopts a 4x6 mesh topology to provide a unified and scalable communication network; the working frequency between two adjacent nodes is 2GHz, with a data width of 1024 bits, providing a bandwidth of 256GB/s. The NoC does not use buffering to reduce its area overhead. The architecture diagrams for the SoC die and Nimbus die are shown below:</p>
+<figure data-type="image" tabindex="4"><img src="https://heroamd.github.io/post-images/image-20240411112556707.png" alt="" loading="lazy"></figure>
+<h5 id="davinci">DaVinci</h5>
+<p>The DaVinci core consists of three types of computing units, multi-level on-chip memory, corresponding load/store units, instruction management units, etc. The DaVinci core is a heterogeneous architecture that combines scalar, vector, and tensor computing units. The Bus Interface Unit (BIU) transfers data/instructions between Ascend cores and external components. The architecture diagram of DaVinci is shown below:</p>
+<figure data-type="image" tabindex="5"><img src="https://heroamd.github.io/post-images/image-20240411112710815.png" alt="image-20240411112710815" loading="lazy"></figure>
+<p>Here are 3 typical operation supported by compute unit:</p>
+<figure data-type="image" tabindex="6"><img src="https://heroamd.github.io/post-images/image-20240411112802493.png" alt="image-20240411112802493" loading="lazy"></figure>
+<ul>
+<li>Scalar computing units are primarily responsible for scalar calculations such as addressing.</li>
+<li>Vector computing units can perform operations like normalization, activation, as well as precision conversion tasks like quantization and dequantization between int32, fp16, and int8. Vector units can also execute fp32 operations.</li>
+<li>Tensor computing units are primarily dedicated to matrix operations including convolution, fully connected layers, and matrix multiplication. The typical size of matrices in tensor operations is 16 x 16 x 16. Hence, tensor computing units are equipped with 4096 multipliers and 4096 accumulators. Each operand in matrix operations is reused 16 times. Therefore, compared to vector units, the energy consumption of loading operands into tensor units is reduced by 1/16.</li>
+</ul>
+<p>The DaVinci core includes multiple buffers, divided into different levels. The L0 buffer is dedicated to the tensor computing unit, divided into three separate L0 buffers: Buffer A L0, Buffer B L0, and Buffer C L0. They are used to store input feature data, weights, and output feature data, respectively. The data in Buffer A L0 and Buffer B L0 are loaded from the L1 buffer. Communication between the L0 and L1 buffers is managed by the Memory Transfer Engine (MTE). The MTE contains several functional modules:</p>
+<ul>
+<li>The decomp module utilizes zero-value compression algorithms to decompress data from sparse networks.</li>
+<li>The img2col module is used to transform convolutions into matrix multiplications.</li>
+<li>The trans module is used for matrix transposition.</li>
+</ul>
+<p>The output results in buffer C L0 can be processed by the vector units (for example, normalization or activation). The output results from the vector units are allocated to the Unified Buffer, which is shared with the scalar units. Data is stored in the L1 buffer, and instructions are stored in the instruction cache. The instruction execution process is as follows:</p>
+<ul>
+<li>Instructions are first sorted by the Program Sequence Queue (PSQ).</li>
+<li>Based on the type of instruction, they are distributed to three queues: the cube queue for multidimensional data sets, the vector queue, and the MTE (Memory Transfer Engine) queue.</li>
+<li>Instructions are then processed by the corresponding computing units.</li>
+</ul>
+<p>Because the three computing units and the MTE work in parallel, explicit synchronization is required to ensure the data dependencies between different execution units. The diagram below demonstrates the corresponding process: the PSQ continuously sends instructions to the different units, which can be processed in parallel until an explicit synchronization signal (a barrier) is encountered; the barrier is generated by the compiler or the programmer.</p>
+<figure data-type="image" tabindex="7"><img src="https://heroamd.github.io/post-images/image-20240411113109495.png" alt="" loading="lazy"></figure>
+<h5 id="system-expansion">System Expansion:</h5>
+<p>Each Ascend 910 server contains 8 Ascend 910 chips, divided into two groups. Intra-group connectivity is based on the High-Speed Cache Coherence Network (HCCS), providing a bandwidth of 30GB/s. The two groups communicate with each other via PCI-E buses, offering a bandwidth of 32GB/s. Together, they form a hypercube mesh network topology. Multiple Ascend 910 servers can be organized into a cluster using a fat-tree network topology. The diagram below illustrates a cluster with 2048 nodes, capable of delivering a total computation power of 512 Peta FLOPS in fp16, consisting of 256 servers with inter-server link bandwidth of 100Gbps.</p>
+<figure data-type="image" tabindex="8"><img src="https://heroamd.github.io/post-images/image-20240411113245939.png" alt="" loading="lazy"></figure>
+<p>Programming Model<br>
+The top layer includes DNN model development frameworks such as PyTorch, TensorFlow, MindSpore, etc., which output &quot;Graph&quot;, representing the coarse-grained relationships in algorithms. Then, with the help of a graph engine, the &quot;Graph&quot; is transformed into &quot;Stream&quot;, consisting of several &quot;Tasks&quot; arranged in sequence. &quot;Streams&quot;/&quot;Tasks&quot; can be called directly from the Operator Lib or described by programmers in different levels of languages with the help of the Operator Engine. The TBE (Tensor Boost Engine) DSL (Domain Specific Language) is developed using a Level-3 programming model, known as the mathematical programming level, aimed at users without hardware knowledge. With the help of a compiler, instance &quot;Tasks&quot; can be automatically generated from the TBE DSL descriptions. Programmers can also develop instance &quot;Tasks&quot; in the parallel/kernel level (Level 2) programming model, similar to GPU's CUDA or OpenCL, and have introduced the Tensor Iterator Kernel (TIK) interface, which allows for parallel programming using Python. The dedicated compiler technology &quot;Auto Tiling&quot; is used to split large tasks to fit the Ascend architecture. With the help of reinforcement learning algorithms, this technology intelligently searches the legal mapping space to provide the program with the best tiling and scheduling. The lowest level of the programming model (Level 1) is C programming, also known as CCE-C (Cube-based Compute Engine). At this level, all design details of each architecture are exposed to the programmer. Programmers can embed assembly-like code. The overall structure is as follows:</p>
+<figure data-type="image" tabindex="9"><img src="https://heroamd.github.io/post-images/image-20240411113451753.png" alt="image-20240411113451753" loading="lazy"></figure>
+<h5 id="ampere">Ampere</h5>
+<p>In 2020, NVIDIA introduced the Ampere architecture, utilizing the TSMC 7nm FFN process, with an area of 826mm^2 and a total of 54.2 billion transistors; the complete physical layout of the GA100 is as shown below:</p>
+<figure data-type="image" tabindex="10"><img src="https://heroamd.github.io/post-images/image-20240411113518042.png" alt="image-20240411113518042" loading="lazy"></figure>
+<p>In Ampere GPUs, two SMs together form a Texture Processor Cluster (TPC), with 8 TPCs composing a GPU Processing Cluster (GPC); there are a total of 8 GPCs. Thus, the complete implementation of the GA100 GPU includes the following units:</p>
+<ul>
+<li>8 GPCs, each with 8 TPCs, each TPC containing 2 SMs, totaling 128 SMs</li>
+<li>Each SM has 64 FP32 CUDA cores, totaling 8192 FP32 CUDA cores per full GPU</li>
+<li>Each SM has 4 3rd generation Tensor Cores, totaling 512 Tensor Cores per full GPU</li>
+<li>6 HBM2, 12 512-bit memory controllers</li>
+</ul>
+<p>The A100, based on GA100, has 108 SMs. The A100 Tensor Core GPU implementation includes the following units:</p>
+<ul>
+<li>7 GPCs, each with 7 or 8 TPCs, each TPC containing 2 SMs, for a maximum of 108 SMs</li>
+<li>Each GPU has 64 FP32 CUDA cores, totaling 6912 FP32 CUDA cores</li>
+<li>Each SM has 4 3rd generation Tensor Cores, totaling 432 Tensor Cores per GPU</li>
+<li>5 HBM2, 10 512-bit memory controllers</li>
+</ul>
+<figure data-type="image" tabindex="11"><img src="https://heroamd.github.io/post-images/image-20240411113611629.png" alt="image-20240411113611629" loading="lazy"></figure>
+<h5 id="dgx">DGX</h5>
+<p>The following figure illustrates the network topology of the DGX A100 system:</p>
+<p>The DGX A100 system includes 6 NVSwitch 2.0s, with each A100 GPU connected to 12 NVLinks and 6 NVSwitches for interconnection communication, resulting in two links from each GPU to each switch.</p>
+<figure data-type="image" tabindex="12"><img src="https://heroamd.github.io/post-images/image-20240411113624811.png" alt="image-20240411113624811" loading="lazy"></figure>
+<h5 id="nvidia-dgx-superpod">NVIDIA DGX SuperPOD</h5>
+<p>The NVIDIA DGX SuperPOD is a cluster system composed of DGX A100s, including:</p>
+<p>140 DGX A100 systems<br>
+1,120 NVIDIA A100 GPUs<br>
+170 Mellanox Quantum 200G InfiniBand switches<br>
+15Km optical cables<br>
+4PB high-performance storage<br>
+The specific hardware parameters are as follows:</p>
+<p>The following figure illustrates the computational topology of the 140-node DGX SuperPOD.</p>
+<figure data-type="image" tabindex="13"><img src="https://heroamd.github.io/post-images/image-20240411113632326.png" alt="image-20240411113632326" loading="lazy"></figure>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#preface">Preface:</a></li>
+<li><a href="#architecture">Architecture:</a></li>
+<li><a href="#ascend910">Ascend910:</a></li>
+<li><a href="#davinci">DaVinci</a></li>
+<li><a href="#system-expansion">System Expansion:</a></li>
+<li><a href="#ampere">Ampere</a></li>
+<li><a href="#dgx">DGX</a></li>
+<li><a href="#nvidia-dgx-superpod">NVIDIA DGX SuperPOD</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/analyse-dsa-asic-architecture-performance/">
+              <h3 class="post-title">
+                Analyse DSA ASIC architecture performance
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

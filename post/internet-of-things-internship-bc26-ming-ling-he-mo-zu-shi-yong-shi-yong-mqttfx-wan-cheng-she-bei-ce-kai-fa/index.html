@@ -1,0 +1,451 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Internet of Things internship: BC26 command and module, using MQTT.fx for device development | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Internet of Things internship: BC26 command and module, using MQTT.fx for device development | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+实习第一天内容：
+
+BC26模组测试指导——使用sscom5虚拟串口软件测试模块，熟悉UDP\TCP\MQTT 协议
+华为云物联网平台的使用——通过向导式极速体验创建项目，之后使用演示包上报数据，在华为云修改上报次数修改数据上报时间
+新增..." />
+    <meta name="keywords" content="IoT" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Internet of Things internship: BC26 command and module, using MQTT.fx for device development
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-07-06
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/-GsmJFOrl/" class="post-tag">
+                  # IoT
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/1712557222680.jpg" alt="" loading="lazy"></figure>
+<p>实习第一天内容：</p>
+<ul>
+<li>BC26模组测试指导——使用sscom5虚拟串口软件测试模块，熟悉UDP\TCP\MQTT 协议</li>
+<li>华为云物联网平台的使用——通过向导式极速体验创建项目，之后使用演示包上报数据，在华为云修改上报次数修改数据上报时间</li>
+<li>新增虚拟设备完成对产品进行调试</li>
+<li>使用MQTT.FX接入服务器完成设备侧开发</li>
+</ul>
+<h4 id="一-bc26模组测试和不同通信协议比较">一、BC26模组测试和不同通信协议比较</h4>
+<p>首先，连接下载器和BC26模组，这样就完成了模组和电脑的通信，模组仅负责收发电脑端所提供的数据字和控制指令，不参与对接收到的数据包解算以及处理的任务。</p>
+<p>第二步：使用以下指令对模块和插在模块上的USIM卡进行测试：</p>
+<pre><code>AT\r\n                     测试模块
+
+AT+CIMI\r\n                查询USIM卡IMSI,执行命令使TA 返回USIM 卡的IMSI（不带双引号的字符串），旨在允许TE 识别连接到MT 的USIM。
+
+AT+CSQ\r\n                 上报信号质量,该命令可返回接收信号强度指示&lt;rssi&gt;和信道误码率&lt;ber&gt;。        
+
+AT+CGATT?\r\n              PS域附着或去附着,注册上网
+</code></pre>
+<p>补充理解AT命令的格式(<a href="/img/Quectel_BC26&amp;BC20&amp;BC030x%E7%B3%BB%E5%88%97_AT%E5%91%BD%E4%BB%A4%E6%89%8B%E5%86%8C_V1.0.pdf">BC26&amp;BC20&amp;BC030X系列命令说明书</a>)：<br>
+<img src="https://heroamd.github.io/post-images/Snipaste_2021-07-10_16-01-38.png" alt="" loading="lazy"></p>
+<p>BC26模组的厂家提供了测试用服务器，老师提供了一个MQTT的测试服务器，IP和端口号如下：</p>
+<p>UDP:    47.92.146.210 : 9999<br>
+TCP:     47.92.146.210 : 8888<br>
+MQTT: 47.92.146.210 : 1883</p>
+<p>老师MQTT：123.60.209.34</p>
+<p>步骤如下：</p>
+<p><img src="https://heroamd.github.io/post-images/2201.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2202.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2203.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2204.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2205.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2206.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2207.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2208.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2209.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2210.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2211.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2212.png" alt="" loading="lazy"><br>
+<img src="https://heroamd.github.io/post-images/2213.png" alt="" loading="lazy"></p>
+<h4 id="二-华为云物联网平台的使用">二、华为云物联网平台的使用</h4>
+<h5 id="1-使用向导式极速体验设备连接平台设备上报数据到平台平台下发命令给设备这三个基本场景">1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。</h5>
+<figure data-type="image" tabindex="2"><img src="https://heroamd.github.io/post-images/zh-cn_image_0000001091279193.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710165301.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710165536.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710165725.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710165808.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710165855.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710170326.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>“服务ID”</strong>：BasicData</li>
+<li><strong>“服务类型”</strong>：建议和服务ID保持一致</li>
+</ul>
+<p>说明：<strong>属性和命令类似于变量，不同是，属性为设备上报用变量，命令是我们下发用变量</strong></p>
+<figure data-type="image" tabindex="9"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710170951.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>“属性名称”</strong>：luminance</li>
+<li><strong>“必选”</strong>：勾选</li>
+<li><strong>“数据类型”</strong>：int（整型）</li>
+<li><strong>“访问权限”</strong>：可读、可写</li>
+<li><strong>“取值范围”</strong>：0~65535</li>
+<li><strong>“步长”</strong>：0</li>
+<li><strong>“单位”</strong>：不填写</li>
+</ul>
+<figure data-type="image" tabindex="10"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710171148.jpg" alt="" loading="lazy"></figure>
+<p>小总结：在前面我们首先创建了名称为  <strong>齐修远测试</strong>  的产品，之后为该产品添加了  <strong>lumuance</strong>  的属性，其为整型，取值范围在0-65535之间，并设置访问权限设置为可读可写，我的理解产品属性是产品自身的属性，可以通过自己控制也可以读取它的值，接着又创建了  <strong>lightcontrol</strong> 的命令，设置其参数为  <strong>switch</strong> 用来下发开关指令。</p>
+<p>区别在于属性只限于产品自身对自身的控制，而命令是通过下发参数来进行对产品的控制。</p>
+<h4 id="二-注册虚拟设备">二、注册虚拟设备</h4>
+<p>1、单击**“在线调试”<strong>页签，单击</strong>“新增测试设备”<strong>，在弹出的页面中选择</strong>“虚拟设备”**，并单击确认。</p>
+<figure data-type="image" tabindex="11"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710165950.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="12"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710170030.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="13"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710201652.jpg" alt="" loading="lazy"></figure>
+<h4 id="三-总结">三、总结</h4>
+<h5 id="1-关于产品的服务和命令之间的关系">1、关于产品的服务和命令之间的关系</h5>
+<p>产品的服务是<strong>产品所包含的</strong>设备上报给用户端的服务信息，是自下而上的。命令是用户对设备的控制命令，是自上而下的。产品的服务包含所有设备的属性，也就是设备可以上报给服务器的所有参数，按需上报，有则需要上报没有则不需要上报。同样命令也是用户下发给所有设备的所有控制亮。</p>
+<h5 id="2-关于产品和设备之间的关系">2、关于产品和设备之间的关系</h5>
+<p>一个产品包含很多设备，一旦设备注册上网成功，并通过MQTT协议连接服务器之后则判断该设备在线。</p>
+<h4 id="四-使用mqttfx接入服务器完成设备侧开发">四、使用MQTT.FX接入服务器完成设备侧开发</h4>
+<p>在前面通过虚拟设备在电脑端完成对云端服务器的测试，接下来我们使用MQTT代提虚拟设备直接完成消息的发布和订阅</p>
+<h5 id="1-mqtt简介">1、MQTT简介</h5>
+<p>MQTT（Message Queuing Telemetry Transport）是一个基于客户端-服务器的消息发布/订阅传输协议，主要应用于计算能力有限，且工作在低带宽、不可靠的网络的远程传感器和控制设备，适合长连接的场景，如智能路灯等。</p>
+<p>MQTTS是MQTT使用TLS加密的协议。采用MQTTS协议接入平台的设备，设备与物联网平台之间的通信过程，数据都是加密的，具有一定的安全性。</p>
+<figure data-type="image" tabindex="14"><img src="https://heroamd.github.io/post-images/zh-cn_image_0269115067.png" alt="" loading="lazy"></figure>
+<p>区别在于MQTTS是加密的而MQTT是非加密的</p>
+<figure data-type="image" tabindex="15"><img src="https://heroamd.github.io/post-images/zh-cn_image_0263925108.png" alt="" loading="lazy"></figure>
+<h5 id="2-使用mqttfx调测">2、使用MQTT.fx调测</h5>
+<p>本文档以MQTT.fx为例，介绍以MQTT原生协议接入物联网平台。MQTT.fx是目前主流的MQTT客户端。<strong>调测的目的是为了：快速验证是否可以与物联网平台服务交互发布或订阅消息。</strong></p>
+<figure data-type="image" tabindex="16"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710203210.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="17"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710203308.jpg" alt="" loading="lazy"></figure>
+<p>该地址同样分为设备端接入和应用接入两种方式，也即用户接入和设备接入，但是针对可能不支持域名接入的设备，使用ping命令获取域名对应的Ip地址，使用ip地址接入平台。</p>
+<p>3、具体使用MQTT.fx进行调测的方式</p>
+<p><strong>步骤一、首先创建以MQTT为协议类型的数据格式为JSON的产品</strong></p>
+<p><strong>步骤二、连接鉴权</strong></p>
+<p>该步骤需要配置服务器的ip，端口号以向服务器注册ID和订阅ID的信息，其次还需要配置以下三个重要的参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必选/可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClientId</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>一机一密的设备clientId由4个部分组成：设备ID、设备身份标识类型、密码签名类型、时间戳，通过下划线“<em>”分隔。<strong>设备ID</strong>：指设备在平台成功注册后生成的唯一设备标识，通常由设备的产品ID和设备的NodeId通过分隔符“</em>”拼装而来。<strong>设备身份标识类型</strong>：固定值为0，表示设备ID。<strong>密码签名类型</strong>：长度1字节，当前支持2种类型：“0”代表HMACSHA256不校验时间戳。“1”代表HMACSHA256校验时间戳。<strong>时间戳</strong>：为设备连接平台时的UTC时间，格式为YYYYMMDDHH，如UTC 时间2018/7/24 17:56:20 则应表示为2018072417。</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>设备ID。</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>必选</td>
+<td>String(256)</td>
+<td>加密后的设备密钥。Password的值为使用“HMACSHA256”算法以时间戳为密钥，对secret进行加密后的值。secret为注册设备时平台返回的secret。</td>
+</tr>
+</tbody>
+</table>
+<p>通过上述的计算可以得到  MQTT.fx  的三个参数，使用<a href="https://iot-tool.obs-website.cn-north-4.myhuaweicloud.com/">该网站</a>计算ClientId，Username，Password三个关键词的值，如图所示：</p>
+<figure data-type="image" tabindex="18"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710213334.jpg" alt="" loading="lazy"></figure>
+<p>注意：因为MQTT.fx实际模拟的是设备端连接华为云的情况，所以需要使用设备ID进行计算，而不是产品ID！！！！需要特别注意！！！</p>
+<figure data-type="image" tabindex="19"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710213612.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="20"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710213810.jpg" alt="" loading="lazy"></figure>
+<p>连接成功！</p>
+<p>4、连接成功之后，使用MQTT.fx向华为云上报数据</p>
+<p>设备若通过MQTT通道上报数据，需要发给指定的topic，上报消息的topic格式为：“$oc/devices/{device_id}/sys/properties/report”，其中**“deviceId”**的值，对一机一密设备，使用deviceId接入时填写为设备注册成功后返回的“deviceId”值。</p>
+<p>例如：$oc/devices/{60e961606fd1630286a3009a_1625907608720}/sys/properties/report</p>
+<p>填写上报的数据的<strong>请求参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>必选/可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>services</td>
+<td>必选</td>
+<td>List<ServiceProperty></td>
+<td>设备服务数据列表（具体结构参考下表ServiceProperty定义表）</td>
+</tr>
+</tbody>
+</table>
+<p>ServiceProperty定义表：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>必选/可选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>service_id</td>
+<td>必选</td>
+<td>String</td>
+<td>设备服务的ID。</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>必选</td>
+<td>Object</td>
+<td>设备服务的属性列表，具体字段在设备关联的产品模型中定义。</td>
+</tr>
+<tr>
+<td>eventTime</td>
+<td>可选</td>
+<td>String</td>
+<td>设备采集数据UTC时间（格式：yyyyMMddTHHmmssZ），如：20161219T114920Z。设备上报数据不带该参数或参数格式错误时，则数据上报时间以平台时间为准。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求示例</strong></p>
+<pre><code>{
+    &quot;services&quot;: [{
+            &quot;service_id&quot;: &quot;streetlight&quot;,
+            &quot;properties&quot;: {
+                &quot;luminance&quot;: 16
+            },
+            &quot;event_time&quot;: &quot;20210710T214312Z&quot;
+        }
+    ]
+}
+
+</code></pre>
+<p>图示：</p>
+<figure data-type="image" tabindex="21"><img src="https://heroamd.github.io/post-images/QQ%E6%88%AA%E5%9B%BE20210710214925.jpg" alt="" loading="lazy"></figure>
+<p><strong>上述内容属于设备测开发，即使用电脑开发物联网设备（完成物联网设备上发数据），接下来学习应用侧开发（完成应用侧下发控制指令）</strong></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%B8%80-bc26%E6%A8%A1%E7%BB%84%E6%B5%8B%E8%AF%95%E5%92%8C%E4%B8%8D%E5%90%8C%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%AF%94%E8%BE%83">一、BC26模组测试和不同通信协议比较</a></li>
+<li><a href="#%E4%BA%8C-%E5%8D%8E%E4%B8%BA%E4%BA%91%E7%89%A9%E8%81%94%E7%BD%91%E5%B9%B3%E5%8F%B0%E7%9A%84%E4%BD%BF%E7%94%A8">二、华为云物联网平台的使用</a>
+<ul>
+<li><a href="#1-%E4%BD%BF%E7%94%A8%E5%90%91%E5%AF%BC%E5%BC%8F%E6%9E%81%E9%80%9F%E4%BD%93%E9%AA%8C%E8%AE%BE%E5%A4%87%E8%BF%9E%E6%8E%A5%E5%B9%B3%E5%8F%B0%E8%AE%BE%E5%A4%87%E4%B8%8A%E6%8A%A5%E6%95%B0%E6%8D%AE%E5%88%B0%E5%B9%B3%E5%8F%B0%E5%B9%B3%E5%8F%B0%E4%B8%8B%E5%8F%91%E5%91%BD%E4%BB%A4%E7%BB%99%E8%AE%BE%E5%A4%87%E8%BF%99%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E5%9C%BA%E6%99%AF">1、使用向导式极速体验设备连接平台，设备上报数据到平台，平台下发命令给设备这三个基本场景。</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-%E6%B3%A8%E5%86%8C%E8%99%9A%E6%8B%9F%E8%AE%BE%E5%A4%87">二、注册虚拟设备</a></li>
+<li><a href="#%E4%B8%89-%E6%80%BB%E7%BB%93">三、总结</a>
+<ul>
+<li><a href="#1-%E5%85%B3%E4%BA%8E%E4%BA%A7%E5%93%81%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%91%BD%E4%BB%A4%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">1、关于产品的服务和命令之间的关系</a></li>
+<li><a href="#2-%E5%85%B3%E4%BA%8E%E4%BA%A7%E5%93%81%E5%92%8C%E8%AE%BE%E5%A4%87%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">2、关于产品和设备之间的关系</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B-%E4%BD%BF%E7%94%A8mqttfx%E6%8E%A5%E5%85%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%8C%E6%88%90%E8%AE%BE%E5%A4%87%E4%BE%A7%E5%BC%80%E5%8F%91">四、使用MQTT.FX接入服务器完成设备侧开发</a>
+<ul>
+<li><a href="#1-mqtt%E7%AE%80%E4%BB%8B">1、MQTT简介</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8mqttfx%E8%B0%83%E6%B5%8B">2、使用MQTT.fx调测</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/fpga-testbench/">
+              <h3 class="post-title">
+                FPGA: TestBench
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,243 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Experience: Recover Hackintosh | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Experience: Recover Hackintosh | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+​	好久没用黑苹果系统了，打开之后发现系统臃肿不堪，非常卡顿，花几分钟时间简单分析一下原因：
+
+
+之前一时兴起安装了ID, C4D, PR, AE 等大型软件，占用了大量的固态盘空间，我买的是256GB的固态盘只剩下了20G不到的空间，算..." />
+    <meta name="keywords" content="Unix/Linux,Hackintosh" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Experience: Recover Hackintosh
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-25
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/0NYjb30pM/" class="post-tag">
+                  # Unix/Linux
+                </a>
+              
+                <a href="https://heroamd.github.io/tag/9UUTJsYvi/" class="post-tag">
+                  # Hackintosh
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/05/25/ZquNxpgYmD6reS3.png" alt="QQ截图20200525230912.png" loading="lazy"></figure>
+<p>​	好久没用黑苹果系统了，打开之后发现系统臃肿不堪，非常卡顿，花几分钟时间简单分析一下原因：</p>
+<ul>
+<li>
+<p>之前一时兴起安装了ID, C4D, PR, AE 等大型软件，占用了大量的固态盘空间，我买的是256GB的固态盘只剩下了20G不到的空间，算一下百分比就是还剩下7.8%左右的剩余空间。经过一波卸载，删掉之前做海报设计时的旧素材文件之后还剩下差不多50GB的空间，相当于扩展到了20%，这个范围不会严重影响固态硬盘的缓存性能也就是常说的满盘的情况。因为在固态颗粒售价很低的时候买的一条固态盘，所以先暂时凑活用一下以后在考虑升级的问题。</p>
+</li>
+<li>
+<p>开机启动项太多，监控，各种小工具很多很多严重拖垮了开机时间和进入桌面的加载时间，删掉了一部分软件</p>
+</li>
+<li>
+<p>第三部分是重中之重了，优化了EFI文件，之前自己折腾的时候黑苹果还有几处不完美的地方比如第一次进系统会时不时重启，不能开机之后连接HDMI接口造成了很多麻烦甚至不能高效的把系统当作一个完美的生产力工具，这次在制作毕业季明信片的时候我本人实在忍无可忍了决定试一试修复这些不必要的麻烦。</p>
+<h2 id="修复过程">修复过程</h2>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BF%AE%E5%A4%8D%E8%BF%87%E7%A8%8B">修复过程</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/django-first-application-for-vote/">
+              <h3 class="post-title">
+                Django: First Application - For vote
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

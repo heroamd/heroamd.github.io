@@ -1,0 +1,335 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Django: Try Web construction | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django: Try Web construction | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="​		
+安装
+python -m pip install Django
+
+检查是否安装成功
+python -m django --version
+
+创建项目
+django-admin startproject mysite
+
+查看mysit..." />
+    <meta name="keywords" content="Django" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Django: Try Web construction
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-06
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/4Vif8Q5im/" class="post-tag">
+                  # Django
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>​		<img src="https://i.loli.net/2020/05/08/diUD52rWwOSvJBx.jpg" alt="DSC_4902.jpg" loading="lazy"></p>
+<p>安装</p>
+<pre><code>python -m pip install Django
+</code></pre>
+<p>检查是否安装成功</p>
+<pre><code>python -m django --version
+</code></pre>
+<p>创建项目</p>
+<pre><code>django-admin startproject mysite
+</code></pre>
+<p>查看<code>mysite</code>项目的文件结构</p>
+<pre><code>mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        asgi.py
+        wsgi.py
+</code></pre>
+<p>启动服务器</p>
+<pre><code>python manage.py runserver 8001
+</code></pre>
+<p>注意：写明端口号以防冲突而出现无法运行的情况</p>
+<p>检查在<code>manage.py</code>目录下并创建第一个应用</p>
+<pre><code>python manage.py startapp polls
+</code></pre>
+<p>刚刚创建的文件结构</p>
+<pre><code>polls/
+    __init__.py
+    admin.py
+    apps.py
+    migrations/
+        __init__.py
+    models.py
+    tests.py
+    views.py
+</code></pre>
+<p>各文件夹的用途</p>
+<ul>
+<li>最外层的 <code>mysite/</code> 根目录只是你项目的容器， 根目录名称对Django没有影响，你可以将它重命名为任何你喜欢的名称。</li>
+<li><code>manage.py</code>: 一个让你用各种方式管理 Django 项目的命令行工具。你可以阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/">django-admin and manage.py</a> 获取所有 <code>manage.py</code> 的细节。</li>
+<li>里面一层的 <code>mysite/</code> 目录包含你的项目，它是一个纯 Python 包。它的名字就是当你引用它内部任何东西时需要用到的 Python 包名。 (比如 <code>mysite.urls</code>).</li>
+<li><code>mysite/__init__.py</code>：一个空文件，告诉 Python 这个目录应该被认为是一个 Python 包。如果你是 Python 初学者，阅读官方文档中的 <a href="https://docs.python.org/3/tutorial/modules.html#tut-packages">更多关于包的知识</a>。</li>
+<li><code>mysite/settings.py</code>：Django 项目的配置文件。如果你想知道这个文件是如何工作的，请查看 <a href="https://docs.djangoproject.com/zh-hans/3.0/topics/settings/">Django settings</a> 了解细节。</li>
+<li><code>mysite/urls.py</code>：Django 项目的 URL 声明，就像你网站的“目录”。阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/topics/http/urls/">URL dispatcher</a> 文档来获取更多关于 URL 的内容。</li>
+<li><code>mysite/asgi.py</code>：作为你的项目的运行在 ASGI 兼容的Web服务器上的入口。阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/wsgi/">如何使用 WSGI 进行部署</a> 了解更多细节。</li>
+<li><code>mysite/wsgi.py</code>：作为你的项目的运行在 WSGI 兼容的Web服务器上的入口。阅读 <a href="https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/wsgi/">如何使用 WSGI 进行部署</a> 了解更多细节。</li>
+</ul>
+<p>打开 <code>polls/views.py</code></p>
+<p>添加</p>
+<pre><code>from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse(&quot;Hello, world. You're at the polls index.&quot;)
+</code></pre>
+<p>如果我们需要看到效果，创建一个URL映射到view</p>
+<p>在polls目录中创建一个<code>urls.py</code>文件</p>
+<p>在其中输入以下代码</p>
+<pre><code>from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+</code></pre>
+<p>在根目录下的<code>urls.py</code>文件的<code>urlpatterns</code>列表里插入<code>include()</code></p>
+<p>如</p>
+<pre><code>from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+</code></pre>
+<p>在<code>manage.py</code>目录下创建名为<code>poll</code>的顶级模块</p>
+<pre><code>python manage.py startapp polls
+</code></pre>
+<h1 id="编写第一个视图">编写第一个视图</h1>
+<p>打开 <code>polls/views.py</code></p>
+<pre><code>from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse(&quot;Hello, world. You're at the polls index.&quot;)
+</code></pre>
+<p>这是 Django 中最简单的视图。如果想看见效果，我们需要将一个 URL 映射到它——这就是我们需要 URLconf 的原因了。</p>
+<p>在 <code>polls/urls.py</code> 中，输入如下代码：</p>
+<pre><code>from django.urls import path
+from . import views
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+</code></pre>
+<p>在根URLconf文件中创建polls.urls模块，</p>
+<p><code>mysite/urls.py</code> 文件的 <code>urlpatterns</code> 列表里插入一个 <code>include()</code>， 如下：</p>
+<pre><code>from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+</code></pre>
+<p>此时可以访问<code>http://127.0.0.1:8001/polls/</code>查看自己的第一个poll的创建情况。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%BC%96%E5%86%99%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%A7%86%E5%9B%BE">编写第一个视图</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/music-lilian/">
+              <h3 class="post-title">
+                Music: Lilian
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

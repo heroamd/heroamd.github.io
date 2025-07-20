@@ -1,0 +1,380 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Analyse DSA ASIC architecture performance | Xiuyuan Qi&#39;s Blog</title>
+<link rel="shortcut icon" href="https://heroamd.github.io/favicon.ico?v=1753002701938">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://heroamd.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Analyse DSA ASIC architecture performance | Xiuyuan Qi&#39;s Blog - Atom Feed" href="https://heroamd.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+
+以GPGPU，Nvidia A100作为对比基础，分别选择了Google TPU（Tensor大核代表），Groq TSP（流水线型代表）
+
+
+Tenstorrent Grayskull（manycore小核代表）
+
+
+Qualcomm..." />
+    <meta name="keywords" content="HDL,DPU" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://heroamd.github.io">
+  <img class="avatar" src="https://heroamd.github.io/images/avatar.png?v=1753002701938" alt="">
+  </a>
+  <h1 class="site-title">
+    Xiuyuan Qi&#39;s Blog
+  </h1>
+  <p class="site-description">
+    Go for the TRUTH!
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          Home Page
+        </a>
+      
+    
+      
+        <a href="https://heroamd.github.io/post/cover-letter" class="menu">
+          Cover Letter
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          Archives
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/heroamd" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/APP11-24-20" target="_blank">
+          <i class="ri-zhihu-line"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Analyse DSA ASIC architecture performance
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-04-09
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://heroamd.github.io/tag/0x18zqnqC/" class="post-tag">
+                  # HDL
+                </a>
+              
+                <a href="https://heroamd.github.io/tag/I9UZxYTDE/" class="post-tag">
+                  # DPU
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <ul>
+<li>
+<p>以GPGPU，Nvidia A100作为对比基础，分别选择了Google TPU（Tensor大核代表），Groq TSP（流水线型代表）</p>
+</li>
+<li>
+<p>Tenstorrent Grayskull（manycore小核代表）</p>
+</li>
+<li>
+<p>Qualcomm Cloud AI 100 （DSP+DSA混合）</p>
+</li>
+<li>
+<p>OPPO MariSilicon X（影像专用架构代表）</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name/Corp</th>
+<th>Data format</th>
+<th>Power</th>
+<th>TOPS</th>
+<th>TOPS/W</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NV Ampere A100 7nm 40G HBM</td>
+<td>INT8/FP16</td>
+<td>250w</td>
+<td>624/390</td>
+<td>2.5/1.5</td>
+</tr>
+<tr>
+<td>Google TPUv4i 7nm</td>
+<td>BF16</td>
+<td>175W</td>
+<td>138</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>Groq TSP(weak than 含光?)</td>
+<td>INT8/FP16</td>
+<td>300W</td>
+<td>820/205</td>
+<td>2.7/0.7</td>
+</tr>
+<tr>
+<td>Tenstorrent Grayskull</td>
+<td>INT8/FP16</td>
+<td>75W</td>
+<td>368/92</td>
+<td>4.9/1.2</td>
+</tr>
+<tr>
+<td>Qualcomm Cloud AI 100</td>
+<td>INT8/FP16</td>
+<td>75W</td>
+<td>400/200</td>
+<td>5.3/2.7</td>
+</tr>
+<tr>
+<td>OPPO MariSilicon X</td>
+<td></td>
+<td></td>
+<td>18</td>
+<td>11.6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Why TPUv4i has lower performance and efficiency than A100?</p>
+<ul>
+<li>
+<p>Unified scheduling of the four large cores makes it difficult to achieve high utilization, with a maximum utilization of 33% FLOPS/s (in 128M ultra-large SRAM).</p>
+</li>
+<li>
+<p>Static scheduling refers to arranging instructions into a specific execution order during compilation or loading, which may to some extent result in inefficient utilization of hardware resources because the order of execution for instructions is determined before they are executed. Modern GPUs typically employ a more sophisticated dynamic scheduling approach, where the execution order of instructions can be adjusted at runtime based on actual conditions to better utilize hardware resources and improve parallelism. TPUs are commonly used for deep learning tasks, with a larger computation granularity, which may require a scheduling approach different from GPUs to achieve higher parallelism.静态调度是指在编译或加载阶段将指令安排到特定的执行顺序中，这在某种程度上可能导致硬件资源的低效利用，因为指令在执行之前就已经确定了它们的执行顺序。现代GPU通常采用更加精巧的动态调度方式，其中指令的执行顺序可以在运行时根据实际情况进行调整，以更好地利用硬件资源和提高并行度。TPU通常用于深度学习任务，它的计算粒度（granularity）较大，可能需要不同于GPU的调度方式来实现更高的并行度。</p>
+</li>
+<li>
+<p>The path from CMEM to VMEM to VPU/MXM may seem short, but due to the large size of CMEM, the control of the entire path, as well as components like MUX, consume a significant amount of power. Efficiency can be compromised due to large pulsating matrices, non-divisible tensor sizes, and inefficiencies during startup and shutdown.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>But because used ultra-scale core most of model can be solved in single core. It support model splitting(tiling). So the TOPS/W is closed to A100.</p>
+<ul>
+<li>
+<p>Why TSP is weak than 含光？</p>
+<ul>
+<li>TSP has moe simple pipeline than hanguang. bundle method including a matrix + 2vector operator. So it is necessary to fetch data from MEM.</li>
+</ul>
+</li>
+<li>
+<p>Tenstorrent Grayskull--Approximately 3-times the performance of A100 GPGPU</p>
+<ul>
+<li>
+<figure data-type="image" tabindex="1"><img src="https://heroamd.github.io/post-images/image-20240409223430531.png" alt="1" loading="lazy"></figure>
+</li>
+<li>
+<p>Tenstorrent achieves fine-grained conditional execution and dynamic sparsity by utilizing five RISC-V CPUs within each core for complex control flow, allowing for a significant improvement in energy efficiency for certain sparse models with software optimization.</p>
+</li>
+<li>
+<p>Tenstorrent's bolder innovation lies in its focus on Dynamic Execution, which appears to be more aggressive compared to what other companies are doing, as it can significantly reduce the computational load of certain models. Dynamic Execution encompasses several optimizations that combine software and hardware, including control flow, compression, sparsity, dynamic precision, and conditional execution.</p>
+</li>
+<li>
+<p><strong>The impact of the aforementioned operations on model accuracy needs to be evaluated</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Qualcomm Cloud AI 100</p>
+<ul>
+<li>The larger MAC (16 times that of A100 tensor core) allows for more data sharing (broadcasting), coupled with optimizations for convolutions, significantly reducing the power consumption from VTCM to the MAC array.</li>
+<li>With 8M VTCM, far exceeding A100's maximum 192K of shared memory, it enables highly flexible optimizations, including the critical Depth-First Scheduling.</li>
+<li>Achieving this on A100 requires residency control to L2, with a maximum of only 20M, featuring long latency and small size, making it less practical.</li>
+<li>With a total of 144M SRAM, most models can reside on-chip, enabling the use of lower-power LPDDR with slightly lower bandwidth.</li>
+<li>The power control techniques mentioned involve scheduling and compiler assistance. (In comparison to hardware feedback-based power control, what are the advantages of compiler assistance?)</li>
+</ul>
+</li>
+<li>
+<p>OPPO MariSilicon X</p>
+<ul>
+<li>Ultimate Domain Specific</li>
+<li>It is worthwhile to only be applied to accelerate fixed models?</li>
+<li>Special high capcity of on-chip SRAM except DDR</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://heroamd.github.io/post-images/image-20240409224905631.png" alt="image-20240409224905631" loading="lazy"></figure>
+<p>Conclusion:</p>
+<ul>
+<li>
+<p>The TOPS/W metric can be somewhat deceptive, as the same architecture can achieve over twice the TOPS/W by adjusting factors such as the number of cores and voltage. It does not correlate linearly with efficiency and is heavily influenced by factors such as utilization of computational units and algorithms.</p>
+</li>
+<li>
+<p>Perf/W is relatively more meaningful as it reflects the overall efficiency of end-to-end architecture, software, and hardware implementations. The architectures of NPUs and TSPs have not demonstrated better efficiency than GPGPUs, indicating that achieving high efficiency with such architectures is challenging. However, it's not to say that such architectures cannot surpass GPGPUs; for instance, the Huawei Ascend 800 NPU achieves three times the efficiency of the A100 in ResNet50.</p>
+</li>
+<li>
+<p>Qualcomm Cloud AI 100 and Tenstorrent Grayskull have comparable efficiency, being 2-3 times that of the A100. They heavily rely on compiler and software stack optimizations to ensure high efficiency. However, their primary implementation approaches differ.</p>
+</li>
+<li>
+<p>The Qualcomm Cloud AI 100 mainly optimizes through its inference-specific DSP+DSA architecture and combines it with depth-first scheduling in the software stack to run a tiled multi-layer operator fusion, reducing memory access while increasing pipe parallelism.</p>
+</li>
+<li>
+<p>Tenstorrent Grayskull primarily utilizes Spatial Dataflow to optimize the multi-layer operators of the graph layout on tiled Tensix cores and packs computations at the granularity of mini-tensors (broadcast), achieving a similar effect to fused operators as in depth-first scheduling. More innovatively, it implements complex control flow through RISC-V CPUs within the core, enabling fine-grained conditional execution, dynamic sparsity, and other features, allowing for a significant improvement in efficiency with software optimization for some sparse models.</p>
+</li>
+<li>
+<p>OPPO Marisilicon X specializes in image and algorithm-specific optimizations, achieving several times the efficiency improvement for specific algorithms.</p>
+<p><strong>The AI acceleration architecture based on dense matrix computation for digital circuit chips has a relatively low upper limit in terms of energy efficiency. Comparatively, on the same process node, it seems to be less than five times that of GPGPU. This is achieved only under the premise of many other costs, including fewer features and capabilities, lower precision, more complex compilers, software stacks, and so forth.</strong></p>
+</li>
+</ul>
+<p>Two approaches to surpassing performance limits are being explored: reducing computational complexity through generalized sparsity, leveraging neural network data and structural sparsity to eliminate unnecessary computations (including methods like A100 sparsity being attempted by many companies, as well as Tenstorrent's conditional execution), targeting specific classes of algorithms, which include both dense matrix calculations such as convolutional operations and specialized operators with differing degrees of parallelism.</p>
+<p>Another avenue is to alter computational circuitry modes, which is still in the exploratory phase. This includes Near-Memory Computation (NMC), Computing-in-Memory (CIM), and Computing-on-Memory-Boundary (COMB) approaches, combining analog and digital techniques or using purely digital methods. Current experimental data yields efficiency ranging from tens to hundreds of TOPS/Watts. Emerging non-digital circuitry modes like silicon photonics are also being investigated, though they may introduce additional efficiency concerns such as those related to analog-to-digital and digital-to-analog conversion.</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://heroamd.github.io/post/how-to-use-typora-write-and-gridea-deploy/">
+              <h3 class="post-title">
+                How to use Typora write and Gridea deploy your BLOG?
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <div id="lv-container" data-id="city" data-uid="MTAyMC80OTAyMi8yNTUxNg==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+
+setInterval(function () {
+    var box = document.querySelector(".trc_rbox_container");
+    if(box) box.outerHTML = "";
+}, 2000);
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a><br>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9dd089e4bf6e03dcbd5cbaa63887035b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <a class="rss" href="https://heroamd.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
